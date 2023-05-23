@@ -1,0 +1,351 @@
+[gd_scene load_steps=39 format=3 uid="uid://84njvic4pvs6"]
+
+[ext_resource type="Script" path="res://Scripts/MainGameView/MainSceneController.cs" id="1_35haf"]
+[ext_resource type="Texture2D" uid="uid://bs12vxido0pd0" path="res://UI/MainGame/PageBackground.png" id="1_exn7v"]
+[ext_resource type="Texture2D" uid="uid://u0y2ssfwgcig" path="res://UI/MainGame/NameContainer.png" id="2_heiso"]
+[ext_resource type="Script" path="res://Scripts/MainGameView/NameContainerController.cs" id="3_1ihb0"]
+[ext_resource type="Texture2D" uid="uid://md64fyasrns4" path="res://Character/MaleIcon.png" id="4_c6hqd"]
+[ext_resource type="Texture2D" uid="uid://dyu23ft3v874o" path="res://Character/FemaleIcon.png" id="5_ri0cd"]
+[ext_resource type="FontFile" uid="uid://cjx2pm1vaccuq" path="res://Fonts/GROBOLD.ttf" id="6_x8c27"]
+[ext_resource type="Texture2D" uid="uid://jmfgl2tt76c" path="res://UI/MainGame/StatsContainer.png" id="7_kv535"]
+[ext_resource type="Texture2D" uid="uid://bkitjfnyh8hmh" path="res://UI/MainGame/SmartsIcon.png" id="8_2kddc"]
+[ext_resource type="Texture2D" uid="uid://cqm7505e0to7q" path="res://UI/MainGame/EventContainer.png" id="8_x44e8"]
+[ext_resource type="Texture2D" uid="uid://2m0gqg71chub" path="res://UI/MainGame/PhysicalHealthIcon.png" id="9_2afqa"]
+[ext_resource type="Texture2D" uid="uid://bh0pk2hysf3bu" path="res://UI/MainGame/InteractiveContainer.png" id="9_826wi"]
+[ext_resource type="Script" path="res://Scripts/MainGameView/CharacterStatsContainerController.cs" id="9_vrgk6"]
+[ext_resource type="Texture2D" uid="uid://bn1rt1tjml3wg" path="res://UI/MainGame/MentalHealthIcon.png" id="10_c0o1g"]
+[ext_resource type="Texture2D" uid="uid://cxqwi6k3w75r1" path="res://UI/MainGame/HappinessIcon.png" id="11_pbyip"]
+[ext_resource type="Texture2D" uid="uid://cmccwbrnwf4ep" path="res://UI/MainGame/LooksIcon.png" id="12_lrp60"]
+[ext_resource type="Texture2D" uid="uid://bv3pdju7j7d4k" path="res://UI/MainGame/AdvanceBtn.png" id="15_t15xj"]
+[ext_resource type="PackedScene" uid="uid://ccaffjtf3fvw4" path="res://Prefabs/MainViewPrefabs/DateElement.tscn" id="18_85xsl"]
+[ext_resource type="Script" path="res://Scripts/MainGameView/EventSystem/EventContainer.cs" id="18_uob1x"]
+[ext_resource type="PackedScene" uid="uid://2p5play8gxtd" path="res://Prefabs/MainViewPrefabs/EventLogElement.tscn" id="19_5ld7x"]
+[ext_resource type="Texture2D" uid="uid://cwx0qyjlhlduw" path="res://UI/MainGame/InteractiveIcons/Friends.png" id="20_ki4qo"]
+[ext_resource type="Script" path="res://Scripts/MainGameView/InteractiveIcon.cs" id="21_luu0v"]
+[ext_resource type="Texture2D" uid="uid://bby6w3vtni8a7" path="res://UI/MainGame/InteractiveIcons/WorkIcon.png" id="22_3tfyp"]
+[ext_resource type="Texture2D" uid="uid://krfsep5yt7tx" path="res://UI/MainGame/InteractiveIcons/AssetsIcon.png" id="23_jwyov"]
+[ext_resource type="Texture2D" uid="uid://berkeybp2pgya" path="res://UI/MainGame/InteractiveIcons/ShoppingIcon.png" id="24_40sxd"]
+[ext_resource type="Texture2D" uid="uid://cx3kes5lx6cu1" path="res://UI/MainGame/InteractiveIcons/FinanceIcon.png" id="25_nnwv3"]
+[ext_resource type="Texture2D" uid="uid://ck4wevl4hb3ii" path="res://UI/MainGame/InteractiveIcons/SocialMediaIcon.png" id="26_cnucb"]
+[ext_resource type="Texture2D" uid="uid://bmsmxg6rrxyql" path="res://UI/MainGame/InteractiveIcons/ActivitiesIcon.png" id="27_syajl"]
+[ext_resource type="Texture2D" uid="uid://crxov6432oor3" path="res://UI/MainGame/InteractiveIcons/MindAndBodyIcon.png" id="28_4087g"]
+[ext_resource type="Texture2D" uid="uid://dffbwltnwoaac" path="res://UI/MainGame/InteractiveIcons/DatingIcon.png" id="29_t5tyu"]
+[ext_resource type="Texture2D" uid="uid://cak7toj807vqc" path="res://UI/MainGame/InteractiveIcons/DoctorIcon.png" id="30_80pbe"]
+[ext_resource type="Texture2D" uid="uid://blmvcw3ltktq8" path="res://UI/MainGame/InteractiveIcons/PetIcon.png" id="31_p0v0e"]
+[ext_resource type="Texture2D" uid="uid://c87opwcvygr2a" path="res://UI/MainGame/InteractiveIcons/HolidayIcon.png" id="32_veqog"]
+[ext_resource type="Texture2D" uid="uid://fgb8rfyks3hq" path="res://UI/MainGame/InteractiveIcons/BusinessIcon.png" id="33_5wdok"]
+[ext_resource type="Texture2D" uid="uid://s8yyqwj0h2xc" path="res://UI/MainGame/InteractiveIcons/SchoolIcon.png" id="34_7w37m"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_femvj"]
+font = ExtResource("6_x8c27")
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_xo2my"]
+font = ExtResource("6_x8c27")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_6t2ne"]
+font = ExtResource("6_x8c27")
+font_size = 40
+
+[node name="CanvasGroup" type="CanvasGroup"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1934.0
+offset_bottom = 1093.0
+color = Color(0, 0.768627, 1, 1)
+script = ExtResource("1_35haf")
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_exn7v")
+
+[node name="NameContainer" type="TextureRect" parent="ColorRect/TextureRect"]
+self_modulate = Color(1, 0.603922, 0, 1)
+layout_mode = 0
+offset_left = 95.0
+offset_top = 85.0
+offset_right = 1195.0
+offset_bottom = 385.0
+texture = ExtResource("2_heiso")
+script = ExtResource("3_1ihb0")
+_MaleSex = ExtResource("4_c6hqd")
+_FemaleSex = ExtResource("5_ri0cd")
+
+[node name="GenderIcon" type="TextureRect" parent="ColorRect/TextureRect/NameContainer"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 53.0
+offset_right = 267.0
+offset_bottom = 286.0
+texture = ExtResource("4_c6hqd")
+expand_mode = 1
+
+[node name="HLine" type="ColorRect" parent="ColorRect/TextureRect/NameContainer"]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 38.0
+offset_right = 273.0
+offset_bottom = 264.0
+color = Color(0.301961, 0.301961, 0.301961, 1)
+
+[node name="PlayerName" type="Label" parent="ColorRect/TextureRect/NameContainer"]
+layout_mode = 0
+offset_left = 284.0
+offset_top = 76.0
+offset_right = 1060.0
+offset_bottom = 129.0
+text = "Keegan Miller"
+label_settings = SubResource("LabelSettings_femvj")
+
+[node name="Location" type="Label" parent="ColorRect/TextureRect/NameContainer"]
+layout_mode = 0
+offset_left = 284.0
+offset_top = 137.0
+offset_right = 1060.0
+offset_bottom = 190.0
+text = "Melbourne, Australia"
+label_settings = SubResource("LabelSettings_femvj")
+
+[node name="Age" type="Label" parent="ColorRect/TextureRect/NameContainer"]
+layout_mode = 0
+offset_left = 284.0
+offset_top = 196.0
+offset_right = 1060.0
+offset_bottom = 249.0
+text = "30 Years 2 Months"
+label_settings = SubResource("LabelSettings_femvj")
+
+[node name="StatsContainer" type="TextureRect" parent="ColorRect/TextureRect"]
+self_modulate = Color(1, 0.603922, 0, 1)
+layout_mode = 0
+offset_left = 1178.0
+offset_top = 82.0
+offset_right = 1878.0
+offset_bottom = 382.0
+texture = ExtResource("7_kv535")
+script = ExtResource("9_vrgk6")
+
+[node name="StatIcons" type="HBoxContainer" parent="ColorRect/TextureRect/StatsContainer"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 31.0
+offset_right = 678.0
+offset_bottom = 118.0
+alignment = 1
+
+[node name="SmartsIcon" type="TextureRect" parent="ColorRect/TextureRect/StatsContainer/StatIcons"]
+layout_mode = 2
+texture = ExtResource("8_2kddc")
+
+[node name="PhysicalHealthIcon" type="TextureRect" parent="ColorRect/TextureRect/StatsContainer/StatIcons"]
+layout_mode = 2
+texture = ExtResource("9_2afqa")
+
+[node name="MentalHealthIcon" type="TextureRect" parent="ColorRect/TextureRect/StatsContainer/StatIcons"]
+layout_mode = 2
+texture = ExtResource("10_c0o1g")
+
+[node name="SocialIcon" type="TextureRect" parent="ColorRect/TextureRect/StatsContainer/StatIcons"]
+layout_mode = 2
+texture = ExtResource("11_pbyip")
+
+[node name="LooksIcon" type="TextureRect" parent="ColorRect/TextureRect/StatsContainer/StatIcons"]
+layout_mode = 2
+texture = ExtResource("12_lrp60")
+
+[node name="SmartsIndicator" type="Label" parent="ColorRect/TextureRect/StatsContainer"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 136.0
+offset_right = 194.0
+offset_bottom = 172.0
+text = "100%"
+label_settings = SubResource("LabelSettings_xo2my")
+
+[node name="PhysicalHealthIndicator" type="Label" parent="ColorRect/TextureRect/StatsContainer"]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 137.0
+offset_right = 295.0
+offset_bottom = 173.0
+text = "100%"
+label_settings = SubResource("LabelSettings_xo2my")
+
+[node name="MentalHealthIndicator" type="Label" parent="ColorRect/TextureRect/StatsContainer"]
+layout_mode = 0
+offset_left = 309.0
+offset_top = 137.0
+offset_right = 394.0
+offset_bottom = 173.0
+text = "100%"
+label_settings = SubResource("LabelSettings_xo2my")
+
+[node name="SocialIndicator" type="Label" parent="ColorRect/TextureRect/StatsContainer"]
+layout_mode = 0
+offset_left = 409.0
+offset_top = 137.0
+offset_right = 494.0
+offset_bottom = 173.0
+text = "100%"
+label_settings = SubResource("LabelSettings_xo2my")
+horizontal_alignment = 1
+
+[node name="LooksIndicator" type="Label" parent="ColorRect/TextureRect/StatsContainer"]
+layout_mode = 0
+offset_left = 510.0
+offset_top = 137.0
+offset_right = 595.0
+offset_bottom = 173.0
+text = "100%"
+label_settings = SubResource("LabelSettings_xo2my")
+horizontal_alignment = 1
+
+[node name="HLine2" type="ColorRect" parent="ColorRect/TextureRect/StatsContainer"]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 176.0
+offset_right = 627.0
+offset_bottom = 179.0
+color = Color(0.301961, 0.301961, 0.301961, 1)
+
+[node name="Money" type="Label" parent="ColorRect/TextureRect/StatsContainer"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 188.0
+offset_right = 664.0
+offset_bottom = 271.0
+text = "$1,000,000,000,000"
+label_settings = SubResource("LabelSettings_6t2ne")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EventLog" type="TextureRect" parent="ColorRect/TextureRect"]
+self_modulate = Color(1, 0.603922, 0, 1)
+layout_mode = 0
+offset_left = 90.0
+offset_top = 379.0
+offset_right = 1190.0
+offset_bottom = 1049.0
+texture = ExtResource("8_x44e8")
+expand_mode = 2
+script = ExtResource("18_uob1x")
+_DateElement = ExtResource("18_85xsl")
+_EventElement = ExtResource("19_5ld7x")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/TextureRect/EventLog"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 53.0
+offset_right = 1035.0
+offset_bottom = 614.0
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/TextureRect/EventLog/ScrollContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+
+[node name="InteractiveContainer" type="TextureRect" parent="ColorRect/TextureRect"]
+self_modulate = Color(1, 0.603922, 0, 1)
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 375.0
+offset_right = 1879.0
+offset_bottom = 1045.0
+texture = ExtResource("9_826wi")
+
+[node name="GridContainer" type="GridContainer" parent="ColorRect/TextureRect/InteractiveContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.058
+anchor_right = 1.0
+anchor_bottom = 0.948
+offset_left = 56.0
+offset_top = 0.139999
+offset_right = -15.0
+offset_bottom = 0.839966
+grow_horizontal = 2
+columns = 5
+
+[node name="Friends" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("20_ki4qo")
+script = ExtResource("21_luu0v")
+
+[node name="Work" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("22_3tfyp")
+script = ExtResource("21_luu0v")
+
+[node name="Assets" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("23_jwyov")
+script = ExtResource("21_luu0v")
+
+[node name="Shopping" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("24_40sxd")
+script = ExtResource("21_luu0v")
+
+[node name="Finances" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("25_nnwv3")
+script = ExtResource("21_luu0v")
+
+[node name="SocialMedia" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("26_cnucb")
+script = ExtResource("21_luu0v")
+
+[node name="Activities" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("27_syajl")
+script = ExtResource("21_luu0v")
+
+[node name="MindAndBody6" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("28_4087g")
+script = ExtResource("21_luu0v")
+
+[node name="Dating" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("29_t5tyu")
+script = ExtResource("21_luu0v")
+
+[node name="Doctor" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("30_80pbe")
+script = ExtResource("21_luu0v")
+
+[node name="Pets" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("31_p0v0e")
+script = ExtResource("21_luu0v")
+
+[node name="Holiday" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("32_veqog")
+script = ExtResource("21_luu0v")
+
+[node name="Business" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("33_5wdok")
+script = ExtResource("21_luu0v")
+
+[node name="School" type="TextureButton" parent="ColorRect/TextureRect/InteractiveContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("34_7w37m")
+script = ExtResource("21_luu0v")
+
+[node name="AdvanceGameBtn" type="TextureButton" parent="ColorRect/TextureRect"]
+z_index = 10
+layout_mode = 0
+offset_left = -117.0
+offset_top = 809.0
+offset_right = 283.0
+offset_bottom = 1159.0
+texture_normal = ExtResource("15_t15xj")
+
+[connection signal="pressed" from="ColorRect/TextureRect/AdvanceGameBtn" to="ColorRect" method="OnAdvanceGame"]

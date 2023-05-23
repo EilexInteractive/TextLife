@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://2p5play8gxtd"]
+
+[ext_resource type="FontFile" uid="uid://cjx2pm1vaccuq" path="res://Fonts/GROBOLD.ttf" id="1_08u4c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4xet"]
+font = ExtResource("1_08u4c")
+font_size = 22
+
+[node name="EventLog" type="Label"]
+offset_right = 480.0
+offset_bottom = 26.0
+text = "You went on a date to see Roll with Chelsea"
+label_settings = SubResource("LabelSettings_g4xet")
+autowrap_mode = 2

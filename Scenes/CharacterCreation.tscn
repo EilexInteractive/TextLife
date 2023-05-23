@@ -1,0 +1,102 @@
+[gd_scene load_steps=12 format=3 uid="uid://3etgyecbho6q"]
+
+[ext_resource type="Texture2D" uid="uid://2jj8d31gbk4q" path="res://UI/CharacterCreation/CharacterCreationScreen.png" id="1_gop52"]
+[ext_resource type="Script" path="res://Scripts/CharacterCreationSystem/CharacterCreationController.cs" id="2_fjikv"]
+[ext_resource type="FontFile" uid="uid://cjx2pm1vaccuq" path="res://Fonts/GROBOLD.ttf" id="3_037t7"]
+[ext_resource type="PackedScene" uid="uid://84njvic4pvs6" path="res://Scenes/MainGameView.tscn" id="3_bd4rf"]
+[ext_resource type="Texture2D" uid="uid://dhomqfdiija2a" path="res://UI/CharacterCreation/StartBtn.png" id="4_gpphe"]
+[ext_resource type="Texture2D" uid="uid://c0wfdssnodjbw" path="res://UI/CharacterCreation/BackBtn.png" id="5_tppg8"]
+[ext_resource type="Texture2D" uid="uid://bl1t57123e4qv" path="res://UI/CharacterCreation/RandomiseBtn.png" id="6_30g3c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0xo4r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qo0vc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kgqo5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hl317"]
+
+[node name="CanvasGroup" type="CanvasGroup"]
+
+[node name="Container" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_gop52")
+script = ExtResource("2_fjikv")
+_MainGameView = ExtResource("3_bd4rf")
+
+[node name="CharacterName" type="LineEdit" parent="Container"]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 319.0
+offset_right = 1408.0
+offset_bottom = 426.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_037t7")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0xo4r")
+placeholder_text = "Character Name"
+alignment = 1
+
+[node name="Location" type="LineEdit" parent="Container"]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 456.0
+offset_right = 1408.0
+offset_bottom = 563.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_037t7")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0xo4r")
+placeholder_text = "Location"
+alignment = 1
+
+[node name="Sex" type="OptionButton" parent="Container"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 505.0
+offset_top = 594.0
+offset_right = 1413.0
+offset_bottom = 697.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_037t7")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qo0vc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kgqo5")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hl317")
+toggle_mode = false
+alignment = 1
+item_count = 2
+selected = 0
+popup/item_0/text = "Male"
+popup/item_0/id = 0
+popup/item_1/text = "Female"
+popup/item_1/id = 1
+
+[node name="StartGame" type="TextureButton" parent="Container"]
+layout_mode = 0
+offset_left = 505.0
+offset_top = 712.0
+offset_right = 950.0
+offset_bottom = 812.0
+texture_normal = ExtResource("4_gpphe")
+
+[node name="BackBtn" type="TextureButton" parent="Container"]
+layout_mode = 0
+offset_left = 957.0
+offset_top = 712.0
+offset_right = 1402.0
+offset_bottom = 812.0
+texture_normal = ExtResource("5_tppg8")
+
+[node name="RandomiseCharacter" type="TextureButton" parent="Container"]
+layout_mode = 0
+offset_left = 493.0
+offset_top = 816.0
+offset_right = 1413.0
+offset_bottom = 916.0
+texture_normal = ExtResource("6_30g3c")
+
+[connection signal="pressed" from="Container/StartGame" to="Container" method="StartGamePressed"]
+[connection signal="pressed" from="Container/BackBtn" to="Container" method="OnBackPressed"]
+[connection signal="pressed" from="Container/RandomiseCharacter" to="Container" method="OnRandomizePressed"]

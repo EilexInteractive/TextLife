@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccaffjtf3fvw4"]
+
+[ext_resource type="FontFile" uid="uid://cjx2pm1vaccuq" path="res://Fonts/GROBOLD.ttf" id="1_3lvdx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yclk5"]
+font = ExtResource("1_3lvdx")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[node name="DateElement" type="Label"]
+offset_right = 147.0
+offset_bottom = 23.0
+text = "Jaunary - 30 Years 3 Months"
+label_settings = SubResource("LabelSettings_yclk5")

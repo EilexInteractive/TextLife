@@ -1,0 +1,67 @@
+[gd_scene load_steps=12 format=3 uid="uid://g4tsm1rgp3al"]
+
+[ext_resource type="Texture2D" uid="uid://ck6pr4dopr1pb" path="res://UI/MainMenu/MainMenuBackground.png" id="1_52i5c"]
+[ext_resource type="Script" path="res://Scripts/MainMenu/MainMenuController.cs" id="1_sjhxp"]
+[ext_resource type="PackedScene" uid="uid://3etgyecbho6q" path="res://Scenes/CharacterCreation.tscn" id="2_bs02o"]
+[ext_resource type="FontFile" uid="uid://cjx2pm1vaccuq" path="res://Fonts/GROBOLD.ttf" id="3_xv3ro"]
+[ext_resource type="Texture2D" uid="uid://dsqs2s55vefli" path="res://UI/MainMenu/ContinueBtn.png" id="4_ldwgs"]
+[ext_resource type="Texture2D" uid="uid://w71gd3mhodn3" path="res://UI/MainMenu/NewGameBtn.png" id="5_m4n6x"]
+[ext_resource type="Texture2D" uid="uid://cefaei1kwtofh" path="res://UI/MainMenu/DisabledContinue.png" id="6_0hpex"]
+[ext_resource type="Texture2D" uid="uid://s3uom681oovg" path="res://UI/MainMenu/SettingsBtn.png" id="6_hgvti"]
+[ext_resource type="Texture2D" uid="uid://dvn3ccym6jy63" path="res://UI/MainMenu/ExitBtn.png" id="7_1a5vt"]
+[ext_resource type="Texture2D" uid="uid://cqaxskcr418jv" path="res://UI/MainMenu/LoadGameBtn.png" id="8_bhgpa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hr8sm"]
+font = ExtResource("3_xv3ro")
+font_size = 70
+
+[node name="CanvasGroup" type="CanvasGroup"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_52i5c")
+script = ExtResource("1_sjhxp")
+_NewGameScene = ExtResource("2_bs02o")
+
+[node name="QuickLoad" type="Label" parent="TextureRect"]
+layout_mode = 0
+offset_left = 483.0
+offset_top = 337.0
+offset_right = 1414.0
+offset_bottom = 429.0
+label_settings = SubResource("LabelSettings_hr8sm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect"]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 453.0
+offset_right = 1432.0
+offset_bottom = 551.0
+
+[node name="ContinueBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+disabled = true
+texture_normal = ExtResource("4_ldwgs")
+texture_disabled = ExtResource("6_0hpex")
+
+[node name="NewGameBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_m4n6x")
+
+[node name="LoadGameBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("8_bhgpa")
+
+[node name="SettingsBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("6_hgvti")
+
+[node name="ExitBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_1a5vt")
+
+[connection signal="pressed" from="TextureRect/VBoxContainer/NewGameBtn" to="TextureRect" method="OnNewGamePressed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer/LoadGameBtn" to="TextureRect" method="OnNewGamePressed"]

@@ -1,0 +1,38 @@
+[
+	{
+		"Name": "Keegan",
+		"Category": "Male"
+	},
+	{
+		"Name": "Peter",
+		"Category": "Male"
+	},
+	{
+		"Name": "Alan",
+		"Category": "Male"
+	},
+	{
+		"Name": "Stephaine",
+		"Category": "Female"
+	},
+	{
+		"Name": "Sarah",
+		"Category": "Female"
+	},
+	{
+		"Name": "Tayla",
+		"Category": "Female"
+	},
+	{
+		"Name": "Johnson",
+		"Category": "LastName"
+	},
+	{
+		"Name": "Ryder",
+		"Category": "LastName"
+	},
+	{
+		"Name": "Miller",
+		"Category": "LastName"
+	}
+]
