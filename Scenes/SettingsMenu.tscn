@@ -1,0 +1,75 @@
+[gd_scene load_steps=15 format=3 uid="uid://hehoiac5gv15"]
+
+[ext_resource type="Texture2D" uid="uid://ck6pr4dopr1pb" path="res://UI/MainMenu/MainMenuBackground.png" id="1_dutph"]
+[ext_resource type="Script" path="res://Scripts/MainMenu/MainMenuController.cs" id="2_1vrtx"]
+[ext_resource type="PackedScene" uid="uid://3etgyecbho6q" path="res://Scenes/CharacterCreation.tscn" id="3_hpr1r"]
+[ext_resource type="PackedScene" uid="uid://84njvic4pvs6" path="res://Scenes/MainGameView.tscn" id="4_dxunt"]
+[ext_resource type="PackedScene" uid="uid://cals88hkf0dn3" path="res://Scenes/LoadGame.tscn" id="5_kq665"]
+[ext_resource type="FontFile" uid="uid://cjx2pm1vaccuq" path="res://Fonts/GROBOLD.ttf" id="6_83hcs"]
+[ext_resource type="Texture2D" uid="uid://dsqs2s55vefli" path="res://UI/MainMenu/ContinueBtn.png" id="7_126iy"]
+[ext_resource type="Texture2D" uid="uid://cefaei1kwtofh" path="res://UI/MainMenu/DisabledContinue.png" id="8_levd8"]
+[ext_resource type="Texture2D" uid="uid://w71gd3mhodn3" path="res://UI/MainMenu/NewGameBtn.png" id="9_x6ebn"]
+[ext_resource type="Texture2D" uid="uid://bbsl0imlh6ktr" path="res://UI/MainMenu/NewGameDisabled.png" id="10_lgc4x"]
+[ext_resource type="Texture2D" uid="uid://cqaxskcr418jv" path="res://UI/MainMenu/LoadGameBtn.png" id="11_pmngg"]
+[ext_resource type="Texture2D" uid="uid://s3uom681oovg" path="res://UI/MainMenu/SettingsBtn.png" id="12_a2l4y"]
+[ext_resource type="Texture2D" uid="uid://dvn3ccym6jy63" path="res://UI/MainMenu/ExitBtn.png" id="13_im12r"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hr8sm"]
+font = ExtResource("6_83hcs")
+font_size = 70
+
+[node name="CanvasGroup" type="CanvasGroup"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_dutph")
+script = ExtResource("2_1vrtx")
+_NewGameScene = ExtResource("3_hpr1r")
+_GameView = ExtResource("4_dxunt")
+_LoadGameView = ExtResource("5_kq665")
+
+[node name="QuickLoad" type="Label" parent="TextureRect"]
+layout_mode = 0
+offset_left = 483.0
+offset_top = 337.0
+offset_right = 1414.0
+offset_bottom = 429.0
+label_settings = SubResource("LabelSettings_hr8sm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect"]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 453.0
+offset_right = 1432.0
+offset_bottom = 551.0
+
+[node name="ContinueBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+disabled = true
+texture_normal = ExtResource("7_126iy")
+texture_disabled = ExtResource("8_levd8")
+
+[node name="NewGameBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("9_x6ebn")
+texture_disabled = ExtResource("10_lgc4x")
+
+[node name="LoadGameBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("11_pmngg")
+
+[node name="SettingsBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("12_a2l4y")
+
+[node name="ExitBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("13_im12r")
+
+[connection signal="pressed" from="TextureRect/VBoxContainer/ContinueBtn" to="TextureRect" method="OnContinuePressed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer/NewGameBtn" to="TextureRect" method="OnNewGamePressed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer/LoadGameBtn" to="TextureRect" method="OnLoadGamePressed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer/ExitBtn" to="TextureRect" method="OnExitPressed"]
