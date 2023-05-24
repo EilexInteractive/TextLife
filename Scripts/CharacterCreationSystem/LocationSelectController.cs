@@ -90,4 +90,9 @@ public partial class LocationSelectController : TextureRect
 
 		}
 	}
+
+	public void OnCloseBtnPressed()
+	{
+		this.Visible = false;
+	}
 }
