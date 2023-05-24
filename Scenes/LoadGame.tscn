@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cals88hkf0dn3"]
+[gd_scene load_steps=9 format=3 uid="uid://cals88hkf0dn3"]
 
 [ext_resource type="Texture2D" uid="uid://ck6pr4dopr1pb" path="res://UI/MainMenu/MainMenuBackground.png" id="1_14l75"]
 [ext_resource type="Texture2D" uid="uid://bfvxco6tohxka" path="res://UI/LoadGame/ActiveLoadGame.png" id="2_eicxq"]
 [ext_resource type="Script" path="res://Scripts/Save System/LoadGameController.cs" id="2_rsdm1"]
 [ext_resource type="Texture2D" uid="uid://jgenvhe63p03" path="res://UI/LoadGame/DisabledBtn.png" id="3_0w3h3"]
+[ext_resource type="Script" path="res://Scripts/Save System/LoadGameObject.cs" id="5_535uy"]
 [ext_resource type="Texture2D" uid="uid://dho86n6lgri1w" path="res://UI/LoadGame/BackBtn.png" id="5_u20wf"]
 [ext_resource type="FontFile" uid="uid://cjx2pm1vaccuq" path="res://Fonts/GROBOLD.ttf" id="5_uojh2"]
 
@@ -26,13 +27,14 @@ offset_top = 453.0
 offset_right = 1432.0
 offset_bottom = 551.0
 
-[node name="TextureButton" type="TextureButton" parent="TextureRect/VBoxContainer"]
+[node name="LoadGame_1" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
 disabled = true
 texture_normal = ExtResource("2_eicxq")
 texture_disabled = ExtResource("3_0w3h3")
+script = ExtResource("5_535uy")
 
-[node name="Label" type="Label" parent="TextureRect/VBoxContainer/TextureButton"]
+[node name="Label" type="Label" parent="TextureRect/VBoxContainer/LoadGame_1"]
 layout_mode = 0
 offset_left = 50.0
 offset_right = 885.0
@@ -41,13 +43,14 @@ label_settings = SubResource("LabelSettings_ait3k")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton2" type="TextureButton" parent="TextureRect/VBoxContainer"]
+[node name="LoadGame_2" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
 disabled = true
 texture_normal = ExtResource("2_eicxq")
 texture_disabled = ExtResource("3_0w3h3")
+script = ExtResource("5_535uy")
 
-[node name="Label" type="Label" parent="TextureRect/VBoxContainer/TextureButton2"]
+[node name="Label" type="Label" parent="TextureRect/VBoxContainer/LoadGame_2"]
 layout_mode = 0
 offset_left = 50.0
 offset_right = 885.0
@@ -56,13 +59,14 @@ label_settings = SubResource("LabelSettings_ait3k")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton3" type="TextureButton" parent="TextureRect/VBoxContainer"]
+[node name="LoadGame_3" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
 disabled = true
 texture_normal = ExtResource("2_eicxq")
 texture_disabled = ExtResource("3_0w3h3")
+script = ExtResource("5_535uy")
 
-[node name="Label" type="Label" parent="TextureRect/VBoxContainer/TextureButton3"]
+[node name="Label" type="Label" parent="TextureRect/VBoxContainer/LoadGame_3"]
 layout_mode = 0
 offset_left = 50.0
 offset_right = 885.0
@@ -71,13 +75,14 @@ label_settings = SubResource("LabelSettings_ait3k")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton4" type="TextureButton" parent="TextureRect/VBoxContainer"]
+[node name="LoadGame_4" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
 disabled = true
 texture_normal = ExtResource("2_eicxq")
 texture_disabled = ExtResource("3_0w3h3")
+script = ExtResource("5_535uy")
 
-[node name="Label" type="Label" parent="TextureRect/VBoxContainer/TextureButton4"]
+[node name="Label" type="Label" parent="TextureRect/VBoxContainer/LoadGame_4"]
 layout_mode = 0
 offset_left = 50.0
 offset_right = 885.0
@@ -86,13 +91,14 @@ label_settings = SubResource("LabelSettings_ait3k")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton5" type="TextureButton" parent="TextureRect/VBoxContainer"]
+[node name="LoadGame_5" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
 disabled = true
 texture_normal = ExtResource("2_eicxq")
 texture_disabled = ExtResource("3_0w3h3")
+script = ExtResource("5_535uy")
 
-[node name="Label" type="Label" parent="TextureRect/VBoxContainer/TextureButton5"]
+[node name="Label" type="Label" parent="TextureRect/VBoxContainer/LoadGame_5"]
 layout_mode = 0
 offset_left = 50.0
 offset_right = 885.0
@@ -101,9 +107,9 @@ label_settings = SubResource("LabelSettings_ait3k")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton6" type="TextureButton" parent="TextureRect/VBoxContainer"]
+[node name="BackBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("5_u20wf")
 texture_disabled = ExtResource("3_0w3h3")
 
-[connection signal="pressed" from="TextureRect/VBoxContainer/TextureButton6" to="TextureRect" method="OnBackPressed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer/BackBtn" to="TextureRect" method="OnBackPressed"]
