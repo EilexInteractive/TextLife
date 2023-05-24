@@ -81,7 +81,7 @@ public partial class LocationSelectController : TextureRect
 					if(label is Toggle tgl)
 					{
 						tgl.SetOwner(_StatesGroup);
-						
+						_SpawnedToggles.Add(tgl);
 					}
 
 					_StateContainer.AddChild(label);
