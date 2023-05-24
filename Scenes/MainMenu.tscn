@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://g4tsm1rgp3al"]
+[gd_scene load_steps=16 format=3 uid="uid://g4tsm1rgp3al"]
 
 [ext_resource type="Texture2D" uid="uid://ck6pr4dopr1pb" path="res://UI/MainMenu/MainMenuBackground.png" id="1_52i5c"]
 [ext_resource type="Script" path="res://Scripts/MainMenu/MainMenuController.cs" id="1_sjhxp"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://w71gd3mhodn3" path="res://UI/MainMenu/NewGameBtn.png" id="5_m4n6x"]
 [ext_resource type="PackedScene" uid="uid://cals88hkf0dn3" path="res://Scenes/LoadGame.tscn" id="5_rd4xn"]
 [ext_resource type="Texture2D" uid="uid://cefaei1kwtofh" path="res://UI/MainMenu/DisabledContinue.png" id="6_0hpex"]
+[ext_resource type="PackedScene" uid="uid://hehoiac5gv15" path="res://Scenes/SettingsMenu.tscn" id="6_fw75o"]
 [ext_resource type="Texture2D" uid="uid://s3uom681oovg" path="res://UI/MainMenu/SettingsBtn.png" id="6_hgvti"]
 [ext_resource type="Texture2D" uid="uid://dvn3ccym6jy63" path="res://UI/MainMenu/ExitBtn.png" id="7_1a5vt"]
 [ext_resource type="Texture2D" uid="uid://cqaxskcr418jv" path="res://UI/MainMenu/LoadGameBtn.png" id="8_bhgpa"]
@@ -28,6 +29,7 @@ script = ExtResource("1_sjhxp")
 _NewGameScene = ExtResource("2_bs02o")
 _GameView = ExtResource("4_p3162")
 _LoadGameView = ExtResource("5_rd4xn")
+_SettingsView = ExtResource("6_fw75o")
 
 [node name="QuickLoad" type="Label" parent="TextureRect"]
 layout_mode = 0
@@ -72,4 +74,5 @@ texture_normal = ExtResource("7_1a5vt")
 [connection signal="pressed" from="TextureRect/VBoxContainer/ContinueBtn" to="TextureRect" method="OnContinuePressed"]
 [connection signal="pressed" from="TextureRect/VBoxContainer/NewGameBtn" to="TextureRect" method="OnNewGamePressed"]
 [connection signal="pressed" from="TextureRect/VBoxContainer/LoadGameBtn" to="TextureRect" method="OnLoadGamePressed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer/SettingsBtn" to="TextureRect" method="OnSettingsPressed"]
 [connection signal="pressed" from="TextureRect/VBoxContainer/ExitBtn" to="TextureRect" method="OnExitPressed"]

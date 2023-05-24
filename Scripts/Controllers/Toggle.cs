@@ -10,6 +10,7 @@ public partial class Toggle : Label
 	[Export] private Texture2D _UncheckedTexture;
 
 	[Export] private bool _IsChecked = false;
+	public bool IsChecked { get => _IsChecked; }
 
     public override void _Ready()
     {
