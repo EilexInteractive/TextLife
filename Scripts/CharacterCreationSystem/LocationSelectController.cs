@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class LocationSelectController : Node
+public partial class LocationSelectController : TextureRect
 {
 	[Export] private PackedScene _LocationTextPrefab;
 	private VBoxContainer _CountryContainer;
