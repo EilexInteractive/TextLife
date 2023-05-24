@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://3etgyecbho6q"]
+[gd_scene load_steps=22 format=3 uid="uid://3etgyecbho6q"]
 
 [ext_resource type="Texture2D" uid="uid://2jj8d31gbk4q" path="res://UI/CharacterCreation/CharacterCreationScreen.png" id="1_gop52"]
 [ext_resource type="Script" path="res://Scripts/CharacterCreationSystem/CharacterCreationController.cs" id="2_fjikv"]
@@ -15,6 +15,15 @@
 [ext_resource type="Texture2D" uid="uid://dcnk0kidtgm5f" path="res://UI/CharacterCreation/SaveBtn.png" id="11_aa2h1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0xo4r"]
+
+[sub_resource type="Theme" id="Theme_r5tmi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2kbh1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qrqha"]
+font = ExtResource("3_037t7")
+font_size = 50
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qo0vc"]
 
@@ -48,18 +57,28 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_0xo4r")
 placeholder_text = "Character Name"
 alignment = 1
 
-[node name="Location" type="LineEdit" parent="Container"]
+[node name="Location" type="Button" parent="Container"]
 layout_mode = 0
 offset_left = 506.0
 offset_top = 456.0
 offset_right = 1408.0
 offset_bottom = 563.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme = SubResource("Theme_r5tmi")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 0)
 theme_override_fonts/font = ExtResource("3_037t7")
 theme_override_font_sizes/font_size = 54
 theme_override_styles/normal = SubResource("StyleBoxEmpty_0xo4r")
-placeholder_text = "Location"
-alignment = 1
+theme_override_styles/hover = SubResource("StyleBoxEmpty_2kbh1")
+
+[node name="Label" type="Label" parent="Container/Location"]
+custom_minimum_size = Vector2(900, 105)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Hampton City, Hampton"
+label_settings = SubResource("LabelSettings_qrqha")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Sex" type="OptionButton" parent="Container"]
 modulate = Color(0, 0, 0, 1)
@@ -107,7 +126,8 @@ offset_right = 1413.0
 offset_bottom = 916.0
 texture_normal = ExtResource("6_30g3c")
 
-[node name="TextureRect" type="TextureRect" parent="Container"]
+[node name="LocationContainer" type="TextureRect" parent="Container"]
+visible = false
 layout_mode = 0
 offset_left = 328.0
 offset_top = 67.0
@@ -117,7 +137,7 @@ texture = ExtResource("8_rjkdl")
 script = ExtResource("9_rmn35")
 _LocationTextPrefab = ExtResource("9_rlir8")
 
-[node name="CloseBtn" type="TextureButton" parent="Container/TextureRect"]
+[node name="CloseBtn" type="TextureButton" parent="Container/LocationContainer"]
 layout_mode = 0
 offset_left = 168.0
 offset_top = 829.0
@@ -125,7 +145,7 @@ offset_right = 1093.0
 offset_bottom = 927.0
 texture_normal = ExtResource("10_jsglx")
 
-[node name="SaveBtn" type="TextureButton" parent="Container/TextureRect"]
+[node name="SaveBtn" type="TextureButton" parent="Container/LocationContainer"]
 layout_mode = 0
 offset_left = 168.0
 offset_top = 719.0
@@ -133,7 +153,7 @@ offset_right = 1093.0
 offset_bottom = 817.0
 texture_normal = ExtResource("11_aa2h1")
 
-[node name="CountryLabel" type="Label" parent="Container/TextureRect"]
+[node name="CountryLabel" type="Label" parent="Container/LocationContainer"]
 layout_mode = 0
 offset_left = 198.0
 offset_top = 80.0
@@ -144,7 +164,7 @@ label_settings = SubResource("LabelSettings_m6fww")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StateLabel" type="Label" parent="Container/TextureRect"]
+[node name="StateLabel" type="Label" parent="Container/LocationContainer"]
 layout_mode = 0
 offset_left = 731.0
 offset_top = 80.0
@@ -155,28 +175,30 @@ label_settings = SubResource("LabelSettings_m6fww")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Country" type="ScrollContainer" parent="Container/TextureRect"]
+[node name="Country" type="ScrollContainer" parent="Container/LocationContainer"]
 layout_mode = 0
 offset_left = 107.0
 offset_top = 157.0
 offset_right = 623.0
 offset_bottom = 705.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Container/TextureRect/Country"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/LocationContainer/Country"]
 layout_mode = 2
 script = ExtResource("9_5sm81")
 
-[node name="States" type="ScrollContainer" parent="Container/TextureRect"]
+[node name="States" type="ScrollContainer" parent="Container/LocationContainer"]
 layout_mode = 0
 offset_left = 660.0
 offset_top = 157.0
 offset_right = 1176.0
 offset_bottom = 705.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Container/TextureRect/States"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/LocationContainer/States"]
 layout_mode = 2
 script = ExtResource("9_5sm81")
 
+[connection signal="pressed" from="Container/Location" to="Container" method="OpenLocationContainer"]
 [connection signal="pressed" from="Container/StartGame" to="Container" method="StartGamePressed"]
 [connection signal="pressed" from="Container/BackBtn" to="Container" method="OnBackPressed"]
 [connection signal="pressed" from="Container/RandomiseCharacter" to="Container" method="OnRandomizePressed"]
+[connection signal="pressed" from="Container/LocationContainer/CloseBtn" to="Container/LocationContainer" method="OnCloseBtnPressed"]
