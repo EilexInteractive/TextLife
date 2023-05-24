@@ -3,6 +3,6 @@ using System;
 public class SaveGame
 {
 	public string SaveName;
-	public CharacterDetails Character;
+	public CharacterSave Character;
 	public int DateIndex; 
 }
