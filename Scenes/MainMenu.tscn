@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://g4tsm1rgp3al"]
+[gd_scene load_steps=14 format=3 uid="uid://g4tsm1rgp3al"]
 
 [ext_resource type="Texture2D" uid="uid://ck6pr4dopr1pb" path="res://UI/MainMenu/MainMenuBackground.png" id="1_52i5c"]
 [ext_resource type="Script" path="res://Scripts/MainMenu/MainMenuController.cs" id="1_sjhxp"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dsqs2s55vefli" path="res://UI/MainMenu/ContinueBtn.png" id="4_ldwgs"]
 [ext_resource type="PackedScene" uid="uid://84njvic4pvs6" path="res://Scenes/MainGameView.tscn" id="4_p3162"]
 [ext_resource type="Texture2D" uid="uid://w71gd3mhodn3" path="res://UI/MainMenu/NewGameBtn.png" id="5_m4n6x"]
+[ext_resource type="PackedScene" uid="uid://cals88hkf0dn3" path="res://Scenes/LoadGame.tscn" id="5_rd4xn"]
 [ext_resource type="Texture2D" uid="uid://cefaei1kwtofh" path="res://UI/MainMenu/DisabledContinue.png" id="6_0hpex"]
 [ext_resource type="Texture2D" uid="uid://s3uom681oovg" path="res://UI/MainMenu/SettingsBtn.png" id="6_hgvti"]
 [ext_resource type="Texture2D" uid="uid://dvn3ccym6jy63" path="res://UI/MainMenu/ExitBtn.png" id="7_1a5vt"]
@@ -25,6 +26,7 @@ texture = ExtResource("1_52i5c")
 script = ExtResource("1_sjhxp")
 _NewGameScene = ExtResource("2_bs02o")
 _GameView = ExtResource("4_p3162")
+_LoadGameView = ExtResource("5_rd4xn")
 
 [node name="QuickLoad" type="Label" parent="TextureRect"]
 layout_mode = 0
@@ -67,4 +69,5 @@ texture_normal = ExtResource("7_1a5vt")
 
 [connection signal="pressed" from="TextureRect/VBoxContainer/ContinueBtn" to="TextureRect" method="OnContinuePressed"]
 [connection signal="pressed" from="TextureRect/VBoxContainer/NewGameBtn" to="TextureRect" method="OnNewGamePressed"]
-[connection signal="pressed" from="TextureRect/VBoxContainer/LoadGameBtn" to="TextureRect" method="OnNewGamePressed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer/LoadGameBtn" to="TextureRect" method="OnLoadGamePressed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer/ExitBtn" to="TextureRect" method="OnExitPressed"]

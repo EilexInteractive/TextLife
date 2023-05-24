@@ -8,8 +8,11 @@ public partial class GameController : Node
 	public CharacterDetails CurrentCharacter;
     
     private int _Month = 1;
+    public int CurrentMonth { get => _Month; }
     
     public int CurrentEventID = 0;
+
+    public string ReturnTo = "";
 
     public override void _Process(double delta)
     {

@@ -12,6 +12,9 @@ public class LifeEventLog
 
     public bool IsBornEvent = false;
 
+    public LifeEventLog()
+    {}
+
     public LifeEventLog(string text, ELifeEventType type, EAgeCategory category, ESex sex)
     {
         Text = text;
@@ -33,6 +36,11 @@ public class LifeEventLog
     {
         return new LifeEventLog(id, Text, this.Type, this.AgeCategory, this.SexCategory);
     }
+
+    public LifeEventSave CreateEventSave()
+    {
+        return new LifeEventSave(ID, Text, (int)Type, (int)SexCategory, (int)AgeCategory, IsBornEvent);
+    }
 }
 
 public enum ELifeEventType
@@ -40,4 +48,38 @@ public enum ELifeEventType
     DATE,
     EVENT,
     BIRTH
+}
+
+public class LifeEventSave
+{
+    public int ID;
+    public string Text;
+    public int Type;
+    public int Sex;
+    public int AgeCategory;
+    public bool IsBornEvent;
+    public LifeEventSave()
+    {}
+
+    public LifeEventSave(int id, string text, int type, int sex, int category, bool bornEvent)
+    {
+        ID = id;
+        Text = text;
+        this.Type = type;
+        Sex = sex;
+        AgeCategory = category;
+        IsBornEvent = bornEvent;
+    }
+
+    public LifeEventLog LoadLifeEvent()
+    {
+        LifeEventLog eventLog = new LifeEventLog();
+        eventLog.ID = this.ID;
+        eventLog.Text = this.Text;
+        eventLog.Type = (ELifeEventType)this.Type;
+        eventLog.SexCategory = (ESex)Sex;
+        eventLog.AgeCategory = (EAgeCategory)this.AgeCategory;
+        eventLog.IsBornEvent = this.IsBornEvent;
+        return eventLog;
+    }
 }

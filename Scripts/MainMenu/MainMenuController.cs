@@ -6,6 +6,7 @@ public partial class MainMenuController : TextureRect
 {
 	[Export] private PackedScene _NewGameScene;
 	[Export] private PackedScene _GameView;
+	[Export] private PackedScene _LoadGameView;
 
 	private Label _QuickSaveName;
 	private TextureButton _ContinueBtn;
@@ -51,6 +52,22 @@ public partial class MainMenuController : TextureRect
 		{
 			GetTree().ChangeSceneToPacked(_GameView);
 		}
+	}
+
+	public void OnLoadGamePressed()
+	{
+		GameController gameController = GetNode<GameController>("/root/GameController");
+		if(gameController != null)
+		{
+			gameController.ReturnTo = "MainMenu";
+			GetTree().ChangeSceneToPacked(_LoadGameView);
+		}
+		
+	}
+
+	public void OnExitPressed()
+	{
+		GetTree().Quit();
 	}
 	
 }

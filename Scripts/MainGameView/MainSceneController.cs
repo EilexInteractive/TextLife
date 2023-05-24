@@ -14,7 +14,6 @@ public partial class MainSceneController : ColorRect
 			if(game.CurrentCharacter == null)
             {
 				game.CurrentCharacter = characterDb.GenerateRandomCharacter(true);
-				GD.Print($"{game.CurrentCharacter.FirstName} {game.CurrentCharacter.LastName}");
             }
         }
 	}
@@ -38,6 +37,33 @@ public partial class MainSceneController : ColorRect
 		NameContainerController nameContainer = GetNode<NameContainerController>("TextureRect/NameContainer");
 		if(nameContainer != null)
 			nameContainer.UpdateDetails();
+
+		SaveGameController saveController = GetNode<SaveGameController>("/root/SaveGameController");
+		if(saveController != null)
+			saveController.SaveGame();
 	}
 
+	public void OnExitToMenu()
+	{
+		SaveGameController saveController = GetNode<SaveGameController>("/root/SaveGameController");
+		if(saveController != null)
+		{
+			saveController.SaveGame();
+		}
+
+		GetTree().ChangeSceneToFile("res://Scenes/MainMenu.tscn");
+	}
+
+	public void OnLoadGamePressed()
+	{
+		GameController gameController = GetNode<GameController>("/root/GameController");
+		if(gameController != null)
+			gameController.ReturnTo = "GameView";
+
+		SaveGameController saveController = GetNode<SaveGameController>("/root/SaveGameController");
+		if(saveController != null)
+			saveController.SaveGame();
+
+		GetTree().ChangeSceneToFile("res://Scenes/LoadGame.tscn");
+	}
 }

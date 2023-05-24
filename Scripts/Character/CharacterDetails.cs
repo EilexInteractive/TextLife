@@ -69,6 +69,9 @@ public class CharacterDetails
         _Money = money;
     }
 
+    public CharacterDetails()
+    {}
+
 
     public void SetCharacter(string firstName, string lastName, int years, int months, ESex gender, Country country, string state, int money, GameController game = null)
     {
@@ -180,6 +183,17 @@ public class CharacterDetails
     }
 
     public void SetSex(ESex sex) => _Sex = sex;
+    public void SetName(string firstName, string lastName)
+    {
+        _FirstName = firstName;
+        _LastName = lastName;
+    }
+
+    public void SetLifeEvents(List<LifeEventLog> dates, List<LifeEventLog> events)
+    {
+        _EventDates = dates;
+        _LifeEventLog = events;
+    }
 
     public string GetMoneyAsString()
     {
@@ -245,7 +259,16 @@ public class CharacterDetails
     public CharacterSave CreateCharacterSave()
     {
         int gender = (int)_Sex;
-        return new CharacterSave(_FirstName, _LastName, gender, _YearsOld, _MonthsOld, _Country.Name, _State);
+        List<LifeEventSave> dateSaves = new List<LifeEventSave>();
+        List<LifeEventSave> eventLog = new List<LifeEventSave>();
+        
+        foreach(var date in _EventDates)
+            dateSaves.Add(date.CreateEventSave());
+        
+        foreach(var e in _LifeEventLog)
+            eventLog.Add(e.CreateEventSave());
+
+        return new CharacterSave(_FirstName, _LastName, gender, _YearsOld, _MonthsOld, _Country.Name, _State, dateSaves, eventLog);
     }
 }
 
@@ -260,10 +283,14 @@ public class CharacterSave
     public string CountryName;
     public string State;
 
+    public List<LifeEventSave> DateLog = new List<LifeEventSave>();
+    public List<LifeEventSave> EventLog = new List<LifeEventSave>();
+
     public CharacterSave()
     {}
 
-    public CharacterSave(string fname, string lname, int sex, int yearsOld, int monthsOld, string country, string state)
+    public CharacterSave(string fname, string lname, int sex, int yearsOld, int monthsOld, 
+    string country, string state, List<LifeEventSave> dates, List<LifeEventSave> events)
     {
         FirstName = fname;
         LastName = lname;
@@ -272,5 +299,29 @@ public class CharacterSave
         MonthsOld = monthsOld;
         CountryName = country;
         State = state;
+        DateLog = dates;
+        EventLog = events;
+    }
+
+    public CharacterDetails LoadCharacter(CountryDatabase countryDb)
+    {
+        CharacterDetails details = new CharacterDetails();
+        details.SetName(FirstName, LastName);
+        details.SetSex((ESex)Sex);
+        details.SetAge(MonthsOld, YearsOld);
+        details.SetLocation(countryDb.GetCountryFromName(CountryName), State);
+
+        List<LifeEventLog> dateLog = new List<LifeEventLog>();
+        List<LifeEventLog> eventLog = new List<LifeEventLog>();
+
+        foreach(var date in DateLog)
+            dateLog.Add(date.LoadLifeEvent());
+
+        foreach(var e in EventLog)
+            eventLog.Add(e.LoadLifeEvent());
+
+        details.SetLifeEvents(dateLog, eventLog);
+
+        return details;
     }
 }

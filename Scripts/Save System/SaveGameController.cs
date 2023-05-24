@@ -14,9 +14,10 @@ public partial class SaveGameController : Node
 		if(game != null)
 		{
 			SaveGame save = new SaveGame();
-			save.SaveName = game.CurrentCharacter.FirstName + " " + game.CurrentCharacter.LastName;
 			save.Character = game.CurrentCharacter.CreateCharacterSave();
+			save.SaveName = (game.PlayerPrefs.LastSaveName != "" ? save.Character.LastName : game.CurrentCharacter.LastName);
 			save.DateIndex = game.CurrentEventID;
+			save.CurrentMonth = game.CurrentMonth;
 
 			string output = JsonConvert.SerializeObject(save);
 
@@ -29,10 +30,7 @@ public partial class SaveGameController : Node
 			{
 				using(JsonWriter jw = new JsonTextWriter(sw))
 				{
-					jw.WriteStartArray();
-					jw.WriteRawValue(JsonConvert.SerializeObject(save));
-					jw.WriteEndArray();
-					//serializer.Serialize(jw, save);
+					serializer.Serialize(jw, save);
 				}
 			}
 
@@ -52,10 +50,9 @@ public partial class SaveGameController : Node
 				{
 					
 					string text = sr.ReadToEnd();
-					var saveObject = JArray.Parse(text);
-					JToken token = saveObject;
-					SaveGame load = JsonConvert.DeserializeObject<SaveGame>(token.ToString());
-					GD.Print(load.SaveName);
+					SaveGame save = JsonConvert.DeserializeObject<SaveGame>(text);
+					CharacterDetails character = save.Character.LoadCharacter(GetNode<CountryDatabase>("/root/CountryDatabase"));
+					game.CurrentCharacter = character;
 					return true;
 				}
 			}
