@@ -160,6 +160,12 @@ public partial class CharacterGenerator : Node
         }
     }
 
+    /// <summary>
+    /// Creates a new birth event
+    /// </summary>
+    /// <param name="game">Reference to the game controller</param>
+    /// <param name="eventDb">Reference to the events database</param>
+    /// <param name="character">reference to the character</param>
     public void GenerateBirthEvent(GameController game, EventDatabase eventDb, ref CharacterDetails character)
     {
         if(game != null && eventDb != null)
@@ -178,6 +184,14 @@ public partial class CharacterGenerator : Node
         }
     }
 
+
+    /// <summary>
+    /// Creates a new date event
+    /// </summary>
+    /// <param name="id">Current event ID</param>
+    /// <param name="game">reference to the game controller</param>
+    /// <param name="character">reference to the character</param>
+    /// <returns></returns>
     private LifeEventLog CreateDateLog(int id, GameController game, CharacterDetails character)
     {
         string monthAsString = game.GetMonthAsString();

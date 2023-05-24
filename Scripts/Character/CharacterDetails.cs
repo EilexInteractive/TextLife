@@ -90,11 +90,21 @@ public class CharacterDetails
 
     public string GetAgeAsString() => $"{_YearsOld} Years Old, {_MonthsOld} Months";
 
+    /// <summary>
+    /// Sets the age of the character
+    /// </summary>
+    /// <param name="months">How many months old</param>
+    /// <param name="years">How many years old</param>
     public void SetAge(int months, int years)
     {
         _MonthsOld = months;
         _YearsOld = years;
     }
+
+    /// <summary>
+    /// Adds a new life event to the list
+    /// </summary>
+    /// <param name="lifeEvent">Life event to add</param>
 
     public void AddLifeEvent(LifeEventLog lifeEvent)
     {
@@ -107,6 +117,10 @@ public class CharacterDetails
         }
     }
 
+    /// <summary>
+    /// Increase the age of the character by one month
+    /// </summary>
+    /// <param name="game">Reference to the game controller</param>
     public void AgeUp(GameController game)
     {
         if(game == null)
@@ -123,6 +137,11 @@ public class CharacterDetails
         AddLifeEvent(CreateDateLog(game));
     }
 
+    /// <summary>
+    /// Creates a new date event
+    /// </summary>
+    /// <param name="game">Reference to the game controller</param>
+    /// <returns>LIfe event in the form of a date</returns>
     private LifeEventLog CreateDateLog(GameController game)
     {
         string monthAsString = game.GetMonthAsString();
@@ -130,6 +149,11 @@ public class CharacterDetails
         return dateLog.Copy(game.CurrentEventID);
     }
 
+
+    /// <summary>
+    /// Determines the age category of the character
+    /// </summary>
+    /// <returns>The age category</returns>
     public EAgeCategory GetAgeCategory()
     {
         if(_YearsOld < 3)
@@ -156,6 +180,10 @@ public class CharacterDetails
         }
     }
 
+    /// <summary>
+    /// Checks if the character has a born event
+    /// </summary>
+    /// <returns>If there is a born event</returns>
     private bool ContainsBornEvent()
     {
         if(_LifeEventLog.Count > 0)
@@ -195,6 +223,10 @@ public class CharacterDetails
         _LifeEventLog = events;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Money in the form of a string</returns>
     public string GetMoneyAsString()
     {
         string moneyStr = "$";
