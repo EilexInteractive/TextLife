@@ -8,6 +8,8 @@ public partial class ToggleGroup : VBoxContainer
 	private List<Toggle> _TogglesInGroup = new List<Toggle>();
 	private Toggle _CurrentlySelected = null;
 
+	public event Action OnValueChanged;
+
     public override void _Ready()
     {
         base._Ready();
@@ -20,6 +22,8 @@ public partial class ToggleGroup : VBoxContainer
 			_CurrentlySelected.UncheckButton();
 
 		_CurrentlySelected = toggle;
+
+		OnValueChanged?.Invoke();
 	}
 
 	private void GetToggleGroup()
@@ -43,7 +47,7 @@ public partial class ToggleGroup : VBoxContainer
 
 		return null;
 	}
-	
+
 	public string GetToggleValue() => _CurrentlySelected.GetToggleValue();
 	public string GetToggleValue(int index) 
 	{
