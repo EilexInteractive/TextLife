@@ -8,8 +8,9 @@ public partial class CharacterCreationController : TextureRect
 	[Export] private PackedScene _MainMenuView;
 
 	private LineEdit _CharacterNameEdit;
-	private LineEdit _LocationEdit;
+	private Label _LocationEdit;
 	private OptionButton _SexOption;
+	private LocationSelectController _LocationContainer;
 
 	private CharacterDetails _CreatedCharacter;
 
@@ -17,8 +18,9 @@ public partial class CharacterCreationController : TextureRect
     {
         base._Ready();
 		_CharacterNameEdit = GetNode<LineEdit>("CharacterName");
-		_LocationEdit = GetNode<LineEdit>("Location");
+		_LocationEdit = GetNode<Label>("Location/Label");
 		_SexOption = GetNode<OptionButton>("Sex");
+		_LocationContainer = GetNode<LocationSelectController>("LocationContainer");
 
 		Randomize();
     }
@@ -100,6 +102,12 @@ public partial class CharacterCreationController : TextureRect
 
 		GetTree().ChangeSceneToPacked(_MainGameView); 
 
+	}
+
+	public void OpenLocationContainer()
+	{
+		if(_LocationContainer != null)
+			_LocationContainer.Visible = true;
 	}
 
 	public void OnBackPressed()
