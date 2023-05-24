@@ -10,11 +10,26 @@ public partial class MainMenuController : TextureRect
 
 	private Label _QuickSaveName;
 	private TextureButton _ContinueBtn;
+	private TextureButton _NewGameBtn;
+
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_QuickSaveName = GetNode<Label>("QuickLoad");
 		_ContinueBtn = GetNode<TextureButton>("VBoxContainer/ContinueBtn");
+		_NewGameBtn = GetNode<TextureButton>("VBoxContainer/NewGameBtn");
+
+		SaveGameController saveController = GetNode<SaveGameController>("/root/SaveGameController");
+		if(saveController != null)
+		{
+			if(saveController.SavedGamesCount >= 5)
+			{
+				if(_NewGameBtn != null)
+					_NewGameBtn.Disabled = true;
+			}
+		}
+
 		GetLastSave();
 	}
 

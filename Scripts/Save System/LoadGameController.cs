@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+
+
 public partial class LoadGameController : TextureRect
 {
 	private List<LoadGameObject> _LoadGameObjects = new List<LoadGameObject>();
@@ -13,7 +15,6 @@ public partial class LoadGameController : TextureRect
 			_LoadGameObjects.Add(GetNode<LoadGameObject>($"VBoxContainer/LoadGame_{i}"));
 			
 		GetLoadGames();
-		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,7 +32,6 @@ public partial class LoadGameController : TextureRect
 			string[] files = Directory.GetFiles(saveFolderPath);
 			if(files.Length <= 5)
 			{
-
 				for(int i = 0; i < files.Length; ++i)
 				{
 					string fileName = Path.GetFileName(files[i]);

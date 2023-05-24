@@ -6,8 +6,25 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 
+public enum ELoadType
+{
+	SAVING,
+	LOADING
+}
+
 public partial class SaveGameController : Node
 {
+	private int _SavedGamesCount = 0;
+	public int SavedGamesCount { get => _SavedGamesCount; }
+
+	public ELoadType LoadType = ELoadType.LOADING;
+
+	public override void _Ready()
+	{
+		base._Ready();
+		_SavedGamesCount = GetSavedGameCount();
+	}
+
 	public void SaveGame()
 	{
 		GameController game = GetNode<GameController>("/root/GameController");
@@ -75,5 +92,22 @@ public partial class SaveGameController : Node
 				serializer.Serialize(jsonWriter, GetNode<GameController>("/root/GameController")?.PlayerPrefs);
 			}
 		}
+	}
+
+
+	private int GetSavedGameCount()
+	{
+		GameController gameController = GetNode<GameController>("/root/GameController");
+		if(gameController != null)
+		{
+			string savePath = gameController.ApplicationFolder + "/Saves";
+			if(Directory.Exists(savePath))
+			{
+				string[] saves = Directory.GetFiles(savePath);
+				return saves.Length;
+			}
+		}
+
+		return 0;
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cals88hkf0dn3"]
+[gd_scene load_steps=10 format=3 uid="uid://cals88hkf0dn3"]
 
 [ext_resource type="Texture2D" uid="uid://ck6pr4dopr1pb" path="res://UI/MainMenu/MainMenuBackground.png" id="1_14l75"]
 [ext_resource type="Texture2D" uid="uid://bfvxco6tohxka" path="res://UI/LoadGame/ActiveLoadGame.png" id="2_eicxq"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/Save System/LoadGameObject.cs" id="5_535uy"]
 [ext_resource type="Texture2D" uid="uid://dho86n6lgri1w" path="res://UI/LoadGame/BackBtn.png" id="5_u20wf"]
 [ext_resource type="FontFile" uid="uid://cjx2pm1vaccuq" path="res://Fonts/GROBOLD.ttf" id="5_uojh2"]
+[ext_resource type="Texture2D" uid="uid://bei6mrnaunvyq" path="res://UI/LoadGame/DeleteLoadBtn.png" id="7_yh3lg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ait3k"]
 font = ExtResource("5_uojh2")
@@ -43,6 +44,14 @@ label_settings = SubResource("LabelSettings_ait3k")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="DeleteBtn" type="TextureButton" parent="TextureRect/VBoxContainer/LoadGame_1"]
+layout_mode = 0
+offset_left = 922.0
+offset_top = 21.0
+offset_right = 976.0
+offset_bottom = 75.0
+texture_normal = ExtResource("7_yh3lg")
+
 [node name="LoadGame_2" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
 disabled = true
@@ -58,6 +67,14 @@ offset_bottom = 94.0
 label_settings = SubResource("LabelSettings_ait3k")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="DeleteBtn" type="TextureButton" parent="TextureRect/VBoxContainer/LoadGame_2"]
+layout_mode = 0
+offset_left = 922.0
+offset_top = 19.0
+offset_right = 976.0
+offset_bottom = 73.0
+texture_normal = ExtResource("7_yh3lg")
 
 [node name="LoadGame_3" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
@@ -75,6 +92,14 @@ label_settings = SubResource("LabelSettings_ait3k")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="DeleteBtn" type="TextureButton" parent="TextureRect/VBoxContainer/LoadGame_3"]
+layout_mode = 0
+offset_left = 922.0
+offset_top = 22.0
+offset_right = 976.0
+offset_bottom = 76.0
+texture_normal = ExtResource("7_yh3lg")
+
 [node name="LoadGame_4" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
 disabled = true
@@ -91,6 +116,14 @@ label_settings = SubResource("LabelSettings_ait3k")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="DeleteBtn" type="TextureButton" parent="TextureRect/VBoxContainer/LoadGame_4"]
+layout_mode = 0
+offset_left = 922.0
+offset_top = 20.0
+offset_right = 976.0
+offset_bottom = 74.0
+texture_normal = ExtResource("7_yh3lg")
+
 [node name="LoadGame_5" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
 disabled = true
@@ -106,6 +139,14 @@ offset_bottom = 94.0
 label_settings = SubResource("LabelSettings_ait3k")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="DeleteBtn" type="TextureButton" parent="TextureRect/VBoxContainer/LoadGame_5"]
+layout_mode = 0
+offset_left = 922.0
+offset_top = 21.0
+offset_right = 976.0
+offset_bottom = 75.0
+texture_normal = ExtResource("7_yh3lg")
 
 [node name="BackBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2

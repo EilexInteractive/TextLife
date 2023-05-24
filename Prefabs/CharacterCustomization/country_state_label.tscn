@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://byyo7n1t7reap"]
+
+[ext_resource type="FontFile" uid="uid://cjx2pm1vaccuq" path="res://Fonts/GROBOLD.ttf" id="1_cavdd"]
+[ext_resource type="Texture2D" uid="uid://dsf4k6m2ak1u6" path="res://UI/CharacterCreation/Unchecked.png" id="2_g1exh"]
+[ext_resource type="Script" path="res://Scripts/Controllers/Toggle.cs" id="2_mf5wx"]
+[ext_resource type="Texture2D" uid="uid://dcjq4yy0dbit7" path="res://UI/CharacterCreation/Checked.png" id="3_jm2ee"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_eln8r"]
+font = ExtResource("1_cavdd")
+font_size = 80
+
+[node name="CountryStateLabel" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Lexington"
+label_settings = SubResource("LabelSettings_eln8r")
+script = ExtResource("2_mf5wx")
+_CheckedTexture = ExtResource("3_jm2ee")
+_UncheckedTexture = ExtResource("2_g1exh")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 444.0
+offset_top = 15.0
+offset_right = 498.0
+offset_bottom = 69.0
+texture_normal = ExtResource("2_g1exh")

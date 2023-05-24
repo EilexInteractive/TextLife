@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://g4tsm1rgp3al"]
+[gd_scene load_steps=15 format=3 uid="uid://g4tsm1rgp3al"]
 
 [ext_resource type="Texture2D" uid="uid://ck6pr4dopr1pb" path="res://UI/MainMenu/MainMenuBackground.png" id="1_52i5c"]
 [ext_resource type="Script" path="res://Scripts/MainMenu/MainMenuController.cs" id="1_sjhxp"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://s3uom681oovg" path="res://UI/MainMenu/SettingsBtn.png" id="6_hgvti"]
 [ext_resource type="Texture2D" uid="uid://dvn3ccym6jy63" path="res://UI/MainMenu/ExitBtn.png" id="7_1a5vt"]
 [ext_resource type="Texture2D" uid="uid://cqaxskcr418jv" path="res://UI/MainMenu/LoadGameBtn.png" id="8_bhgpa"]
+[ext_resource type="Texture2D" uid="uid://bbsl0imlh6ktr" path="res://UI/MainMenu/NewGameDisabled.png" id="10_b77qs"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hr8sm"]
 font = ExtResource("3_xv3ro")
@@ -54,6 +55,7 @@ texture_disabled = ExtResource("6_0hpex")
 [node name="NewGameBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("5_m4n6x")
+texture_disabled = ExtResource("10_b77qs")
 
 [node name="LoadGameBtn" type="TextureButton" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
