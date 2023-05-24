@@ -63,6 +63,11 @@ public partial class CharacterDatabase : Node
                     } else if(name.Category == "LastName")
                     {
                         _LastNames.Add(name.Name);
+                    } else 
+                    {
+                        _MaleNames.Add(name.Name);
+                        _FemaleNames.Add(name.Name);
+                        _LastNames.Add(name.Name);
                     }
                 }
 
