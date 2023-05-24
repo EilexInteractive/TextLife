@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://3etgyecbho6q"]
+[gd_scene load_steps=19 format=3 uid="uid://3etgyecbho6q"]
 
 [ext_resource type="Texture2D" uid="uid://2jj8d31gbk4q" path="res://UI/CharacterCreation/CharacterCreationScreen.png" id="1_gop52"]
 [ext_resource type="Script" path="res://Scripts/CharacterCreationSystem/CharacterCreationController.cs" id="2_fjikv"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c7efrdhown802" path="res://UI/CharacterCreation/LocationContainer.png" id="8_rjkdl"]
 [ext_resource type="Script" path="res://Scripts/Controllers/ToggleGroup.cs" id="9_5sm81"]
 [ext_resource type="PackedScene" uid="uid://byyo7n1t7reap" path="res://Prefabs/CharacterCustomization/country_state_label.tscn" id="9_rlir8"]
+[ext_resource type="Script" path="res://Scripts/CharacterCreationSystem/LocationSelectController.cs" id="9_rmn35"]
 [ext_resource type="Texture2D" uid="uid://d032aqin6jvo8" path="res://UI/CharacterCreation/CloseBtn.png" id="10_jsglx"]
 [ext_resource type="Texture2D" uid="uid://dcnk0kidtgm5f" path="res://UI/CharacterCreation/SaveBtn.png" id="11_aa2h1"]
 
@@ -20,6 +21,10 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kgqo5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hl317"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m6fww"]
+font = ExtResource("3_037t7")
+font_size = 50
 
 [node name="CanvasGroup" type="CanvasGroup"]
 
@@ -109,56 +114,8 @@ offset_top = 67.0
 offset_right = 1628.0
 offset_bottom = 1017.0
 texture = ExtResource("8_rjkdl")
-
-[node name="CountryContainer" type="VBoxContainer" parent="Container/TextureRect"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.081
-anchor_bottom = 0.042
-offset_left = 110.0
-offset_top = 174.0
-offset_right = 538.7
-offset_bottom = 717.1
-script = ExtResource("9_5sm81")
-
-[node name="CountryStateLabel" parent="Container/TextureRect/CountryContainer" instance=ExtResource("9_rlir8")]
-layout_mode = 2
-
-[node name="CountryStateLabel2" parent="Container/TextureRect/CountryContainer" instance=ExtResource("9_rlir8")]
-layout_mode = 2
-
-[node name="CountryStateLabel3" parent="Container/TextureRect/CountryContainer" instance=ExtResource("9_rlir8")]
-layout_mode = 2
-
-[node name="CountryStateLabel4" parent="Container/TextureRect/CountryContainer" instance=ExtResource("9_rlir8")]
-layout_mode = 2
-
-[node name="CountryStateLabel5" parent="Container/TextureRect/CountryContainer" instance=ExtResource("9_rlir8")]
-layout_mode = 2
-
-[node name="CountryStateLabel6" parent="Container/TextureRect/CountryContainer" instance=ExtResource("9_rlir8")]
-layout_mode = 2
-
-[node name="StateContainer" type="VBoxContainer" parent="Container/TextureRect"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.081
-anchor_bottom = 0.042
-offset_left = 655.0
-offset_top = 174.0
-offset_right = 1083.7
-offset_bottom = 717.1
-
-[node name="CountryStateLabel" parent="Container/TextureRect/StateContainer" instance=ExtResource("9_rlir8")]
-layout_mode = 2
-
-[node name="CountryLabel" type="Label" parent="Container/TextureRect"]
-layout_mode = 1
-anchors_preset = -1
-offset_left = 227.0
-offset_top = 91.0
-offset_right = 267.0
-offset_bottom = 114.0
+script = ExtResource("9_rmn35")
+_LocationTextPrefab = ExtResource("9_rlir8")
 
 [node name="CloseBtn" type="TextureButton" parent="Container/TextureRect"]
 layout_mode = 0
@@ -175,6 +132,50 @@ offset_top = 719.0
 offset_right = 1093.0
 offset_bottom = 817.0
 texture_normal = ExtResource("11_aa2h1")
+
+[node name="CountryLabel" type="Label" parent="Container/TextureRect"]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 80.0
+offset_right = 527.0
+offset_bottom = 146.0
+text = "Country"
+label_settings = SubResource("LabelSettings_m6fww")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StateLabel" type="Label" parent="Container/TextureRect"]
+layout_mode = 0
+offset_left = 731.0
+offset_top = 80.0
+offset_right = 1060.0
+offset_bottom = 146.0
+text = "State"
+label_settings = SubResource("LabelSettings_m6fww")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Country" type="ScrollContainer" parent="Container/TextureRect"]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 157.0
+offset_right = 623.0
+offset_bottom = 705.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/TextureRect/Country"]
+layout_mode = 2
+script = ExtResource("9_5sm81")
+
+[node name="States" type="ScrollContainer" parent="Container/TextureRect"]
+layout_mode = 0
+offset_left = 660.0
+offset_top = 157.0
+offset_right = 1176.0
+offset_bottom = 705.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/TextureRect/States"]
+layout_mode = 2
+script = ExtResource("9_5sm81")
 
 [connection signal="pressed" from="Container/StartGame" to="Container" method="StartGamePressed"]
 [connection signal="pressed" from="Container/BackBtn" to="Container" method="OnBackPressed"]
