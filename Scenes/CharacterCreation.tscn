@@ -151,6 +151,7 @@ offset_left = 168.0
 offset_top = 719.0
 offset_right = 1093.0
 offset_bottom = 817.0
+rotation = 0.00840447
 texture_normal = ExtResource("11_aa2h1")
 
 [node name="CountryLabel" type="Label" parent="Container/LocationContainer"]
@@ -202,3 +203,4 @@ script = ExtResource("9_5sm81")
 [connection signal="pressed" from="Container/BackBtn" to="Container" method="OnBackPressed"]
 [connection signal="pressed" from="Container/RandomiseCharacter" to="Container" method="OnRandomizePressed"]
 [connection signal="pressed" from="Container/LocationContainer/CloseBtn" to="Container/LocationContainer" method="OnCloseBtnPressed"]
+[connection signal="pressed" from="Container/LocationContainer/SaveBtn" to="Container/LocationContainer" method="OnSaveBtnPressed"]

@@ -91,6 +91,26 @@ public partial class LocationSelectController : TextureRect
 		}
 	}
 
+	public void OnSaveBtnPressed()
+	{
+		GameController gameController = GetNode<GameController>("/root/GameController");
+		CountryDatabase countryDb = GetNode<CountryDatabase>("/root/CountryDatabase");
+		if(gameController != null && countryDb != null)
+		{
+			string countryName = _CountriesGroup.GetToggleValue();
+			string stateName = _StatesGroup.GetToggleValue();
+			
+			Label locationText = GetNode<Label>("/root/CanvasGroup/Container/Location/Label");
+			if(locationText != null)
+			{
+				locationText.Text = stateName + ", " + countryName;
+			}
+
+			this.Visible = false;
+
+		}
+	}
+
 	public void OnCloseBtnPressed()
 	{
 		this.Visible = false;
