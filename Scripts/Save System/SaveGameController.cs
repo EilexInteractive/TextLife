@@ -1,6 +1,9 @@
 using Godot;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.IO;
 
 public partial class SaveGameController : Node
@@ -12,7 +15,7 @@ public partial class SaveGameController : Node
 		{
 			SaveGame save = new SaveGame();
 			save.SaveName = game.CurrentCharacter.FirstName + " " + game.CurrentCharacter.LastName;
-			save.Character = game.CurrentCharacter;
+			save.Character = game.CurrentCharacter.CreateCharacterSave();
 			save.DateIndex = game.CurrentEventID;
 
 			string output = JsonConvert.SerializeObject(save);
@@ -26,13 +29,39 @@ public partial class SaveGameController : Node
 			{
 				using(JsonWriter jw = new JsonTextWriter(sw))
 				{
-					serializer.Serialize(jw, save);
+					jw.WriteStartArray();
+					jw.WriteRawValue(JsonConvert.SerializeObject(save));
+					jw.WriteEndArray();
+					//serializer.Serialize(jw, save);
 				}
 			}
 
 			game.PlayerPrefs.LastSaveName = save.SaveName;
 			SavePlayerPrefs();
 		}
+	}
+
+	public bool LoadGame(string filePath)
+	{
+		GameController game = GetNode<GameController>("/root/GameController");
+		if(game != null)
+		{
+			if(File.Exists(filePath))
+			{
+				using(StreamReader sr = new StreamReader(filePath))
+				{
+					
+					string text = sr.ReadToEnd();
+					var saveObject = JArray.Parse(text);
+					JToken token = saveObject;
+					SaveGame load = JsonConvert.DeserializeObject<SaveGame>(token.ToString());
+					GD.Print(load.SaveName);
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	public void SavePlayerPrefs()
