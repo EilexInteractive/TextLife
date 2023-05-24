@@ -5,6 +5,7 @@ using System.IO;
 public partial class MainMenuController : TextureRect
 {
 	[Export] private PackedScene _NewGameScene;
+	[Export] private PackedScene _GameView;
 
 	private Label _QuickSaveName;
 	private TextureButton _ContinueBtn;
@@ -33,6 +34,22 @@ public partial class MainMenuController : TextureRect
 		{
 			_QuickSaveName.Text = lastSaveName;
 			_ContinueBtn.Disabled = false;
+		}
+	}
+
+	public void OnContinuePressed()
+	{
+		GameController game = GetNode<GameController>("/root/GameController");
+		SaveGameController saveController = GetNode<SaveGameController>("/root/SaveGameController");
+
+		if(game == null || saveController == null)
+			return;
+
+		string saveFilePath = GetNode<GameController>("/root/GameController")?.ApplicationFolder;
+		saveFilePath += "/Saves/" + GetNode<GameController>("/root/GameController").PlayerPrefs.LastSaveName + ".ei";
+		if(saveController.LoadGame(saveFilePath))
+		{
+			GetTree().ChangeSceneToPacked(_GameView);
 		}
 	}
 	
