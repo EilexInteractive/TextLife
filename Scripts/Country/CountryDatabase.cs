@@ -8,12 +8,15 @@ public partial class CountryDatabase : Node
 {
     const string FILE_LOCATION = "res://Database/Countries.json";
     private List<Country> _Countries = new List<Country>();
+    public List<Country> Countries { get => _Countries; }
 
     public override void _Ready()
     {
         base._Ready();
         LoadCountries();
     }
+
+    
 
     public Country GetRandomCountry()
     {
