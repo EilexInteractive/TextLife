@@ -241,4 +241,36 @@ public class CharacterDetails
 
         return str;
     }
+
+    public CharacterSave CreateCharacterSave()
+    {
+        int gender = (int)_Sex;
+        return new CharacterSave(_FirstName, _LastName, gender, _YearsOld, _MonthsOld, _Country.Name, _State);
+    }
+}
+
+public class CharacterSave
+{
+    public string FirstName;
+    public string LastName;
+    public int Sex;
+
+    public int YearsOld;
+    public int MonthsOld;
+    public string CountryName;
+    public string State;
+
+    public CharacterSave()
+    {}
+
+    public CharacterSave(string fname, string lname, int sex, int yearsOld, int monthsOld, string country, string state)
+    {
+        FirstName = fname;
+        LastName = lname;
+        Sex = sex;
+        YearsOld = yearsOld;
+        MonthsOld = monthsOld;
+        CountryName = country;
+        State = state;
+    }
 }
