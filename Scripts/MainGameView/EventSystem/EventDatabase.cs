@@ -112,6 +112,12 @@ public partial class EventDatabase : Node
 
 
 
+
+    /// <summary>
+    /// Determines the age category from the string
+    /// </summary>
+    /// <param name="category">Category as a string</param>
+    /// <returns></returns>
     private EAgeCategory GetAgecategory(string category)
     {
         switch(category)
@@ -137,6 +143,11 @@ public partial class EventDatabase : Node
         }
     }
 
+    /// <summary>
+    /// Determines sex from string
+    /// </summary>
+    /// <param name="sex">Sex as a string</param>
+    /// <returns></returns>
     private ESex GetSexCategory(string sex)
     {
         switch(sex)
@@ -150,6 +161,12 @@ public partial class EventDatabase : Node
         }
     }
 
+
+    /// <summary>
+    /// Determines event type from a string
+    /// </summary>
+    /// <param name="e">Event as a string</param>
+    /// <returns></returns>
     private ELifeEventType GetEventType(string e)
     {
         switch(e)
@@ -165,6 +182,11 @@ public partial class EventDatabase : Node
         }
     }
 
+    /// <summary>
+    /// Finds the relevant action from the name of the event
+    /// </summary>
+    /// <param name="name">Name of the event</param>
+    /// <returns></returns>
     public EventAction GetActionEvent(string name)
     {
         foreach(var action in _ActionEventsData)
@@ -176,23 +198,34 @@ public partial class EventDatabase : Node
         return null;
     }
 
+    /// <summary>
+    /// Selects a random birth event 
+    /// </summary>
+    /// <returns></returns>
     public LifeEventLog GetBirthEvent()
     {
+        // Pre-define a list of birth events
         List<LifeEventLog> birthEvents = new List<LifeEventLog>();
+
+        // Loops through each event
         foreach(var e in _EventData)
         {
+            // Validate the event, and check that it is a birth event
+            // Then add the event to the pre-defined list
             if(e != null && e.Type == ELifeEventType.BIRTH)
             {
                 birthEvents.Add(e);
             }
         }
 
+        // Create a random number generator
         RandomNumberGenerator rand = new RandomNumberGenerator();
         rand.Randomize();
 
-        LifeEventLog selectedEvent = null;
+        LifeEventLog selectedEvent = null;              // Pre-define the selected event
 
-        selectedEvent = birthEvents[rand.RandiRange(0, birthEvents.Count - 1)];
+        selectedEvent = birthEvents[rand.RandiRange(0, birthEvents.Count - 1)].Copy();         // Get a random event
+        // Validate the event and update its properties
         if(selectedEvent != null)
         {
             selectedEvent.IsBornEvent = true;
@@ -201,7 +234,7 @@ public partial class EventDatabase : Node
         }
         
 
-        return selectedEvent;
+        return selectedEvent;               // Return the created event
     }
 
 
