@@ -3,30 +3,35 @@
         "EventText": "I was born at (location) in (birthMonth). My mums name is (mumName) and Dad (dadName). Dad works as a (dadJob) and Mum works as a (mum job)",
         "AgeCategory": "Baby",
         "EventType": "Birth",
-         "Sex": "All"
+         "Sex": "All",
+         "Events": "TestEvent"
     },
     {
         "EventText": "My parents brought you a kitten named elfi!",
         "AgeCategory": "Baby",
         "EventType": "Event",
-        "Sex": "All"
+        "Sex": "All",
+        "Events": ""
     },
     {
         "EventText": "My mum brought you a new teddy bear",
         "AgeCategory": "Baby",
         "EventType": "Event",
-        "Sex": "All"
+        "Sex": "All",
+        "Events": ""
     },
     {
         "EventText": "My first tooth started growing",
         "AgeCategory": "Baby",
         "EventType": "Event",
-        "Sex": "All"
+        "Sex": "All",
+        "Events": ""
     },
     {
         "EventText": "My Parents moved us into a new house at: 23 Shore Rd, New Hampton",
         "AgeCategory": "All",
         "EventType": "Event",
-        "Sex": "All"
+        "Sex": "All",
+        "Events": ""
     }
 ]
