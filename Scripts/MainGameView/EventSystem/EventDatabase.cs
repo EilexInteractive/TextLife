@@ -150,6 +150,17 @@ public partial class EventDatabase : Node
         }
     }
 
+    public EventAction GetActionEvent(string name)
+    {
+        foreach(var action in _ActionEventsData)
+        {
+            if(name == action)
+                return action;
+        }
+
+        return null;
+    }
+
     public LifeEventLog GetBirthEvent()
     {
         List<LifeEventLog> birthEvents = new List<LifeEventLog>();
