@@ -75,12 +75,12 @@ public partial class EventDatabase : Node
                             {
                                 if(e.Text == randomEvent.Text)
                                     continue;
-
-                                randomEvent.Year = character.YearsOld;
-                                randomEvent.Month = character.MonthsOld;
-                                randomEvent.ID = game.CurrentEventID;
-                                return randomEvent;
                             }
+
+                            randomEvent.Year = character.YearsOld;
+                            randomEvent.Month = character.MonthsOld;
+                            randomEvent.ID = game.CurrentEventID;
+                            return randomEvent;
                         }
                     }
                 }
