@@ -39,6 +39,7 @@ public partial class EventDatabase : Node
                 EAgeCategory dataCategory = GetAgecategory(data.AgeCategory);
                 ELifeEventType dataEventType = GetEventType(data.EventType);
                 ESex dataSex = GetSexCategory(data.Sex);
+
                 
                 // Create the event log
                 LifeEventLog log = new LifeEventLog(dataText, dataEventType, dataCategory, dataSex);
@@ -246,4 +247,5 @@ public class EventData
     public string AgeCategory;
     public string EventType;
     public string Sex;
+    public string Events;
 }
