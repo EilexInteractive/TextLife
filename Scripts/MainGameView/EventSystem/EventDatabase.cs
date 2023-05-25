@@ -8,6 +8,7 @@ public partial class EventDatabase : Node
 {
     const string FILE_LOCATION = "res://Database/Events.json";
     private List<LifeEventLog> _EventData = new List<LifeEventLog>();
+    private List<EventAction> _ActionEventsData = new List<EventAction>();
 
     public override void _Ready()
     {
