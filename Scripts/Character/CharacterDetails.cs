@@ -133,6 +133,8 @@ public class CharacterDetails
             _YearsOld += 1;
         }
 
+        _CharacterAgeCategory = GetAgeCategory();
+
 
         AddLifeEvent(CreateDateLog(game));
     }
@@ -146,6 +148,8 @@ public class CharacterDetails
     {
         string monthAsString = game.GetMonthAsString();
         LifeEventLog dateLog = new LifeEventLog($"{monthAsString} - {_YearsOld} Years, {_MonthsOld} Months", ELifeEventType.DATE, _CharacterAgeCategory, _Sex);
+        dateLog.Year = _YearsOld;
+        dateLog.Month = _MonthsOld;
         return dateLog.Copy(game.CurrentEventID);
     }
 
@@ -301,6 +305,18 @@ public class CharacterDetails
             eventLog.Add(e.CreateEventSave());
 
         return new CharacterSave(_FirstName, _LastName, gender, _YearsOld, _MonthsOld, _Country.Name, _State, dateSaves, eventLog);
+    }
+
+    public List<LifeEventLog> GetEventsFromDate(int year, int month)
+    {
+        List<LifeEventLog> logs = new List<LifeEventLog>();
+        foreach(var log in _LifeEventLog)
+        {
+            if(log.Year == year && log.Month == month)
+                logs.Add(log);
+        }
+
+        return logs;
     }
 }
 

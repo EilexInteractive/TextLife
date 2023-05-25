@@ -47,6 +47,53 @@ public partial class EventDatabase : Node
         
     }
 
+    /// <summary>
+    /// Creates a new random event
+    /// </summary>
+    /// <param name="age">Age category of the character</param>
+    /// <returns>A new life event</returns>
+    public LifeEventLog GetRandomEvent(EAgeCategory age)
+    {
+        RandomNumberGenerator rand = new RandomNumberGenerator();
+        rand.Randomize();
+        int loop = 0;
+        while(true)
+        {
+            LifeEventLog randomEvent = _EventData[rand.RandiRange(0, _EventData.Count - 1)];
+            if(randomEvent != null)
+            {
+                if(age == randomEvent.AgeCategory)
+                {
+                    GameController game = GetNode<GameController>("/root/GameController");
+                    if(game != null)
+                    {
+                        CharacterDetails character = game.CurrentCharacter;
+                        if(character != null)
+                        {
+                            List<LifeEventLog> events = character.GetEventsFromDate(character.YearsOld, character.MonthsOld);
+                            foreach(var e in events)
+                            {
+                                if(e.Text == randomEvent.Text)
+                                    continue;
+
+                                randomEvent.Year = character.YearsOld;
+                                randomEvent.Month = character.MonthsOld;
+                                randomEvent.ID = game.CurrentEventID;
+                                return randomEvent;
+                            }
+                        }
+                    }
+                }
+            }
+
+            loop++;
+            if(loop > 1000)
+                break;
+        }
+
+        return null;
+    }
+
 
 
     private EAgeCategory GetAgecategory(string category)
@@ -116,7 +163,18 @@ public partial class EventDatabase : Node
         RandomNumberGenerator rand = new RandomNumberGenerator();
         rand.Randomize();
 
-        return birthEvents[rand.RandiRange(0, birthEvents.Count - 1)];
+        LifeEventLog selectedEvent = null;
+
+        selectedEvent = birthEvents[rand.RandiRange(0, birthEvents.Count - 1)];
+        if(selectedEvent != null)
+        {
+            selectedEvent.IsBornEvent = true;
+            selectedEvent.Year = 0;
+            selectedEvent.Month = 0;
+        }
+        
+
+        return selectedEvent;
     }
 
 

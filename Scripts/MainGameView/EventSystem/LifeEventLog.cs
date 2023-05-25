@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using Newtonsoft.Json;
 
 public class LifeEventLog
 {
@@ -9,6 +10,8 @@ public class LifeEventLog
     public ELifeEventType Type;
     public EAgeCategory AgeCategory;
     public ESex SexCategory;
+    public int Year;
+    public int Month;
 
     public bool IsBornEvent = false;
 
@@ -23,23 +26,25 @@ public class LifeEventLog
         SexCategory = sex;
     }
 
-    public LifeEventLog(int id, string text, ELifeEventType type, EAgeCategory category, ESex sex)
+    public LifeEventLog(int id, string text, ELifeEventType type, EAgeCategory category, ESex sex, int year, int month)
     {
         ID = id;
         Text = text;
         Type = type;
         AgeCategory = category;
         SexCategory = sex;
+        Year = year;
+        Month = month;
     }
 
     public LifeEventLog Copy(int id)
     {
-        return new LifeEventLog(id, Text, this.Type, this.AgeCategory, this.SexCategory);
+        return new LifeEventLog(id, Text, this.Type, this.AgeCategory, this.SexCategory, Year, Month);
     }
 
     public LifeEventSave CreateEventSave()
     {
-        return new LifeEventSave(ID, Text, (int)Type, (int)SexCategory, (int)AgeCategory, IsBornEvent);
+        return new LifeEventSave(ID, Text, (int)Type, (int)SexCategory, (int)AgeCategory, IsBornEvent, Year, Month);
     }
 }
 
@@ -52,16 +57,27 @@ public enum ELifeEventType
 
 public class LifeEventSave
 {
+    [JsonProperty]
     public int ID;
+    [JsonProperty]
     public string Text;
+    [JsonProperty]
     public int Type;
+    [JsonProperty]
     public int Sex;
+    [JsonProperty]
     public int AgeCategory;
+    [JsonProperty]
     public bool IsBornEvent;
+    [JsonProperty]
+    public int Years;
+    [JsonProperty]
+    public int Month;
+
     public LifeEventSave()
     {}
 
-    public LifeEventSave(int id, string text, int type, int sex, int category, bool bornEvent)
+    public LifeEventSave(int id, string text, int type, int sex, int category, bool bornEvent, int year, int month)
     {
         ID = id;
         Text = text;
@@ -69,6 +85,8 @@ public class LifeEventSave
         Sex = sex;
         AgeCategory = category;
         IsBornEvent = bornEvent;
+        Years = year;
+        Month = month;
     }
 
     public LifeEventLog LoadLifeEvent()

@@ -174,7 +174,6 @@ public partial class CharacterGenerator : Node
             character.AddLifeEvent(log);
 
             LifeEventLog birthEvent = eventDb.GetBirthEvent();
-            birthEvent.IsBornEvent = true;
             birthEvent.Text = birthEvent.Text.Replace("(location)", $"{character.Country.Name}, {character.State}");
             birthEvent.Text = birthEvent.Text.Replace("(birthMonth)", game.GetMonthAsString());
             character.AddLifeEvent(birthEvent.Copy(game.CurrentEventID));

@@ -28,7 +28,20 @@ public partial class MainSceneController : ColorRect
 		game.IncrementMonth();
 		CharacterDetails currentCharacter = game.CurrentCharacter;
 		if(currentCharacter != null)
+		{
 			currentCharacter.AgeUp(game);
+			EventDatabase eventDb = GetNode<EventDatabase>("/root/EventDatabase");
+			if(eventDb != null)
+			{
+				LifeEventLog log = eventDb.GetRandomEvent(currentCharacter.CharacterAgeCategory);
+				
+				if(log != null)
+					currentCharacter.AddLifeEvent(log);
+			}
+		}
+			
+
+		
 
 		EventContainer eventContainer = GetNode<EventContainer>("TextureRect/EventLog");
 		if(eventContainer != null)
