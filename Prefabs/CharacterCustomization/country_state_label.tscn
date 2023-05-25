@@ -7,7 +7,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_eln8r"]
 font = ExtResource("1_cavdd")
-font_size = 50
+font_size = 80
 
 [node name="CountryStateLabel" type="Label"]
 offset_top = 2.0
