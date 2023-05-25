@@ -11,15 +11,15 @@ public class EventAction
     public event Action<float> ActionEventFloat;
     public event Action<bool> ActionEventBool;
 
-    public static bool operator ==(EventAction a, EventAction b)
+    public static bool operator ==(string a, EventAction b)
     {
-        if(a.EventName == b.EventName)
+        if(a == b.EventName)
             return true;
 
         return false;
     }
 
-    public static bool operator !=(EventAction a, EventAction b)
+    public static bool operator !=(string a, EventAction b)
     {
         return a != b;
     }
