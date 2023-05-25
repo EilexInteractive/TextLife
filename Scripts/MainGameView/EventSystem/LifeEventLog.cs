@@ -46,6 +46,11 @@ public class LifeEventLog
     {
         return new LifeEventSave(ID, Text, (int)Type, (int)SexCategory, (int)AgeCategory, IsBornEvent, Year, Month);
     }
+
+    public LifeEventLog Copy()
+    {
+        return new LifeEventLog(Text, Type, AgeCategory, SexCategory);
+    }
 }
 
 public enum ELifeEventType

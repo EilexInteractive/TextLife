@@ -6,9 +6,9 @@ using Newtonsoft.Json.Linq;
 
 public partial class EventDatabase : Node
 {
-    const string FILE_LOCATION = "res://Database/Events.json";
-    private List<LifeEventLog> _EventData = new List<LifeEventLog>();
-    private List<EventAction> _ActionEventsData = new List<EventAction>();
+    const string FILE_LOCATION = "res://Database/Events.json";              // Reference to the events database
+    private List<LifeEventLog> _EventData = new List<LifeEventLog>();           // List of all events that can occur
+    private List<EventAction> _ActionEventsData = new List<EventAction>();      // List of all the actions that attach to event
 
     public override void _Ready()
     {
@@ -16,13 +16,19 @@ public partial class EventDatabase : Node
         LoadEvents();
     }
 
+    /// <summary>
+    ///  Loads all the events from the database
+    /// </summary>
     private void LoadEvents()
     {
+        // Open the file and validate it is open
         var file = Godot.FileAccess.Open(FILE_LOCATION, Godot.FileAccess.ModeFlags.Read);
         if(file != null && file.IsOpen())
         {
-            string text = file.GetAsText();
-            var objects = JArray.Parse(text);
+            string text = file.GetAsText();             // Get the JSON data as a string
+            var objects = JArray.Parse(text);           // Parse the JSON data into a JArray
+
+            // Loop through each JSON object
             foreach(var obj in objects)
             {
                 // Get json and deserialize it
@@ -42,6 +48,8 @@ public partial class EventDatabase : Node
             file.Close();
         } else 
         {
+            // Error Handling
+            // TODO: Indicate there is a failure
             GD.Print($"Failed to load JSON File: Events Data");
         }
 
@@ -55,22 +63,28 @@ public partial class EventDatabase : Node
     /// <returns>A new life event</returns>
     public LifeEventLog GetRandomEvent(EAgeCategory age)
     {
+        // Create a random number generator
         RandomNumberGenerator rand = new RandomNumberGenerator();
         rand.Randomize();
-        int loop = 0;
+
+        int loop = 0;               // Loop count to prevent infinite loop
         while(true)
         {
-            LifeEventLog randomEvent = _EventData[rand.RandiRange(0, _EventData.Count - 1)];
+            // Select a random event & validate it
+            LifeEventLog randomEvent = _EventData[rand.RandiRange(0, _EventData.Count - 1)].Copy();
             if(randomEvent != null)
             {
+                // Check if the age category matches
                 if(age == randomEvent.AgeCategory)
                 {
+                    // Get reference to the game controller & validate it
                     GameController game = GetNode<GameController>("/root/GameController");
                     if(game != null)
                     {
-                        CharacterDetails character = game.CurrentCharacter;
+                        CharacterDetails character = game.CurrentCharacter;             // Get reference to the current character the player is playing as.
                         if(character != null)
                         {
+                            // Check that the event has happened already. if so pass on to the next event
                             List<LifeEventLog> events = character.GetEventsFromDate(character.YearsOld, character.MonthsOld);
                             foreach(var e in events)
                             {
@@ -78,6 +92,7 @@ public partial class EventDatabase : Node
                                     continue;
                             }
 
+                            // Create the event and return it.
                             randomEvent.Year = character.YearsOld;
                             randomEvent.Month = character.MonthsOld;
                             randomEvent.ID = game.CurrentEventID;
