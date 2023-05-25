@@ -13,6 +13,9 @@ public class LifeEventLog
     public int Year;
     public int Month;
 
+    [JsonIgnore]
+    public List<EventAction> _Actions = new List<EventAction>();
+
     public bool IsBornEvent = false;
 
     public LifeEventLog()
