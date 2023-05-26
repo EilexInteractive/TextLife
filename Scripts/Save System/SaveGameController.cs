@@ -139,4 +139,27 @@ public partial class SaveGameController : Node
 
 		return 0;
 	}
+
+	public bool HasSaveGame(string fileName)
+	{
+		GameController gameController = GetNode<GameController>("/root/GameController");
+		if(gameController != null)
+		{
+			string savePath = gameController.ApplicationFolder + "/Saves";
+			if(Directory.Exists(savePath))
+			{
+				string[] saves = Directory.GetFiles(savePath);
+				foreach(var save in saves)
+				{
+					string file = Path.GetFileName(save);
+					file = file.Replace(".ei", "");
+					if(file == fileName)
+						return true;
+
+				}
+			}
+		}
+
+		return false;
+	}
 }

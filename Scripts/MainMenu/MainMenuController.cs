@@ -49,8 +49,19 @@ public partial class MainMenuController : TextureRect
 		string lastSaveName = GetNode<GameController>("/root/GameController")?.PlayerPrefs.LastSaveName;
 		if(lastSaveName != "" && _QuickSaveName != null && _ContinueBtn != null)
 		{
-			_QuickSaveName.Text = lastSaveName;
-			_ContinueBtn.Disabled = false;
+			SaveGameController saveController = GetNode<SaveGameController>("/root/SaveGameController");
+			if(saveController != null)
+			{
+				if(saveController.HasSaveGame(lastSaveName))
+				{
+					_QuickSaveName.Text = lastSaveName;
+					_ContinueBtn.Disabled = false;
+				} else 
+				{
+					GetNode<GameController>("/root/GameController").PlayerPrefs.LastSaveName = "";
+					saveController.SavePlayerPrefs();
+				}
+			}
 		}
 	}
 
