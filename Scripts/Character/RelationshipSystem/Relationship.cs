@@ -11,7 +11,8 @@ public enum ERelationshipType
     SIBLING = 4,
     GRAND_PARENTS = 5,
     COUSIN = 6,
-    ENEMY = 7
+    ENEMY = 7,
+    CHILD = 8
 }
 
 public class Relationship
