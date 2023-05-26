@@ -4,16 +4,34 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+public enum EEventActionType
+{
+    NULL,
+    STRING,
+    INT,
+    FLOAT,
+    BOOL
+}
+
 public partial class EventDatabase : Node
 {
     const string FILE_LOCATION = "res://Database/Events.json";              // Reference to the events database
     private List<LifeEventLog> _EventData = new List<LifeEventLog>();           // List of all events that can occur
+
+
     private List<EventAction> _ActionEventsData = new List<EventAction>();      // List of all the actions that attach to event
+    private List<EventAction> _ActionEventsString = new List<EventAction>();
+    private List<EventAction> _ActionEventsBool = new List<EventAction>();
+    private List<EventAction> _ActionEventsInt = new List<EventAction>();
+    private List<EventAction> _ActionEventsFloat = new List<EventAction>();
 
     public override void _Ready()
     {
         base._Ready();
+         AddAction("TestFunction", TestEvent);
         LoadEvents();
+
+       
     }
 
     /// <summary>
@@ -40,9 +58,27 @@ public partial class EventDatabase : Node
                 ELifeEventType dataEventType = GetEventType(data.EventType);
                 ESex dataSex = GetSexCategory(data.Sex);
 
+                List<EventAction> parsedEvents = ParseEvents(data.Events);
+
                 
                 // Create the event log
                 LifeEventLog log = new LifeEventLog(dataText, dataEventType, dataCategory, dataSex);
+                if(log != null)
+                {
+                    foreach(var e in parsedEvents)
+                    {
+                        if(e != null)
+                            log.Actions.Add(e);
+                        else 
+                            GD.Print("Error Occured: Failed to load event data");
+                    }
+                } else 
+                {
+                    GD.Print("Error Occured: Failed to create event");
+                }
+                    
+
+                
                 _EventData.Add(log);
             }
 
@@ -55,6 +91,36 @@ public partial class EventDatabase : Node
         }
 
         
+    }
+
+    public void TestEvent()
+    {
+        GD.Print("Hello World");
+    }
+
+    public EventAction GetEventFromName(string name)
+    {
+        foreach(var e in _ActionEventsData)
+            if(e.EventName == name)
+                return e;
+
+        foreach(var e in _ActionEventsBool)
+            if(e.EventName == name)
+                return e;
+
+        foreach(var e in _ActionEventsFloat)
+            if(e.EventName == name)
+                return e;
+
+        foreach(var e in _ActionEventsInt)
+            if(e.EventName == name)
+                return e;
+
+        foreach(var e in _ActionEventsString)
+            if(e.EventName == name)
+                return e;
+
+        return null;
     }
 
     /// <summary>
@@ -109,6 +175,61 @@ public partial class EventDatabase : Node
         }
 
         return null;
+    }
+
+    private List<EventAction> ParseEvents(string eventsText)
+    {
+        List<EventAction> _actions = new List<EventAction>();
+        string[] actionsString = eventsText.Split(",");
+
+        foreach(var e in actionsString)
+        {
+            EventAction action = GetEventFromName(e);
+            if(action != null)
+            {
+                _actions.Add(action);
+            }
+        }
+
+        return _actions;
+    }
+
+    public void AddAction(string eventName, Action e) 
+    {
+        EventAction action = new EventAction();
+        action.EventName = eventName;
+        action.EventActionNoProps += e;
+        action.EventType = EEventActionType.NULL;
+        _ActionEventsData.Add(action);
+    }
+
+    public void AddAction<T>(string eventName, Action<T> e, EEventActionType type)
+    {
+        EventAction creatingEvent = new EventAction();
+        creatingEvent.EventName = eventName;
+        switch(type)
+        {
+            case EEventActionType.STRING:
+                creatingEvent.EventActionString += e as Action<string>;
+                creatingEvent.EventType = EEventActionType.STRING;
+                _ActionEventsString.Add(creatingEvent);
+                break;
+            case EEventActionType.INT:
+                creatingEvent.EventActionInt += e as Action<int>;
+                creatingEvent.EventType = EEventActionType.INT;
+                _ActionEventsInt.Add(creatingEvent);
+                break;
+            case EEventActionType.FLOAT:
+                creatingEvent.EventActionFloat += e as Action<float>;
+                creatingEvent.EventType = EEventActionType.FLOAT;
+                _ActionEventsFloat.Add(creatingEvent);
+                break;
+            case EEventActionType.BOOL:
+                creatingEvent.EventActionBool += e as Action<bool>;
+                creatingEvent.EventType = EEventActionType.BOOL;
+                _ActionEventsBool.Add(creatingEvent);
+                break;
+        }
     }
 
 
@@ -243,9 +364,14 @@ public partial class EventDatabase : Node
 
 public class EventData
 {
+    [JsonProperty]
     public string EventText;
+    [JsonProperty]
     public string AgeCategory;
+    [JsonProperty]
     public string EventType;
+    [JsonProperty]
     public string Sex;
+    [JsonProperty]
     public string Events;
 }

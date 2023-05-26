@@ -14,22 +14,24 @@ public class LifeEventLog
     public int Month;
 
     [JsonIgnore]
-    public List<EventAction> _Actions = new List<EventAction>();
+    public List<EventAction> Actions = new List<EventAction>();
 
     public bool IsBornEvent = false;
 
     public LifeEventLog()
     {}
 
-    public LifeEventLog(string text, ELifeEventType type, EAgeCategory category, ESex sex)
+    public LifeEventLog(string text, ELifeEventType type, EAgeCategory category, ESex sex, List<EventAction> actions = null)
     {
         Text = text;
         Type = type;
         AgeCategory = category;
         SexCategory = sex;
+        if(actions != null)
+            Actions = actions;
     }
 
-    public LifeEventLog(int id, string text, ELifeEventType type, EAgeCategory category, ESex sex, int year, int month)
+    public LifeEventLog(int id, string text, ELifeEventType type, EAgeCategory category, ESex sex, int year, int month, List<EventAction> events)
     {
         ID = id;
         Text = text;
@@ -38,11 +40,55 @@ public class LifeEventLog
         SexCategory = sex;
         Year = year;
         Month = month;
+        Actions = events;
+    }
+
+    public void Dispatch()
+    {
+        foreach(var e in Actions)
+            e.Dispatch();
+    }
+
+    public void Dispatch(string prop)
+    {
+        foreach(var e in Actions)
+            if(e.EventType == EEventActionType.STRING)
+                e.Dispatch(prop);
+    }
+
+    public void Dispatch(int prop)
+    {
+        foreach(var e in Actions)
+            if(e.EventType == EEventActionType.INT)
+                e.Dispatch(prop);
+    }
+
+    public void Dispatch(float prop)
+    {
+        foreach(var e in Actions)
+            if(e.EventType == EEventActionType.FLOAT)
+                e.Dispatch(prop);
+    }
+
+    public void Dispatch(bool prop)
+    {
+        foreach(var e in Actions)
+            if(e.EventType == EEventActionType.BOOL)
+                e.Dispatch(prop);
+    }
+
+    public void DispatchAll(string propStr, int propIn, float propFl, bool propBo)
+    {
+        Dispatch();
+        Dispatch(propStr);
+        Dispatch(propIn);
+        Dispatch(propFl);
+        Dispatch(propBo);
     }
 
     public LifeEventLog Copy(int id)
     {
-        return new LifeEventLog(id, Text, this.Type, this.AgeCategory, this.SexCategory, Year, Month);
+        return new LifeEventLog(id, Text, this.Type, this.AgeCategory, this.SexCategory, Year, Month, Actions);
     }
 
     public LifeEventSave CreateEventSave()
@@ -52,7 +98,7 @@ public class LifeEventLog
 
     public LifeEventLog Copy()
     {
-        return new LifeEventLog(Text, Type, AgeCategory, SexCategory);
+        return new LifeEventLog(Text, Type, AgeCategory, SexCategory, Actions);
     }
 }
 

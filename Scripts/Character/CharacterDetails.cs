@@ -114,6 +114,7 @@ public class CharacterDetails
         } else 
         {
             _LifeEventLog.Add(lifeEvent);
+            lifeEvent.Dispatch();
         }
     }
 
