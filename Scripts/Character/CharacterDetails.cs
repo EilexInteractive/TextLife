@@ -57,6 +57,11 @@ public class CharacterDetails
     private EAgeCategory _CharacterAgeCategory;
     public EAgeCategory CharacterAgeCategory { get => _CharacterAgeCategory; }
 
+    // === Relationship System === //
+    private List<Relationship> _Relationships = new List<Relationship>();
+    public List<Relationship> Relationships { get => _Relationships; }
+    
+
     public CharacterDetails(string firstName, string lastName, int years, int months, ESex gender, Country country, string state, int money, GameController game)
     {
         _FirstName = firstName;
