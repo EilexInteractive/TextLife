@@ -7,8 +7,11 @@ public enum ERelationshipType
     ACQUAINTANCE = 0,
     FRIEND = 1,
     BEST_FRIEND = 2,
-    PARENT,
-    SIBLING
+    PARENT = 3,
+    SIBLING = 4,
+    GRAND_PARENTS = 5,
+    COUSIN = 6,
+    ENEMY = 7
 }
 
 public class Relationship
