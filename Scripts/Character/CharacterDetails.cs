@@ -211,6 +211,12 @@ public class CharacterDetails
         return false;
     }
 
+    public void AddRelationship(Relationship r) 
+    {
+        if(r != null)
+            _Relationships.Add(r);
+    }
+
     public void SetCharacterName(string[] name)
     {
         _FirstName = name[0];
