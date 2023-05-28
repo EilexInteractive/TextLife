@@ -40,7 +40,6 @@ public partial class CharacterGenerator : Node
     /// <param name="randomLastName">If we are generating a random name</param>
     /// <param name="existingLastName">If true; current last name to set</param>
     /// <returns>New character details</returns>
-    public CharacterDetails GenerateRandomCharacter(bool isBaby, bool randomLastName = false, string existingLastName = "")
     public CharacterDetails GenerateRandomCharacter(bool isBaby, bool randomLastName = false, string existingLastName = "", bool hasParents = false)
     {
         // Predefine character properties
@@ -113,14 +112,18 @@ public partial class CharacterGenerator : Node
     /// </summary>
     /// <param name="years">Age in years</param>
     /// <returns>New character details</returns>
-    public CharacterDetails GenerateCharacterFromAge(int years)
+    public CharacterDetails GenerateCharacterFromAge(int years, bool generateParents = false)
     {
-        CharacterDetails currentCharacter;
+        CharacterDetails currentCharacter = null;
 
         if(years < 3)
+        {
             currentCharacter = GenerateRandomCharacter(true);
-        else
+        } else
+        {
             currentCharacter = GenerateRandomCharacter(false);
+        }
+            
 
         RandomNumberGenerator rand = new RandomNumberGenerator();
         rand.Randomize();
