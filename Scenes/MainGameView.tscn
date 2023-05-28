@@ -366,6 +366,7 @@ offset_right = 95.0
 offset_bottom = 165.0
 texture_normal = ExtResource("37_vgufp")
 
+[connection signal="pressed" from="ColorRect/TextureRect/InteractiveContainer/GridContainer/Friends" to="ColorRect" method="OnRelationshipPressed"]
 [connection signal="pressed" from="ColorRect/TextureRect/AdvanceGameBtn" to="ColorRect" method="OnAdvanceGame"]
 [connection signal="pressed" from="ColorRect/TextureRect/ExitToMenu" to="ColorRect" method="OnExitToMenu"]
 [connection signal="pressed" from="ColorRect/TextureRect/LoadGameIcon" to="ColorRect" method="OnLoadGamePressed"]
