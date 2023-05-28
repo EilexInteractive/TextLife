@@ -56,6 +56,11 @@ public partial class MainSceneController : ColorRect
 			saveController.SaveGame();
 	}
 
+	public void OnRelationshipPressed()
+	{
+		GetTree().ChangeSceneToFile("res://Scenes/RelationshipView.tscn");
+	}
+
 	public void OnExitToMenu()
 	{
 		SaveGameController saveController = GetNode<SaveGameController>("/root/SaveGameController");
