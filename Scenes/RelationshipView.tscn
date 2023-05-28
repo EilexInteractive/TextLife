@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6dn38xs2bteh"]
+
+[ext_resource type="Script" path="res://Scripts/Relationships/RelationshipViewController.cs" id="1_grkgd"]
+[ext_resource type="Texture2D" uid="uid://bs12vxido0pd0" path="res://UI/MainGame/PageBackground.png" id="1_voel3"]
+[ext_resource type="Texture2D" uid="uid://sninou8imyn7" path="res://UI/Relationships/BackToMainGame.png" id="2_o80ss"]
+[ext_resource type="Texture2D" uid="uid://cmvh3sxtgan1f" path="res://UI/Relationships/Background.png" id="3_s2wl5"]
+
+[node name="CanvasGroup" type="CanvasGroup"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1937.0
+offset_bottom = 1093.0
+color = Color(0, 0.737255, 0.960784, 1)
+script = ExtResource("1_grkgd")
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_voel3")
+
+[node name="ReturnBtn" type="TextureButton" parent="ColorRect/TextureRect"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 59.0
+offset_right = 94.0
+offset_bottom = 110.0
+texture_normal = ExtResource("2_o80ss")
+
+[node name="Background" type="TextureRect" parent="ColorRect/TextureRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_s2wl5")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/TextureRect/Background"]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 133.0
+offset_right = 1816.0
+offset_bottom = 945.0
+
+[node name="RelationContainer" type="VBoxContainer" parent="ColorRect/TextureRect/Background/ScrollContainer"]
+custom_minimum_size = Vector2(1652, 0)
+layout_mode = 2
+
+[connection signal="pressed" from="ColorRect/TextureRect/ReturnBtn" to="ColorRect" method="OnReturnPressed"]
