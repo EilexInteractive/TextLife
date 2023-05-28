@@ -46,6 +46,9 @@ public class CharacterDetails
     private int _Money;
     public int Money { get => _Money; }
 
+    private bool _IsAlive = true;
+    public bool IsAlive { get => _IsAlive; }
+
     private CharacterStats _Stats;
     public CharacterStats Stats { get => _Stats; }
 
