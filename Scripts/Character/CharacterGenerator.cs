@@ -177,6 +177,88 @@ public partial class CharacterGenerator : Node
         }
     }
 
+    public CharacterDetails GenerateCharacterOfSex(ESex sex, bool baby = false, bool hasParents = false)
+    {
+        string fname;
+        string lname;
+        ESex s = sex;
+        CharacterDetails generatedCharacter = GenerateRandomCharacter(baby, true, "", hasParents);
+        fname = GetNode<CharacterDatabase>("/root/CharacterDatabase").GetRandomFirstName(sex);
+
+        generatedCharacter.SetName(fname, generatedCharacter.LastName);
+        generatedCharacter.SetSex(sex);
+        return generatedCharacter;
+    }
+
+    private void GenerateParents(ref CharacterDetails baby)
+    {
+        RandomNumberGenerator rand = new RandomNumberGenerator();
+        rand.Randomize();
+
+        CharacterDetails parentA = null;
+        CharacterDetails parentB = null;
+
+        float parentGayPercentage = rand.Randf();
+        if(parentGayPercentage > 0.8)
+        {
+            float sexOfParents = rand.Randf();
+            if(sexOfParents > 0.5)
+            {
+                parentA = GenerateCharacterOfSex(ESex.MALE, false, true);
+                parentB = GenerateCharacterOfSex(ESex.MALE, false, true);
+            } else 
+            {
+                parentA = GenerateCharacterOfSex(ESex.FEMALE, false, false);
+                parentB = GenerateCharacterOfSex(ESex.FEMALE, false, false);
+            }
+        } else 
+        {
+            parentA = GenerateCharacterOfSex(ESex.FEMALE, false, true);
+            parentB = GenerateCharacterOfSex(ESex.MALE, false, true);
+        }
+
+        int parentAMonths;
+        int parentAYears;
+        int parentBMonths;
+        int parentBYears;
+
+        GenerateAge(out parentAYears, out parentAMonths);
+        GenerateAge(out parentBYears, out parentBMonths);
+
+        parentA.SetAge(parentAMonths, parentAYears);
+        parentB.SetAge(parentBMonths, parentBYears);
+
+        Relationship rA = new Relationship(parentA, baby, ERelationshipType.PARENT);
+        Relationship rB = new Relationship(parentB, baby, ERelationshipType.PARENT);
+
+        baby.AddRelationship(rA);
+        baby.AddRelationship(rB);
+        parentA.AddRelationship(rA);
+        parentB.AddRelationship(rB);
+
+        Relationship parents = new Relationship(parentA, parentB, ERelationshipType.PARTNER);
+        parentA.AddRelationship(parents);
+        parentB.AddRelationship(parents);
+
+    }
+
+    private void GenerateAge(out int year, out int month)
+    {
+        RandomNumberGenerator rand = new RandomNumberGenerator();
+        rand.Randomize();
+
+        float couldBeOld = rand.Randf();
+        if(couldBeOld > 0.8)
+        {
+            month = rand.RandiRange(0, 11);
+            year = rand.RandiRange(16, 70);
+        } else 
+        {
+            month = rand.RandiRange(0, 11);
+            year = rand.RandiRange(16, 35);
+        }
+    }
+
     /// <summary>
     /// Creates a new birth event
     /// </summary>
