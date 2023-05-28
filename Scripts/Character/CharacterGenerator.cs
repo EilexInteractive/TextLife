@@ -98,6 +98,16 @@ public partial class CharacterGenerator : Node
         
     }
 
+    public CharacterDetails GenerateRandomCharacter(string existingLastName, CharacterDetails parentA, CharacterDetails parentB)
+    {
+        CharacterDetails details = GenerateRandomCharacter(true, false, existingLastName, true);
+        details.AddRelationship(new Relationship(parentA, details, ERelationshipType.PARENT));
+        details.AddRelationship(new Relationship(parentB, details, ERelationshipType.PARENT));
+
+        return details;
+
+    }
+
     /// <summary>
     /// Generate a random character around the age passed in
     /// </summary>
