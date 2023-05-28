@@ -41,6 +41,7 @@ public partial class CharacterGenerator : Node
     /// <param name="existingLastName">If true; current last name to set</param>
     /// <returns>New character details</returns>
     public CharacterDetails GenerateRandomCharacter(bool isBaby, bool randomLastName = false, string existingLastName = "")
+    public CharacterDetails GenerateRandomCharacter(bool isBaby, bool randomLastName = false, string existingLastName = "", bool hasParents = false)
     {
         // Predefine character properties
         string firstName;
@@ -83,6 +84,9 @@ public partial class CharacterGenerator : Node
             state, 0, GetNode<GameController>("/root/GameController"));
             
         details.SetCharacterStats(GenerateCharacterStats(isBaby));
+        // Generate parents if we don't already have them
+        if(!hasParents)
+            GenerateParents(ref details);
 
         GameController game = GetNode<GameController>("/root/GameController");
         EventDatabase eventDb = GetNode<EventDatabase>("/root/EventDatabase");
