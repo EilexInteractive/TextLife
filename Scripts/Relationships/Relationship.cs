@@ -12,7 +12,8 @@ public enum ERelationshipType
     GRAND_PARENTS = 5,
     COUSIN = 6,
     ENEMY = 7,
-    CHILD = 8
+    CHILD = 8,
+    PARTNER = 9
 }
 
 public class Relationship
@@ -29,6 +30,11 @@ public class Relationship
         _Character_1 = a;
         _Character_2 = b;
         _RelationshipType = type;
+    }
+
+    public override string ToString()
+    {
+        return Character_1.FirstName + " " + Character_2.FirstName;
     }
 
 }
