@@ -219,7 +219,6 @@ public class CharacterDetails
         {
             _Relationships.Add(r);
         }
-            
     }
 
     public void SetCharacterName(string[] name)
