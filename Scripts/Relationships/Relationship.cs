@@ -26,6 +26,8 @@ public class Relationship
     public ERelationshipType RelationshipType { get => _RelationshipType; }
 
     public float _RelationshipMeter = 0.5f;
+    private const float MIN_RELATIONSHIP_REDUCTION = 0.03f;
+    private const float MAX_RELATIONSHIP_REDUCTION = 0.1f;
 
     public Relationship(CharacterDetails a, CharacterDetails b, float meter = 0.5f, ERelationshipType type = ERelationshipType.ACQUAINTANCE)
     {
@@ -38,6 +40,15 @@ public class Relationship
     public override string ToString()
     {
         return Character_1.FirstName + " " + Character_2.FirstName;
+    }
+
+    public void ReduceRelationship()
+    {
+        RandomNumberGenerator rand = new RandomNumberGenerator();
+        rand.Randomize();
+
+        float reductionAmount = rand.RandfRange(MIN_RELATIONSHIP_REDUCTION, MAX_RELATIONSHIP_REDUCTION);
+        _RelationshipMeter -= reductionAmount;
     }
 }
 

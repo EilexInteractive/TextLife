@@ -10,13 +10,15 @@ public enum EEventActionType
     STRING,
     INT,
     FLOAT,
-    BOOL
+    BOOL,
+    WORLD_EVENT
 }
 
 public partial class EventDatabase : Node
 {
     const string FILE_LOCATION = "res://Database/Events.json";              // Reference to the events database
     private List<LifeEventLog> _EventData = new List<LifeEventLog>();           // List of all events that can occur
+    private List<LifeEventLog> _WorldEventData = new List<LifeEventLog>();                  // Reference to world events we can pull from
 
 
     private List<EventAction> _ActionEventsData = new List<EventAction>();      // List of all the actions that attach to event
@@ -24,6 +26,7 @@ public partial class EventDatabase : Node
     private List<EventAction> _ActionEventsBool = new List<EventAction>();
     private List<EventAction> _ActionEventsInt = new List<EventAction>();
     private List<EventAction> _ActionEventsFloat = new List<EventAction>();
+    private List<EventAction> _ActionWorldEvent = new List<EventAction>();
 
     public override void _Ready()
     {
@@ -79,7 +82,13 @@ public partial class EventDatabase : Node
                     
 
                 
-                _EventData.Add(log);
+                if(dataEventType == ELifeEventType.WORLD_WAR)
+                {
+                    _WorldEventData.Add(log);
+                } else 
+                {
+                    _EventData.Add(log);
+                }
             }
 
             file.Close();
@@ -117,6 +126,10 @@ public partial class EventDatabase : Node
                 return e;
 
         foreach(var e in _ActionEventsString)
+            if(e.EventName == name)
+                return e;
+
+        foreach(var e in _ActionWorldEvent)
             if(e.EventName == name)
                 return e;
 
@@ -174,6 +187,65 @@ public partial class EventDatabase : Node
                 break;
         }
 
+        return null;
+    }
+
+    public LifeEventLog GetRandomEvent(ELifeEventType type)
+    {
+        RandomNumberGenerator rand = new RandomNumberGenerator();
+        rand.Randomize();
+        List<LifeEventLog> events = new List<LifeEventLog>();
+
+        foreach(var e in _WorldEventData)
+        {
+            if(e.Type == type)
+            {
+                events.Add(e);
+            }
+        }
+
+        return events[rand.RandiRange(0, events.Count - 1)];
+    }
+
+    public LifeEventLog GetWorldEvent()
+    {
+        if(_WorldEventData.Count > 0)
+        {
+            RandomNumberGenerator rand = new RandomNumberGenerator();
+            rand.Randomize();
+            return _WorldEventData[rand.RandiRange(0, _WorldEventData.Count - 1)];
+        }
+
+        return null;
+    }
+
+    public WorldEventData CreateNewEvent(GameController game)
+    {
+        if(game == null)
+            return null;
+
+        if(_WorldEventData.Count > 0)
+        {
+            LifeEventLog log = GetWorldEvent();
+            if(log != null)
+            {
+                WorldEventData newWorldEventData = null;
+                CountryDatabase countryDb = GetNode<CountryDatabase>("/root/CountryDatabase");
+                Country origin = countryDb.GetRandomCountry();
+
+                if(log.Type == ELifeEventType.WORLD_WAR)
+                {
+                    newWorldEventData = new WorldEventData(origin, countryDb.GetRandomCountry());
+                    newWorldEventData.AddEvent(log);
+                    log.Dispatch();
+                    newWorldEventData.SetEventType(log.Type);
+                    return newWorldEventData;
+                }
+                
+            }
+            
+        }
+        
         return null;
     }
 
@@ -299,6 +371,8 @@ public partial class EventDatabase : Node
                 return ELifeEventType.BIRTH;
             case "Date":
                 return ELifeEventType.DATE;
+            case "WorldWar":
+                return ELifeEventType.WORLD_WAR;
             default:
                 return ELifeEventType.EVENT;
         }

@@ -14,12 +14,14 @@ public class EventAction
     public event Action<string> EventActionString;
     public event Action<float> EventActionFloat;
     public event Action<bool> EventActionBool;
+    public event Action<ELifeEventType, WorldEventData, LifeEventLog> EventActionWorldEvent;
 
     public void Dispatch() => EventActionNoProps?.Invoke();
     public void Dispatch(string prop) => EventActionString?.Invoke(prop);
     public void Dispatch(int prop) => EventActionInt?.Invoke(prop);
     public void Dispatch(float prop) => EventActionFloat?.Invoke(prop);
     public void Dispatch(bool prop) => EventActionBool?.Invoke(prop);
+    public void Dispatch(ELifeEventType type, WorldEventData eventData, LifeEventLog log) => EventActionWorldEvent?.Invoke(type, eventData, log);
 
     public void DispatchAll(string propString, int propInt, float propFloat, bool propBool)
     {

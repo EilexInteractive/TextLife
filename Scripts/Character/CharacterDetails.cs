@@ -116,7 +116,7 @@ public class CharacterDetails
     /// </summary>
     /// <param name="lifeEvent">Life event to add</param>
 
-    public void AddLifeEvent(LifeEventLog lifeEvent)
+    public void AddLifeEvent(LifeEventLog lifeEvent, bool dispatchEvent = true)
     {
         if(lifeEvent.Type == ELifeEventType.DATE)
         {
@@ -124,7 +124,8 @@ public class CharacterDetails
         } else 
         {
             _LifeEventLog.Add(lifeEvent);
-            lifeEvent.Dispatch();
+            if(dispatchEvent)
+                lifeEvent.Dispatch();
         }
     }
 
@@ -218,6 +219,16 @@ public class CharacterDetails
         if(r != null)
         {
             _Relationships.Add(r);
+        }
+    }
+
+    public void UpdateRelationships()
+    {
+        RandomNumberGenerator rand = new RandomNumberGenerator();
+        rand.Randomize();
+        foreach(var relationship in _Relationships)
+        {
+            relationship.ReduceRelationship();
         }
     }
 

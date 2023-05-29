@@ -68,6 +68,10 @@ public partial class SaveGameController : Node
 				save.CharactersInWorld.Add(character.CreateCharacterSave());
 			}
 
+			save.WorldEvents = game.GetWorldEventsAsSave();
+
+			
+
 			string output = JsonConvert.SerializeObject(save);			// Convert the class to JSON
 
 			// Get reference to the application folder
@@ -127,6 +131,28 @@ public partial class SaveGameController : Node
 							if(!loadedRelationship.Character_2.HasRelationship(loadedRelationship.Character_1.CharacterID, loadedRelationship.Character_2.CharacterID))
 								loadedRelationship.Character_2.AddRelationship(loadedRelationship);
 						}
+					}
+
+					CountryDatabase countryDb = GetNode<CountryDatabase>("/root/CountryDatabase");
+
+					foreach(var e in save.WorldEvents)
+					{
+						Country origin = countryDb.GetCountryFromName(e.OriginCountryName);
+						Country involved = null;
+
+						if(e.InvolvedCountryName != "")
+						{
+							involved = countryDb.GetCountryFromName(e.InvolvedCountryName);
+						}
+
+						WorldEventData data = new WorldEventData(origin, involved);
+
+						foreach(var lifeEvent in e.Events)
+						{
+							LifeEventLog life = lifeEvent.LoadLifeEvent();
+							data.AddEvent(life, false);
+						}
+						
 					}
 
 					

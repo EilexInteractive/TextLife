@@ -77,6 +77,13 @@ public class LifeEventLog
                 e.Dispatch(prop);
     }
 
+    public void Dispatch(ELifeEventType type, WorldEventData eventData)
+    {
+        foreach(var e in Actions)
+            if(e.EventType == EEventActionType.WORLD_EVENT)
+                e.Dispatch(type, eventData, this);
+    }
+
     public void DispatchAll(string propStr, int propIn, float propFl, bool propBo)
     {
         Dispatch();
@@ -106,7 +113,8 @@ public enum ELifeEventType
 {
     DATE,
     EVENT,
-    BIRTH
+    BIRTH,
+    WORLD_WAR
 }
 
 public class LifeEventSave

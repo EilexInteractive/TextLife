@@ -9,4 +9,5 @@ public class SaveGame
 	public int CurrentMonth;
 	public List<CharacterSave> CharactersInWorld = new List<CharacterSave>();
 	public List<RelationshipSave> RelationshipsInWorld = new List<RelationshipSave>();
+	public List<WorldEventSave> WorldEvents = new List<WorldEventSave>();
 }

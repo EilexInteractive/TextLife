@@ -33,5 +33,25 @@
         "EventType": "Event",
         "Sex": "All",
         "Events": ""
+    },
+    {
+        "EventText": "(country) has started a war against (country)",
+        "AgeCategory": "All",
+        "EventType": "WorldWarStart",
+        "Sex": "All",
+        "Events": "CountryWarStart"
+    },
+    {
+        "EventText": "(country) has taken country of (country), (city)",
+        "AgeCategory": "All",
+        "EventType": "WorldWarUpdate",
+        "Sex": "All",
+        "Events": "CountryWarUpdate"
+    },
+    {
+        "EventText": "(origin) has won the war against (against)",
+        "AgeCategory": "All",
+        "EventType": "WorldWarUpdate",
+        "Events": "CountryWarEnd"
     }
 ]
