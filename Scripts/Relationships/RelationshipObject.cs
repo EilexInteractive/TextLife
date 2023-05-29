@@ -34,6 +34,7 @@ public partial class RelationshipObject : Button
 
 			if(relationCharacter != null)
 			{
+				GD.Print($"{relationCharacter.FirstName} {relationCharacter.LastName}");
 				_CharacterName.Text = relationCharacter.FirstName + " " + relationCharacter.LastName;
 				_Relation.Text = GetRelationshipAsString(_RelationshipData.RelationshipType, relationCharacter.Sex);
 

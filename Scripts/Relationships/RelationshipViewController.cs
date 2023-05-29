@@ -34,6 +34,7 @@ public partial class RelationshipViewController : Node
 				{
 					RelationshipObject relationObj = _RelationshipPrefab.Instantiate<RelationshipObject>();
 					_RelationshipContainer.AddChild(relationObj);
+					relationObj.Setup(relationship);
 				}
 			} else 
 			{

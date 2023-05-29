@@ -31,7 +31,7 @@ label_settings = SubResource("LabelSettings_kpcfc")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSlider" type="HSlider" parent="."]
+[node name="Meter" type="HSlider" parent="."]
 self_modulate = Color(0.215686, 1, 1, 1)
 layout_mode = 0
 offset_left = 1260.0

@@ -89,8 +89,11 @@ public partial class CharacterGenerator : Node
 
         GameController game = GetNode<GameController>("/root/GameController");
         EventDatabase eventDb = GetNode<EventDatabase>("/root/EventDatabase");
+
+        game.AddCharacterToWorld(details);
         
         GenerateBirthEvent(game, eventDb, ref details);
+        details.SetID(GenerateID());
 
         // Return the new character details
         return details;
@@ -100,8 +103,8 @@ public partial class CharacterGenerator : Node
     public CharacterDetails GenerateRandomCharacter(string existingLastName, CharacterDetails parentA, CharacterDetails parentB)
     {
         CharacterDetails details = GenerateRandomCharacter(true, false, existingLastName, true);
-        details.AddRelationship(new Relationship(parentA, details, ERelationshipType.PARENT));
-        details.AddRelationship(new Relationship(parentB, details, ERelationshipType.PARENT));
+        details.AddRelationship(new Relationship(parentA, details, 0.5f, ERelationshipType.PARENT));
+        details.AddRelationship(new Relationship(parentB, details, 0.5f, ERelationshipType.PARENT));
 
         return details;
 
@@ -177,12 +180,12 @@ public partial class CharacterGenerator : Node
         }
     }
 
-    public CharacterDetails GenerateCharacterOfSex(ESex sex, bool baby = false, bool hasParents = false)
+    public CharacterDetails GenerateCharacterOfSex(ESex sex, bool baby = false, bool hasParents = false, string lastName = "")
     {
         string fname;
         string lname;
         ESex s = sex;
-        CharacterDetails generatedCharacter = GenerateRandomCharacter(baby, true, "", hasParents);
+        CharacterDetails generatedCharacter = GenerateRandomCharacter(baby, true, lastName, hasParents);
         fname = GetNode<CharacterDatabase>("/root/CharacterDatabase").GetRandomFirstName(sex);
 
         generatedCharacter.SetName(fname, generatedCharacter.LastName);
@@ -204,17 +207,17 @@ public partial class CharacterGenerator : Node
             float sexOfParents = rand.Randf();
             if(sexOfParents > 0.5)
             {
-                parentA = GenerateCharacterOfSex(ESex.MALE, false, true);
-                parentB = GenerateCharacterOfSex(ESex.MALE, false, true);
+                parentA = GenerateCharacterOfSex(ESex.MALE, false, true, baby.LastName);
+                parentB = GenerateCharacterOfSex(ESex.MALE, false, true, baby.LastName);
             } else 
             {
-                parentA = GenerateCharacterOfSex(ESex.FEMALE, false, false);
-                parentB = GenerateCharacterOfSex(ESex.FEMALE, false, false);
+                parentA = GenerateCharacterOfSex(ESex.FEMALE, false, false, baby.LastName);
+                parentB = GenerateCharacterOfSex(ESex.FEMALE, false, false, baby.LastName);
             }
         } else 
         {
-            parentA = GenerateCharacterOfSex(ESex.FEMALE, false, true);
-            parentB = GenerateCharacterOfSex(ESex.MALE, false, true);
+            parentA = GenerateCharacterOfSex(ESex.FEMALE, false, true, baby.LastName);
+            parentB = GenerateCharacterOfSex(ESex.MALE, false, true, baby.LastName);
         }
 
         int parentAMonths;
@@ -228,15 +231,15 @@ public partial class CharacterGenerator : Node
         parentA.SetAge(parentAMonths, parentAYears);
         parentB.SetAge(parentBMonths, parentBYears);
 
-        Relationship rA = new Relationship(parentA, baby, ERelationshipType.PARENT);
-        Relationship rB = new Relationship(parentB, baby, ERelationshipType.PARENT);
+        Relationship rA = new Relationship(parentA, baby, 0.5f, ERelationshipType.PARENT);
+        Relationship rB = new Relationship(parentB, baby, 0.5f, ERelationshipType.PARENT);
 
         baby.AddRelationship(rA);
         baby.AddRelationship(rB);
         parentA.AddRelationship(rA);
         parentB.AddRelationship(rB);
 
-        Relationship parents = new Relationship(parentA, parentB, ERelationshipType.PARTNER);
+        Relationship parents = new Relationship(parentA, parentB, 0.5f, ERelationshipType.PARTNER);
         parentA.AddRelationship(parents);
         parentB.AddRelationship(parents);
 
@@ -295,5 +298,19 @@ public partial class CharacterGenerator : Node
         string monthAsString = game.GetMonthAsString();
         LifeEventLog date = new LifeEventLog($"{monthAsString} - {character.YearsOld} Years, {character.MonthsOld} Months", ELifeEventType.DATE, character.CharacterAgeCategory, character.Sex);
         return date.Copy(id);
+    }
+
+    private string GenerateID()
+    {
+        RandomNumberGenerator rand = new RandomNumberGenerator();
+        rand.Randomize();
+
+        string idChar = "";
+
+        int idLength = rand.RandiRange(4, 12);
+        for(int i = 0; i < idLength; ++i)
+            idChar += rand.RandiRange(33, 125);
+
+        return idChar;
     }
 }

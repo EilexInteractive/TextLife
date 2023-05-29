@@ -24,6 +24,8 @@ public enum EAgeCategory
 
 public class CharacterDetails
 {
+    private string _CharacterID;
+    public string CharacterID;
     private string _FirstName;
     public string FirstName { get => _FirstName;  }
     private string _LastName;
@@ -214,7 +216,10 @@ public class CharacterDetails
     public void AddRelationship(Relationship r) 
     {
         if(r != null)
+        {
             _Relationships.Add(r);
+        }
+            
     }
 
     public void SetCharacterName(string[] name)
@@ -240,6 +245,23 @@ public class CharacterDetails
     {
         _EventDates = dates;
         _LifeEventLog = events;
+    }
+
+    public bool HasRelationship(string id_1, string id_2)
+    {
+        foreach(var relationship in _Relationships)
+        {
+            if(id_1 == relationship.Character_1._CharacterID && id_2 == relationship.Character_2.CharacterID)
+            {
+                return true;
+            } else if(id_1 == relationship.Character_2.CharacterID && id_2 == relationship.Character_1.CharacterID)
+            {
+                return true;
+            }
+        }
+
+        return false;
+        
     }
 
     /// <summary>
@@ -319,7 +341,7 @@ public class CharacterDetails
         foreach(var e in _LifeEventLog)
             eventLog.Add(e.CreateEventSave());
 
-        return new CharacterSave(_FirstName, _LastName, gender, _YearsOld, _MonthsOld, _Country.Name, _State, dateSaves, eventLog);
+        return new CharacterSave(_CharacterID, _FirstName, _LastName, gender, _YearsOld, _MonthsOld, _Country.Name, _State, dateSaves, eventLog);
     }
 
     public List<LifeEventLog> GetEventsFromDate(int year, int month)
@@ -333,58 +355,6 @@ public class CharacterDetails
 
         return logs;
     }
-}
 
-public class CharacterSave
-{
-    public string FirstName;
-    public string LastName;
-    public int Sex;
-
-    public int YearsOld;
-    public int MonthsOld;
-    public string CountryName;
-    public string State;
-
-    public List<LifeEventSave> DateLog = new List<LifeEventSave>();
-    public List<LifeEventSave> EventLog = new List<LifeEventSave>();
-
-    public CharacterSave()
-    {}
-
-    public CharacterSave(string fname, string lname, int sex, int yearsOld, int monthsOld, 
-    string country, string state, List<LifeEventSave> dates, List<LifeEventSave> events)
-    {
-        FirstName = fname;
-        LastName = lname;
-        Sex = sex;
-        YearsOld = yearsOld;
-        MonthsOld = monthsOld;
-        CountryName = country;
-        State = state;
-        DateLog = dates;
-        EventLog = events;
-    }
-
-    public CharacterDetails LoadCharacter(CountryDatabase countryDb)
-    {
-        CharacterDetails details = new CharacterDetails();
-        details.SetName(FirstName, LastName);
-        details.SetSex((ESex)Sex);
-        details.SetAge(MonthsOld, YearsOld);
-        details.SetLocation(countryDb.GetCountryFromName(CountryName), State);
-
-        List<LifeEventLog> dateLog = new List<LifeEventLog>();
-        List<LifeEventLog> eventLog = new List<LifeEventLog>();
-
-        foreach(var date in DateLog)
-            dateLog.Add(date.LoadLifeEvent());
-
-        foreach(var e in EventLog)
-            eventLog.Add(e.LoadLifeEvent());
-
-        details.SetLifeEvents(dateLog, eventLog);
-
-        return details;
-    }
+    public void SetID(string id) => _CharacterID = id;
 }

@@ -35,11 +35,38 @@ public partial class SaveGameController : Node
 		if(game != null)
 		{
 			SaveGame save = new SaveGame();				// Create a new save file.
-			save.Character = game.CurrentCharacter.CreateCharacterSave();			// Create the character save
+			save.PlayerID = game.CurrentCharacter.CharacterID;
 			// Set the name of the saved game
-			save.SaveName = (game.PlayerPrefs.LastSaveName != "" ? save.Character.LastName : game.CurrentCharacter.LastName);
+			save.SaveName = (game.PlayerPrefs.LastSaveName != "" ? save.SaveName : game.CurrentCharacter.LastName);
 			save.DateIndex = game.CurrentEventID;				// Get the current date index/event ID
 			save.CurrentMonth = game.CurrentMonth;				// Save which month we are currently in
+
+			foreach(var character in game.InWorldCharacters)
+			{
+				foreach(var relationship in character.Relationships)
+				{
+					RelationshipSave relationshipSave = new RelationshipSave(relationship.Character_1.CharacterID, relationship.Character_2.CharacterID, relationship._RelationshipMeter, relationship.RelationshipType);
+					bool alreadyInSave = false;
+
+					foreach(var saveRel in save.RelationshipsInWorld)
+					{
+						if(saveRel.Character_1 == relationship.Character_1.CharacterID && saveRel.Character_2 == relationship.Character_2.CharacterID)
+						{
+							alreadyInSave = true;
+							break;
+						} else if(saveRel.Character_2 == relationship.Character_1.CharacterID && saveRel.Character_1 == relationship.Character_2.CharacterID)
+						{
+							alreadyInSave = true;
+							break;
+						}
+					}
+
+					if(!alreadyInSave)
+						save.RelationshipsInWorld.Add(relationshipSave);
+				}
+
+				save.CharactersInWorld.Add(character.CreateCharacterSave());
+			}
 
 			string output = JsonConvert.SerializeObject(save);			// Convert the class to JSON
 
@@ -82,8 +109,29 @@ public partial class SaveGameController : Node
 					
 					string text = sr.ReadToEnd();
 					SaveGame save = JsonConvert.DeserializeObject<SaveGame>(text);
-					CharacterDetails character = save.Character.LoadCharacter(GetNode<CountryDatabase>("/root/CountryDatabase"));
-					game.CurrentCharacter = character;
+					foreach(var character in save.CharactersInWorld)
+					{
+						CharacterDetails loadCharacter = character.LoadCharacter(GetNode<CountryDatabase>("/root/CountryDatabase"));
+						if(loadCharacter != null)
+							game.AddCharacterToWorld(loadCharacter);
+					}
+
+					foreach(var relationship in save.RelationshipsInWorld)
+					{
+						Relationship loadedRelationship = relationship.LoadRelationship(game);
+						if(loadedRelationship != null)
+						{
+							if(!loadedRelationship.Character_1.HasRelationship(loadedRelationship.Character_1.CharacterID, loadedRelationship.Character_2.CharacterID))
+								loadedRelationship.Character_1.AddRelationship(loadedRelationship);
+								
+							if(!loadedRelationship.Character_2.HasRelationship(loadedRelationship.Character_1.CharacterID, loadedRelationship.Character_2.CharacterID))
+								loadedRelationship.Character_2.AddRelationship(loadedRelationship);
+						}
+					}
+
+					
+
+					// Set the main character
 					game.CurrentEventID = save.DateIndex;
 					return true;
 				}

@@ -1,6 +1,6 @@
 using Godot;
 using System;
-
+using System.Collections.Generic;
 public partial class GameController : Node
 {
     public string ApplicationFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "/Eilex Interactive/TextLife";
@@ -13,6 +13,9 @@ public partial class GameController : Node
     public int CurrentEventID = 0;
 
     public string ReturnTo = "";
+
+    private List<CharacterDetails> _InWorldCharacters = new List<CharacterDetails>();
+    public List<CharacterDetails> InWorldCharacters { get => _InWorldCharacters; }
 
     public override void _Process(double delta)
     {
@@ -63,5 +66,22 @@ public partial class GameController : Node
         }
         
 
+    }
+
+    public void AddCharacterToWorld(CharacterDetails character) 
+    {
+        if(!_InWorldCharacters.Contains(character))
+            _InWorldCharacters.Add(character);
+    }
+
+    public CharacterDetails GetCharacterFromWorld(string characterID)
+    {
+        foreach(var character in _InWorldCharacters)
+        {
+            if(character.CharacterID == characterID)
+                return character;
+        }
+
+        return null;
     }
 }
