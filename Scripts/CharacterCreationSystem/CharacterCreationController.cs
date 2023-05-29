@@ -96,6 +96,27 @@ public partial class CharacterCreationController : TextureRect
 				_CreatedCharacter.SetSex(ESex.FEMALE);
 			}
 
+			game.AddCharacterToWorld(_CreatedCharacter);
+			
+			Relationship parentA = _CreatedCharacter.Relationships[0];
+			Relationship parentB = _CreatedCharacter.Relationships[1];
+
+			if(parentA.Character_1 == _CreatedCharacter)
+			{
+				game.AddCharacterToWorld(parentA.Character_2);
+			} else 
+			{
+				game.AddCharacterToWorld(parentA.Character_1);
+			}
+
+			if(parentB.Character_1 == _CreatedCharacter)
+			{
+				game.AddCharacterToWorld(parentB.Character_2);
+			} else 
+			{
+				game.AddCharacterToWorld(parentB.Character_1);
+			}
+
 			game.CurrentCharacter = _CreatedCharacter;
 			GetNode<SaveGameController>("/root/SaveGameController")?.SaveGame();
 		}

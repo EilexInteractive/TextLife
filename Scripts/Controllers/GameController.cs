@@ -28,7 +28,7 @@ public partial class GameController : Node
     private List<WorldEventData> _CurrentWorldEvents = new List<WorldEventData>();
     private List<WorldEventData> _ClosedWorldEvents = new List<WorldEventData>();
     private const float RANDOM_WORLD_EVENT_CHANCE = 0.9f;                   // Chance that there will be an event update
-    private const float NEW_WORLD_EVENT_CHANCE = 0.6f;                      // Chance that there will be a new world event
+    private const float NEW_WORLD_EVENT_CHANCE = 0.1f;                      // Chance that there will be a new world event
     
 
     public override void _Process(double delta)
