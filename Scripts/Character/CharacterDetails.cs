@@ -65,6 +65,10 @@ public class CharacterDetails
     // === Relationship System === //
     private List<Relationship> _Relationships = new List<Relationship>();
     public List<Relationship> Relationships { get => _Relationships; }
+
+    // === Pending relationship events === //
+    private List<LifeEventLog> _PendingRelationshipEvents = new List<LifeEventLog>();
+    public List<LifeEventLog> PendingRelationshipEvents { get => _PendingRelationshipEvents; }
     
 
     public CharacterDetails(string firstName, string lastName, int years, int months, ESex gender, Country country, string state, int money, GameController game)
