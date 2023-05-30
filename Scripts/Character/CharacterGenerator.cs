@@ -153,8 +153,9 @@ public partial class CharacterGenerator : Node
             float mental = rand.RandfRange(MinBabyMentalHealth, MaxBabyMentalHealth);
             float social = rand.RandfRange(MinBabySocial, MaxBabySocial);
             float looks = rand.RandfRange(MinBabyLooks, MaxBabyLooks);
+            float tired = 100f;
 
-            return new CharacterStats(smarts, physical, mental, social, looks);
+            return new CharacterStats(smarts, physical, mental, social, looks, tired);
         } else
         {
             float smarts = rand.RandfRange(MinAdultSmarts, MaxAdultSmarts);
@@ -162,6 +163,7 @@ public partial class CharacterGenerator : Node
             float mental = rand.RandfRange(MinAdultMentalHealth, MaxAdultMentalHealth);
             float social = rand.RandfRange(MinAdultSocial, MaxAdultSocial);
             float looks = rand.RandfRange(MinAdultLooks, MaxAdultLooks);
+            float tired = rand.RandfRange(0, 100);
 
             if(smarts > 89)
                 smarts = rand.RandfRange(MinAdultSmarts, MaxAdultSmarts);
@@ -175,7 +177,7 @@ public partial class CharacterGenerator : Node
             if(looks > 70)
                 looks = rand.RandfRange(MinAdultLooks, MaxAdultLooks);
 
-            return new CharacterStats(smarts, physical, mental, social, looks);
+            return new CharacterStats(smarts, physical, mental, social, looks, tired);
 
         }
     }
