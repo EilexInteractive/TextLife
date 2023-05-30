@@ -53,5 +53,11 @@
         "AgeCategory": "All",
         "EventType": "WorldWarUpdate",
         "Events": "CountryWarEnd"
+    }, 
+    {
+        "EventText": "(character) wants to have lunch with you",
+        "AgeCategory": "All",
+        "EventType": "RelationshipEvent",
+        "Events": ""
     }
 ]

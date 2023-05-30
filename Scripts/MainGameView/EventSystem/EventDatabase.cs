@@ -275,6 +275,15 @@ public partial class EventDatabase : Node
         _ActionEventsData.Add(action);
     }
 
+    public void AddAction(string eventName, Action<ELifeEventType, WorldEventData, LifeEventLog> e)
+    {
+        EventAction action = new EventAction();
+        action.EventName = eventName;
+        action.EventActionWorldEvent += e;
+        action.EventType = EEventActionType.WORLD_EVENT;
+        _ActionWorldEvent.Add(action);
+    }
+
     public void AddAction<T>(string eventName, Action<T> e, EEventActionType type)
     {
         EventAction creatingEvent = new EventAction();
@@ -432,6 +441,7 @@ public partial class EventDatabase : Node
 
         return selectedEvent;               // Return the created event
     }
+
 
 
 }

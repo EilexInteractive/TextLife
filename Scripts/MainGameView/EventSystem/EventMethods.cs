@@ -8,6 +8,11 @@ public partial class WorldEventMethods : Node
     public override void _Ready()
     {
         base._Ready();
+        EventDatabase eventDb = GetNode<EventDatabase>("/root/EventDatabase");
+        if(eventDb != null)
+        {
+            eventDb.AddAction("CountryWarStart", CountryWarStart);
+        }
     }
 
     public void CountryWarStart(ELifeEventType type, WorldEventData data, LifeEventLog log)
@@ -23,5 +28,10 @@ public partial class WorldEventMethods : Node
         {
             game.AddEventToAllLogs(log);
         }
+    }
+
+    public void RelationshipEvent(LifeEventLog e)
+    {
+
     }
 }
