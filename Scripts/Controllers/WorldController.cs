@@ -19,7 +19,7 @@ public partial class WorldController : Node
     private const float NEW_WORLD_EVENT_CHANCE = 0.1f;                      // Chance that there will be a new world event
 
     // === Relationship Events === //
-    private const float CHANCE_OF_RELATIONSHIP_EVENT = 0.7f;
+    private const float CHANCE_OF_RELATIONSHIP_EVENT = 0.1f;
 
     public override void _Ready()
     {
