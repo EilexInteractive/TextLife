@@ -89,8 +89,9 @@ public partial class CharacterGenerator : Node
 
         GameController game = GetNode<GameController>("/root/GameController");
         EventDatabase eventDb = GetNode<EventDatabase>("/root/EventDatabase");
+        WorldController world = GetNode<WorldController>("/root/WorldController");
 
-        game.AddCharacterToWorld(details);
+        world.AddCharacterToWorld(details);
         
         GenerateBirthEvent(game, eventDb, ref details);
         details.SetID(GenerateID());

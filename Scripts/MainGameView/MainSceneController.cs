@@ -18,16 +18,22 @@ public partial class MainSceneController : ColorRect
         }
 	}
 
+	public override void _Ready()
+	{
+		CheckForEvents();
+	}
+
 	public void OnAdvanceGame()
 	{
 		// Get the game controller and validate it
 		GameController game = GetNode<GameController>("/root/GameController");
-		if(game == null)
+		WorldController world = GetNode<WorldController>("/root/WorldController");
+		if(game == null || world == null)
 			return;
 
 		game.IncrementMonth();
-		game.AgeUpAllCharacters();
-		game.GenerateCharacterEvents();
+		world.AgeUpAllCharacters();
+		world.GenerateCharacterEvents();
 			
 
 		
@@ -43,6 +49,8 @@ public partial class MainSceneController : ColorRect
 		SaveGameController saveController = GetNode<SaveGameController>("/root/SaveGameController");
 		if(saveController != null)
 			saveController.SaveGame();
+
+		CheckForEvents();
 	}
 
 	public void OnRelationshipPressed()
@@ -72,5 +80,29 @@ public partial class MainSceneController : ColorRect
 			saveController.SaveGame();
 
 		GetTree().ChangeSceneToFile("res://Scenes/LoadGame.tscn");
+	}
+
+	private void CheckForEvents()
+	{
+		GameController game = GetNode<GameController>("/root/GameController");
+		if(game != null)
+		{
+			CharacterDetails currentCharacter = game.CurrentCharacter;
+			if(currentCharacter != null)
+			{
+				if(currentCharacter.PendingRelationshipEvents.Count > 0)
+				{
+					GetNode<TextureRect>("TextureRect/RelationshipIcon/OutstandingRelationship").Visible = true;
+				} else 
+				{
+					GetNode<TextureRect>("TextureRect/RelationshipIcon/OutstandingRelationship").Visible = false;
+				}
+			}
+		}
+	}
+
+	public void OnRelationshipEventPressed()
+	{
+		GetNode<TextureRect>("TextureRect/RelationshipEventPanel").Visible = true;
 	}
 }

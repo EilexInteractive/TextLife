@@ -23,6 +23,7 @@ GameController="*res://Scripts/Controllers/GameController.cs"
 CharacterGenerator="*res://Scripts/Character/CharacterGenerator.cs"
 EventDatabase="*res://Scripts/MainGameView/EventSystem/EventDatabase.cs"
 SaveGameController="*res://Scripts/Save System/SaveGameController.cs"
+WorldController="*res://Scripts/Controllers/WorldController.cs"
 
 [display]
 

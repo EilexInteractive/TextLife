@@ -67,8 +67,10 @@ public class CharacterDetails
     public List<Relationship> Relationships { get => _Relationships; }
 
     // === Pending relationship events === //
-    private List<LifeEventLog> _PendingRelationshipEvents = new List<LifeEventLog>();
-    public List<LifeEventLog> PendingRelationshipEvents { get => _PendingRelationshipEvents; }
+    private List<LifeEventRequest> _PendingRelationshipEvents = new List<LifeEventRequest>();
+    public List<LifeEventRequest> PendingRelationshipEvents { get => _PendingRelationshipEvents; }
+
+    private List<LifeEventRequest> _AcceptedRelationshipEvents = new List<LifeEventRequest>();
     
 
     public CharacterDetails(string firstName, string lastName, int years, int months, ESex gender, Country country, string state, int money, GameController game)
@@ -167,6 +169,17 @@ public class CharacterDetails
         dateLog.Year = _YearsOld;
         dateLog.Month = _MonthsOld;
         return dateLog.Copy(game.CurrentEventID);
+    }
+
+    public void AcceptLifeEvent(LifeEventRequest e)
+    {
+        if(_PendingRelationshipEvents.Contains(e))
+        {
+            _AcceptedRelationshipEvents.Add(e);
+            _PendingRelationshipEvents.Remove(e);
+
+            _LifeEventLog.Add(e.CorrespondingEvent);
+        }
     }
 
 

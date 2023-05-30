@@ -68,8 +68,9 @@ public partial class CharacterCreationController : TextureRect
 
 	public void StartGamePressed()
 	{
+		WorldController world = GetNode<WorldController>("/root/WorldController");
 		GameController game = GetNode<GameController>("/root/GameController");
-		if(game != null)
+		if(world != null && game != null)
 		{
 			string[] characterName = _CharacterNameEdit.Text.Split();
 			_CreatedCharacter.SetCharacterName(characterName);
@@ -96,25 +97,25 @@ public partial class CharacterCreationController : TextureRect
 				_CreatedCharacter.SetSex(ESex.FEMALE);
 			}
 
-			game.AddCharacterToWorld(_CreatedCharacter);
+			world.AddCharacterToWorld(_CreatedCharacter);
 			
 			Relationship parentA = _CreatedCharacter.Relationships[0];
 			Relationship parentB = _CreatedCharacter.Relationships[1];
 
 			if(parentA.Character_1 == _CreatedCharacter)
 			{
-				game.AddCharacterToWorld(parentA.Character_2);
+				world.AddCharacterToWorld(parentA.Character_2);
 			} else 
 			{
-				game.AddCharacterToWorld(parentA.Character_1);
+				world.AddCharacterToWorld(parentA.Character_1);
 			}
 
 			if(parentB.Character_1 == _CreatedCharacter)
 			{
-				game.AddCharacterToWorld(parentB.Character_2);
+				world.AddCharacterToWorld(parentB.Character_2);
 			} else 
 			{
-				game.AddCharacterToWorld(parentB.Character_1);
+				world.AddCharacterToWorld(parentB.Character_1);
 			}
 
 			game.PlayerPrefs.LastSaveName = characterName[1];

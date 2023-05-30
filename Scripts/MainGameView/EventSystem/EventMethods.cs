@@ -23,10 +23,10 @@ public partial class WorldEventMethods : Node
         log.Text = log.Text.Replace("(origin)", origin.Name);
         log.Text = log.Text.Replace("(against)", involved.Name);
 
-        GameController game = GetNode<GameController>("/root/GameController");
-        if(game != null)
+        WorldController world = GetNode<WorldController>("/root/WorldController");
+        if(world != null)
         {
-            game.AddEventToAllLogs(log);
+            world.AddEventToAllLogs(log);
         }
     }
 

@@ -20,12 +20,12 @@ public class RelationshipSave
         Type = (int)type;
     }
 
-    public Relationship LoadRelationship(GameController game)
+    public Relationship LoadRelationship(WorldController world)
     {
-        if(game != null)
+        if(world != null)
         {
-            CharacterDetails character_1 = game.GetCharacterFromWorld(Character_1);
-            CharacterDetails character_2 = game.GetCharacterFromWorld(Character_2);
+            CharacterDetails character_1 = world.GetCharacterFromWorld(Character_1);
+            CharacterDetails character_2 = world.GetCharacterFromWorld(Character_2);
 
             if(character_1 != null && character_2 != null)
             {

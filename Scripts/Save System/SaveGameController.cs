@@ -32,7 +32,8 @@ public partial class SaveGameController : Node
 	{
 		// Get reference to the game controller & validate it
 		GameController game = GetNode<GameController>("/root/GameController");
-		if(game != null)
+		WorldController world = GetNode<WorldController>("/root/WorldController");
+		if(game != null && world != null)
 		{
 			SaveGame save = new SaveGame();				// Create a new save file.
 			save.PlayerID = game.CurrentCharacter.CharacterID;
@@ -41,7 +42,7 @@ public partial class SaveGameController : Node
 			save.DateIndex = game.CurrentEventID;				// Get the current date index/event ID
 			save.CurrentMonth = game.CurrentMonth;				// Save which month we are currently in
 
-			foreach(var character in game.InWorldCharacters)
+			foreach(var character in world.InWorldCharacters)
 			{
 				foreach(var relationship in character.Relationships)
 				{
@@ -68,7 +69,7 @@ public partial class SaveGameController : Node
 				save.CharactersInWorld.Add(character.CreateCharacterSave());
 			}
 
-			save.WorldEvents = game.GetWorldEventsAsSave();
+			save.WorldEvents = world.GetWorldEventsAsSave();
 
 			
 
@@ -104,7 +105,8 @@ public partial class SaveGameController : Node
 	public bool LoadGame(string filePath)
 	{
 		GameController game = GetNode<GameController>("/root/GameController");
-		if(game != null)
+		WorldController world = GetNode<WorldController>("/root/WorldController");
+		if(game != null && world != null)
 		{
 			if(File.Exists(filePath))
 			{
@@ -117,12 +119,12 @@ public partial class SaveGameController : Node
 					{
 						CharacterDetails loadCharacter = character.LoadCharacter(GetNode<CountryDatabase>("/root/CountryDatabase"));
 						if(loadCharacter != null)
-							game.AddCharacterToWorld(loadCharacter);
+							world.AddCharacterToWorld(loadCharacter);
 					}
 
 					foreach(var relationship in save.RelationshipsInWorld)
 					{
-						Relationship loadedRelationship = relationship.LoadRelationship(game);
+						Relationship loadedRelationship = relationship.LoadRelationship(world);
 						if(loadedRelationship != null)
 						{
 							if(!loadedRelationship.Character_1.HasRelationship(loadedRelationship.Character_1.CharacterID, loadedRelationship.Character_2.CharacterID))
