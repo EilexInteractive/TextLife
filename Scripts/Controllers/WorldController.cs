@@ -117,7 +117,7 @@ public partial class WorldController : Node
     /// <summary>
     /// Generates a random event from the world
     /// </summary>
-    public void GenerateWorldEvents()
+    private void GenerateWorldEvents()
     {
         // Get reference to the event database and validate it
         EventDatabase eventDb = GetNode<EventDatabase>("/root/EventDatabase");
@@ -178,7 +178,7 @@ public partial class WorldController : Node
     /// <summary>
     /// Increase the age of the character
     /// </summary>
-    public void AgeUpAllCharacters()
+    private void AgeUpAllCharacters()
     {
         foreach(var character in _InWorldCharacters)
         {
