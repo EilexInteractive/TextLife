@@ -86,6 +86,34 @@ public partial class WorldController : Node
         }
     }
 
+    private void GenerateRelationshipEvents()
+    {
+        // Get and validate the event database
+        EventDatabase eventDb = GetNode<EventDatabase>("/root/EventDatabase");
+        if(eventDb == null)
+            return;
+
+        // Create random number generator
+        RandomNumberGenerator rand = new RandomNumberGenerator();
+        rand.Randomize();
+
+
+
+        foreach(var character in _InWorldCharacters)
+        {
+            foreach(var relationship in character.Relationships)
+            {
+                float randomValue = rand.Randf();
+                if(randomValue > CHANCE_OF_RELATIONSHIP_EVENT)
+                {
+                    CharacterDetails to = GetRandomCharacterFromRelationship(character);
+                    LifeEventRequest request = eventDb.GetRelationshipEvent(to, character);
+                    character.AddEventRequest(request);
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// Generates a random event from the world
     /// </summary>
