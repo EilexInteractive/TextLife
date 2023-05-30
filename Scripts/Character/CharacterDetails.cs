@@ -182,6 +182,11 @@ public class CharacterDetails
         }
     }
 
+    public void AddEventRequest(LifeEventRequest request) 
+    {
+        _PendingRelationshipEvents.Add(request);
+    }
+
 
     /// <summary>
     /// Determines the age category of the character
