@@ -32,8 +32,7 @@ public partial class MainSceneController : ColorRect
 			return;
 
 		game.IncrementMonth();
-		world.AgeUpAllCharacters();
-		world.GenerateCharacterEvents();
+		world.Advance();
 			
 
 		

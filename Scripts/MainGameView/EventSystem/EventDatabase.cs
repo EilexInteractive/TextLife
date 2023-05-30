@@ -19,6 +19,7 @@ public partial class EventDatabase : Node
     const string FILE_LOCATION = "res://Database/Events.json";              // Reference to the events database
     private List<LifeEventLog> _EventData = new List<LifeEventLog>();           // List of all events that can occur
     private List<LifeEventLog> _WorldEventData = new List<LifeEventLog>();                  // Reference to world events we can pull from
+    private List<LifeEventLog> _RelationshipEvents = new List<LifeEventLog>();              // Reference to all the relationship events
 
 
     private List<EventAction> _ActionEventsData = new List<EventAction>();      // List of all the actions that attach to event
@@ -79,15 +80,20 @@ public partial class EventDatabase : Node
                 {
                     GD.Print("Error Occured: Failed to create event");
                 }
-                    
 
-                
-                if(dataEventType == ELifeEventType.WORLD_WAR)
+                switch(dataEventType)
                 {
-                    _WorldEventData.Add(log);
-                } else 
-                {
-                    _EventData.Add(log);
+                    case ELifeEventType.WORLD_WAR_START:
+                    case ELifeEventType.WORLD_WAR_UPDATE:
+                    case ELifeEventType.WORLD_WAR_END:
+                        _WorldEventData.Add(log);
+                        break;
+                    case ELifeEventType.RELATIONSHIP_EVENT:
+                        _RelationshipEvents.Add(log);
+                        break;
+                    default:
+                        _EventData.Add(log);
+                        break;
                 }
             }
 
@@ -233,7 +239,7 @@ public partial class EventDatabase : Node
                 CountryDatabase countryDb = GetNode<CountryDatabase>("/root/CountryDatabase");
                 Country origin = countryDb.GetRandomCountry();
 
-                if(log.Type == ELifeEventType.WORLD_WAR)
+                if(log.Type == ELifeEventType.WORLD_WAR_START)
                 {
                     newWorldEventData = new WorldEventData(origin, countryDb.GetRandomCountry());
                     newWorldEventData.AddEvent(log);
@@ -313,6 +319,25 @@ public partial class EventDatabase : Node
         }
     }
 
+    /// <summary>
+    /// Gets a random relationship event
+    /// </summary>
+    /// <param name="to">Who the request is for</param>
+    /// <param name="from">Who the request is from</param>
+    /// <returns></returns>
+    public LifeEventRequest GetRelationshipEvent(CharacterDetails to, CharacterDetails from)
+    {
+        RandomNumberGenerator rand = new RandomNumberGenerator();
+        rand.Randomize();
+        LifeEventLog lifeEvent = _RelationshipEvents[rand.RandiRange(0, _RelationshipEvents.Count - 1)];
+        if(lifeEvent != null)
+        {
+            return new LifeEventRequest(lifeEvent, to, from);
+        }
+
+        return null;
+    }
+
 
 
 
@@ -380,8 +405,14 @@ public partial class EventDatabase : Node
                 return ELifeEventType.BIRTH;
             case "Date":
                 return ELifeEventType.DATE;
-            case "WorldWar":
-                return ELifeEventType.WORLD_WAR;
+            case "WorldWarStart":
+                return ELifeEventType.WORLD_WAR_START;
+            case "WorldWarUpdate":
+                return ELifeEventType.WORLD_WAR_UPDATE;
+            case "WorldWarEnd":
+                return ELifeEventType.WORLD_WAR_END;
+            case "RelationshipEvent":
+                return ELifeEventType.RELATIONSHIP_EVENT;
             default:
                 return ELifeEventType.EVENT;
         }

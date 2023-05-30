@@ -114,7 +114,10 @@ public enum ELifeEventType
     DATE,
     EVENT,
     BIRTH,
-    WORLD_WAR
+    WORLD_WAR_START,
+    WORLD_WAR_UPDATE,
+    WORLD_WAR_END,
+    RELATIONSHIP_EVENT
 }
 
 public class LifeEventSave

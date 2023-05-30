@@ -50,5 +50,14 @@ public class Relationship
         float reductionAmount = rand.RandfRange(MIN_RELATIONSHIP_REDUCTION, MAX_RELATIONSHIP_REDUCTION);
         _RelationshipMeter -= reductionAmount;
     }
+
+    public CharacterDetails GetCharacterNot(CharacterDetails character)
+    {
+        if(_Character_1 != character)
+            return _Character_1;
+
+
+        return _Character_2;
+    }
 }
 

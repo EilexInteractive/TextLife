@@ -120,6 +120,11 @@ public partial class SaveGameController : Node
 						CharacterDetails loadCharacter = character.LoadCharacter(GetNode<CountryDatabase>("/root/CountryDatabase"));
 						if(loadCharacter != null)
 							world.AddCharacterToWorld(loadCharacter);
+
+						if(loadCharacter.CharacterID == save.PlayerID)
+						{
+							game.CurrentCharacter = loadCharacter;
+						}
 					}
 
 					foreach(var relationship in save.RelationshipsInWorld)

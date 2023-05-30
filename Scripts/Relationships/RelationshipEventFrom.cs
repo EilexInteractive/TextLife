@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class RelationshipEventFrom : Node
+public partial class RelationshipEventFrom : Button
 {
 	private LifeEventRequest _CorrespondingEvent;
 
