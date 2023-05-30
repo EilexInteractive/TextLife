@@ -37,7 +37,10 @@ public partial class RelationshipObject : Button
 				GD.Print($"{relationCharacter.FirstName} {relationCharacter.LastName}");
 				_CharacterName.Text = relationCharacter.FirstName + " " + relationCharacter.LastName;
 				_Relation.Text = GetRelationshipAsString(_RelationshipData.RelationshipType, relationCharacter.Sex);
+				float meterAmount = Mathf.FloorToInt(relation._RelationshipMeter * 100);
+				GD.Print(meterAmount);
 
+				_RelationshipMeter.Value = meterAmount;
 			}
 		}
 	}
