@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://84njvic4pvs6"]
+[gd_scene load_steps=44 format=3 uid="uid://84njvic4pvs6"]
 
 [ext_resource type="Script" path="res://Scripts/MainGameView/MainSceneController.cs" id="1_35haf"]
 [ext_resource type="Texture2D" uid="uid://bs12vxido0pd0" path="res://UI/MainGame/PageBackground.png" id="1_exn7v"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bn1rt1tjml3wg" path="res://UI/MainGame/MentalHealthIcon.png" id="10_c0o1g"]
 [ext_resource type="Texture2D" uid="uid://cxqwi6k3w75r1" path="res://UI/MainGame/HappinessIcon.png" id="11_pbyip"]
 [ext_resource type="Texture2D" uid="uid://cmccwbrnwf4ep" path="res://UI/MainGame/LooksIcon.png" id="12_lrp60"]
+[ext_resource type="Texture2D" uid="uid://ctg7ahhcyp0h1" path="res://UI/MainGame/TiredIcon.png" id="15_i740t"]
 [ext_resource type="Texture2D" uid="uid://bv3pdju7j7d4k" path="res://UI/MainGame/AdvanceBtn.png" id="15_t15xj"]
 [ext_resource type="PackedScene" uid="uid://ccaffjtf3fvw4" path="res://Prefabs/MainViewPrefabs/DateElement.tscn" id="18_85xsl"]
 [ext_resource type="Script" path="res://Scripts/MainGameView/EventSystem/EventContainer.cs" id="18_uob1x"]
@@ -37,6 +38,8 @@
 [ext_resource type="Texture2D" uid="uid://s8yyqwj0h2xc" path="res://UI/MainGame/InteractiveIcons/SchoolIcon.png" id="34_7w37m"]
 [ext_resource type="Texture2D" uid="uid://c0k2adreycfur" path="res://UI/MainGame/ExitToMenuBtn.png" id="36_5kclj"]
 [ext_resource type="Texture2D" uid="uid://kxbna58hk365" path="res://UI/LoadGame/SaveIcon.png" id="37_vgufp"]
+[ext_resource type="Texture2D" uid="uid://bgdyequ168ung" path="res://UI/MainGame/EnevlopeIcon.png" id="38_rte2n"]
+[ext_resource type="Texture2D" uid="uid://c84r70smjjquu" path="res://UI/MainGame/BlankCircle.png" id="40_ictl2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_femvj"]
 font = ExtResource("6_x8c27")
@@ -158,49 +161,63 @@ texture = ExtResource("11_pbyip")
 layout_mode = 2
 texture = ExtResource("12_lrp60")
 
+[node name="TiredIcon" type="TextureRect" parent="ColorRect/TextureRect/StatsContainer/StatIcons"]
+layout_mode = 2
+texture = ExtResource("15_i740t")
+
 [node name="SmartsIndicator" type="Label" parent="ColorRect/TextureRect/StatsContainer"]
 layout_mode = 0
-offset_left = 109.0
-offset_top = 136.0
-offset_right = 194.0
-offset_bottom = 172.0
+offset_left = 62.0
+offset_top = 134.0
+offset_right = 147.0
+offset_bottom = 170.0
 text = "100%"
 label_settings = SubResource("LabelSettings_xo2my")
 
 [node name="PhysicalHealthIndicator" type="Label" parent="ColorRect/TextureRect/StatsContainer"]
 layout_mode = 0
-offset_left = 210.0
-offset_top = 137.0
-offset_right = 295.0
-offset_bottom = 173.0
+offset_left = 163.0
+offset_top = 135.0
+offset_right = 248.0
+offset_bottom = 171.0
 text = "100%"
 label_settings = SubResource("LabelSettings_xo2my")
 
 [node name="MentalHealthIndicator" type="Label" parent="ColorRect/TextureRect/StatsContainer"]
 layout_mode = 0
-offset_left = 309.0
-offset_top = 137.0
-offset_right = 394.0
-offset_bottom = 173.0
+offset_left = 262.0
+offset_top = 135.0
+offset_right = 347.0
+offset_bottom = 171.0
 text = "100%"
 label_settings = SubResource("LabelSettings_xo2my")
 
 [node name="SocialIndicator" type="Label" parent="ColorRect/TextureRect/StatsContainer"]
 layout_mode = 0
-offset_left = 409.0
-offset_top = 137.0
-offset_right = 494.0
-offset_bottom = 173.0
+offset_left = 362.0
+offset_top = 135.0
+offset_right = 447.0
+offset_bottom = 171.0
 text = "100%"
 label_settings = SubResource("LabelSettings_xo2my")
 horizontal_alignment = 1
 
 [node name="LooksIndicator" type="Label" parent="ColorRect/TextureRect/StatsContainer"]
 layout_mode = 0
-offset_left = 510.0
-offset_top = 137.0
-offset_right = 595.0
-offset_bottom = 173.0
+offset_left = 463.0
+offset_top = 135.0
+offset_right = 548.0
+offset_bottom = 171.0
+text = "100%"
+label_settings = SubResource("LabelSettings_xo2my")
+horizontal_alignment = 1
+
+[node name="TiredIndicator" type="Label" parent="ColorRect/TextureRect/StatsContainer"]
+layout_mode = 0
+offset_left = 564.0
+offset_top = 135.0
+offset_right = 649.0
+offset_bottom = 171.0
 text = "100%"
 label_settings = SubResource("LabelSettings_xo2my")
 horizontal_alignment = 1
@@ -366,7 +383,28 @@ offset_right = 95.0
 offset_bottom = 165.0
 texture_normal = ExtResource("37_vgufp")
 
+[node name="RelationshipIcon" type="TextureButton" parent="ColorRect/TextureRect"]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 173.0
+offset_right = 95.0
+offset_bottom = 227.0
+texture_normal = ExtResource("38_rte2n")
+
+[node name="OutstandingRelationship" type="TextureButton" parent="ColorRect/TextureRect/RelationshipIcon"]
+self_modulate = Color(0.741176, 0, 0.00784314, 1)
+layout_mode = 0
+offset_left = 31.0
+offset_top = -3.0
+offset_right = 53.0
+offset_bottom = 19.0
+texture_normal = ExtResource("40_ictl2")
+ignore_texture_size = true
+stretch_mode = 0
+
 [connection signal="pressed" from="ColorRect/TextureRect/InteractiveContainer/GridContainer/Friends" to="ColorRect" method="OnRelationshipPressed"]
 [connection signal="pressed" from="ColorRect/TextureRect/AdvanceGameBtn" to="ColorRect" method="OnAdvanceGame"]
 [connection signal="pressed" from="ColorRect/TextureRect/ExitToMenu" to="ColorRect" method="OnExitToMenu"]
 [connection signal="pressed" from="ColorRect/TextureRect/LoadGameIcon" to="ColorRect" method="OnLoadGamePressed"]
+[connection signal="pressed" from="ColorRect/TextureRect/RelationshipIcon" to="ColorRect" method="OnLoadGamePressed"]
+[connection signal="pressed" from="ColorRect/TextureRect/RelationshipIcon/OutstandingRelationship" to="ColorRect" method="OnLoadGamePressed"]
