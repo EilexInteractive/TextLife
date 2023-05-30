@@ -48,7 +48,6 @@ public partial class WorldController : Node
     /// <summary>
     /// Generates a random event for an individual character
     /// </summary>
-    public void GenerateCharacterEvents()
     private void GenerateCharacterEvents()
     {
         // Create a random number generator
