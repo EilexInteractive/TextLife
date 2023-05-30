@@ -103,7 +103,7 @@ public partial class GameController : Node
 
         // Get reference to the event database, if it's not validate then don't proceed
         EventDatabase eventDb = GetNode<EventDatabase>("/root/EventDatabase");
-        if(eventDb != null)
+        if(eventDb == null)
             return;
 
         // Loop through each character in the world
