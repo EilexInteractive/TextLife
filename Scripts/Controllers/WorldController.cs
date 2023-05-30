@@ -186,6 +186,26 @@ public partial class WorldController : Node
         }
     }
 
+    private CharacterDetails GetRandomCharacterFromRelationship(CharacterDetails character)
+    {
+        RandomNumberGenerator rand = new RandomNumberGenerator();
+        rand.Randomize();
+
+        int loopCount = 0;
+        while(true)
+        {
+            CharacterDetails selectedCharacter = character.Relationships[rand.RandiRange(0, character.Relationships.Count - 1)].GetCharacterNot(character);
+            if(selectedCharacter != null)
+                return selectedCharacter;
+
+            loopCount++;
+            if(loopCount > 1000)
+                break;
+        }
+
+        return null;
+    }
+
     /// <summary>
     /// Adds a new character to the world
     /// </summary>
