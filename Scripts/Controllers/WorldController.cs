@@ -27,6 +27,14 @@ public partial class WorldController : Node
         _Game = GetNode<GameController>("/root/GameController");
     }
 
+    public void Advance()
+    {
+        AgeUpAllCharacters();
+        GenerateCharacterEvents();
+        GenerateRelationshipEvents();
+        GenerateWorldEvents();
+    }
+
     /// <summary>
     /// Adds an event to everyones event log
     /// </summary>
