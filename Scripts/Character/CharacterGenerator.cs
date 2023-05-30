@@ -278,6 +278,14 @@ public partial class CharacterGenerator : Node
             LifeEventLog birthEvent = eventDb.GetBirthEvent();
             birthEvent.Text = birthEvent.Text.Replace("(location)", $"{character.Country.Name}, {character.State}");
             birthEvent.Text = birthEvent.Text.Replace("(birthMonth)", game.GetMonthAsString());
+
+            string parentA = "";
+            string parentB = "";
+            character.GetParentNames(out parentA, out parentB);
+            
+            birthEvent.Text = birthEvent.Text.Replace("(mumName)", parentA);
+            birthEvent.Text = birthEvent.Text.Replace("(dadName)", parentB);
+            
             character.AddLifeEvent(birthEvent.Copy(game.CurrentEventID));
 
             game.CurrentEventID += 1;

@@ -33,6 +33,12 @@ public partial class LoadGameObject : TextureButton
 
 	public void OnPressed()
 	{
+		// set this save on click as the save last name
+		GameController game = GetNode<GameController>("/root/GameController");
+		if(game != null)
+			game.PlayerPrefs.LastSaveName = FileName;
+
+		// Load the saved game
 		SaveGameController saveController = GetNode<SaveGameController>("/root/SaveGameController");
 		if(saveController != null)
 		{

@@ -274,6 +274,38 @@ public class CharacterDetails
         
     }
 
+    public void GetParentNames(out string parentA, out string parentB)
+    {
+        parentA = "";
+        parentB = "";
+        foreach(var relation in _Relationships)
+        {
+            if(relation.RelationshipType == ERelationshipType.PARENT)
+            {
+                if(relation.Character_1 == this)
+                {
+                    if(parentA == "")
+                    {
+                        parentA = relation.Character_2.FirstName + " " + relation.Character_2.LastName;
+                    } else 
+                    {
+                        parentB = relation.Character_2.FirstName + " " + relation.Character_2.LastName;
+                    }
+                } else 
+                {
+                    if(parentA == "")
+                    {
+                        parentA = relation.Character_1.FirstName + " " + relation.Character_1.LastName;
+                    } else 
+                    {
+                        parentB = relation.Character_1.FirstName + " " + relation.Character_1.LastName;
+                    }
+                }
+            }
+        }
+            
+    }
+
     /// <summary>
     /// 
     /// </summary>

@@ -37,7 +37,7 @@ public partial class SaveGameController : Node
 			SaveGame save = new SaveGame();				// Create a new save file.
 			save.PlayerID = game.CurrentCharacter.CharacterID;
 			// Set the name of the saved game
-			save.SaveName = (game.PlayerPrefs.LastSaveName != "" ? save.SaveName : game.CurrentCharacter.LastName);
+			save.SaveName = (game.PlayerPrefs.LastSaveName != "" ? game.PlayerPrefs.LastSaveName : game.CurrentCharacter.LastName);
 			save.DateIndex = game.CurrentEventID;				// Get the current date index/event ID
 			save.CurrentMonth = game.CurrentMonth;				// Save which month we are currently in
 
