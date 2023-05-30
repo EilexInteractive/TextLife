@@ -38,6 +38,6 @@ offset_left = 1260.0
 offset_top = 25.0
 offset_right = 1635.0
 offset_bottom = 41.0
-value = 50.0
+value = 100.0
 editable = false
 scrollable = false
