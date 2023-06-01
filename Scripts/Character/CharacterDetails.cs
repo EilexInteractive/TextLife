@@ -201,6 +201,14 @@ public class CharacterDetails
         }
     }
 
+    public void DeclineLifeEvent(LifeEventRequest e)
+    {
+        if(_PendingRelationshipEvents.Contains(e))
+        {
+            _PendingRelationshipEvents.Remove(e);
+        }
+    }
+
     public void AddEventRequest(LifeEventRequest request) 
     {
         _PendingRelationshipEvents.Add(request);
