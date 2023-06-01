@@ -19,13 +19,25 @@ public class WorldEventData
         _InvolvedCountry = origin;
     }
 
-    public void AddEvent(LifeEventLog eventLog, bool dispatch = true)
+    public void AddEvent(LifeEventLog eventLog, WorldEventMethods eventMethods, bool dispatch = true)
     {
+        
         if(eventLog != null)
         {
             _EventsOcurred.Add(eventLog);
-            if(dispatch)
-                eventLog.Dispatch(_EventType, this);
+            switch(eventLog.Type)
+            {
+                case ELifeEventType.WORLD_WAR_START:
+                    eventMethods.CountryWarStart(eventLog.Type, this, ref eventLog);
+                    break;
+                case ELifeEventType.WORLD_WAR_UPDATE:
+                    eventMethods.CountryWarUpdate(eventLog.Type, this, ref eventLog);
+                    break;
+                case ELifeEventType.WORLD_WAR_END:
+                    eventMethods.CountryWarEnd(eventLog.Type, this, ref eventLog);
+                    break;
+
+            }
         }
     }
 

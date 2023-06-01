@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://84njvic4pvs6"]
+[gd_scene load_steps=50 format=3 uid="uid://84njvic4pvs6"]
 
 [ext_resource type="Script" path="res://Scripts/MainGameView/MainSceneController.cs" id="1_35haf"]
 [ext_resource type="Texture2D" uid="uid://bs12vxido0pd0" path="res://UI/MainGame/PageBackground.png" id="1_exn7v"]
@@ -42,6 +42,9 @@
 [ext_resource type="Texture2D" uid="uid://c84r70smjjquu" path="res://UI/MainGame/BlankCircle.png" id="40_ictl2"]
 [ext_resource type="Texture2D" uid="uid://c3myqt1pot1a" path="res://UI/MainGame/Relationship Events/Panel.png" id="41_306lp"]
 [ext_resource type="Script" path="res://Scripts/MainGameView/RelationshipRequestController.cs" id="42_aee5u"]
+[ext_resource type="PackedScene" uid="uid://c087v7rj2xkkw" path="res://Prefabs/Relationship/RelationshipEventMessage.tscn" id="43_pvbh0"]
+[ext_resource type="Texture2D" uid="uid://cx8os8v46uctl" path="res://UI/MainGame/Relationship Events/AcceptBtn.png" id="44_avoh5"]
+[ext_resource type="Texture2D" uid="uid://cjm74ru422bc0" path="res://UI/MainGame/Relationship Events/DeclineBtn.png" id="45_nmiu5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_femvj"]
 font = ExtResource("6_x8c27")
@@ -54,6 +57,10 @@ font_size = 32
 [sub_resource type="LabelSettings" id="LabelSettings_6t2ne"]
 font = ExtResource("6_x8c27")
 font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_kod3e"]
+font = ExtResource("6_x8c27")
+font_size = 32
 
 [node name="CanvasGroup" type="CanvasGroup"]
 
@@ -413,6 +420,7 @@ offset_bottom = 919.0
 texture = ExtResource("41_306lp")
 expand_mode = 1
 script = ExtResource("42_aee5u")
+_RequestPrefab = ExtResource("43_pvbh0")
 
 [node name="EventMessages" type="ScrollContainer" parent="ColorRect/TextureRect/RelationshipEventPanel"]
 layout_mode = 0
@@ -430,10 +438,16 @@ layout_mode = 0
 offset_left = 497.0
 offset_top = 128.0
 offset_right = 1196.0
-offset_bottom = 608.0
+offset_bottom = 543.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/TextureRect/RelationshipEventPanel/EventData"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/TextureRect/RelationshipEventPanel/EventData/VBoxContainer"]
+custom_minimum_size = Vector2(650, 0)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_kod3e")
+autowrap_mode = 3
 
 [node name="ExitRelationship" type="TextureButton" parent="ColorRect/TextureRect/RelationshipEventPanel"]
 layout_mode = 0
@@ -443,9 +457,30 @@ offset_right = 136.0
 offset_bottom = 116.0
 texture_normal = ExtResource("36_5kclj")
 
+[node name="AcceptEvent" type="TextureButton" parent="ColorRect/TextureRect/RelationshipEventPanel"]
+layout_mode = 0
+offset_left = 541.0
+offset_top = 570.0
+offset_right = 845.0
+offset_bottom = 639.0
+texture_normal = ExtResource("44_avoh5")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="DeclineEvent" type="TextureButton" parent="ColorRect/TextureRect/RelationshipEventPanel"]
+layout_mode = 0
+offset_left = 871.0
+offset_top = 570.0
+offset_right = 1175.0
+offset_bottom = 639.0
+texture_normal = ExtResource("45_nmiu5")
+ignore_texture_size = true
+stretch_mode = 0
+
 [connection signal="pressed" from="ColorRect/TextureRect/InteractiveContainer/GridContainer/Friends" to="ColorRect" method="OnRelationshipPressed"]
 [connection signal="pressed" from="ColorRect/TextureRect/AdvanceGameBtn" to="ColorRect" method="OnAdvanceGame"]
 [connection signal="pressed" from="ColorRect/TextureRect/ExitToMenu" to="ColorRect" method="OnExitToMenu"]
 [connection signal="pressed" from="ColorRect/TextureRect/LoadGameIcon" to="ColorRect" method="OnLoadGamePressed"]
 [connection signal="pressed" from="ColorRect/TextureRect/RelationshipIcon" to="ColorRect" method="OnRelationshipEventPressed"]
 [connection signal="pressed" from="ColorRect/TextureRect/RelationshipEventPanel/ExitRelationship" to="ColorRect/TextureRect/RelationshipEventPanel" method="OnCloseRelationshipPressed"]
+[connection signal="pressed" from="ColorRect/TextureRect/RelationshipEventPanel/AcceptEvent" to="ColorRect/TextureRect/RelationshipEventPanel" method="OnAcceptRequest"]

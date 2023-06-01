@@ -122,7 +122,7 @@ public class CharacterDetails
     /// </summary>
     /// <param name="lifeEvent">Life event to add</param>
 
-    public void AddLifeEvent(LifeEventLog lifeEvent, bool dispatchEvent = true)
+    public void AddLifeEvent(LifeEventLog lifeEvent, bool dispatchEvent = true, WorldEventData worldEvent = null)
     {
         if(lifeEvent.Type == ELifeEventType.DATE)
         {
@@ -131,7 +131,23 @@ public class CharacterDetails
         {
             _LifeEventLog.Add(lifeEvent);
             if(dispatchEvent)
-                lifeEvent.Dispatch();
+            {
+                switch(lifeEvent.Type)
+                {
+                    case ELifeEventType.EVENT:
+                        lifeEvent.Dispatch();
+                        break;
+                    case ELifeEventType.BIRTH:
+                        lifeEvent.Dispatch();
+                        break;
+                    case ELifeEventType.WORLD_WAR_START:
+                    case ELifeEventType.WORLD_WAR_UPDATE:
+                    case ELifeEventType.WORLD_WAR_END:
+                        lifeEvent.Dispatch(lifeEvent.Type, worldEvent);
+                        break;
+                    
+                }
+            }
         }
     }
 
@@ -171,14 +187,17 @@ public class CharacterDetails
         return dateLog.Copy(game.CurrentEventID);
     }
 
-    public void AcceptLifeEvent(LifeEventRequest e)
+    public void AcceptLifeEvent(LifeEventRequest e, int eventIndex)
     {
         if(_PendingRelationshipEvents.Contains(e))
         {
             _AcceptedRelationshipEvents.Add(e);
             _PendingRelationshipEvents.Remove(e);
 
-            _LifeEventLog.Add(e.CorrespondingEvent);
+            LifeEventLog eventLog = e.CorrespondingEvent.Copy();
+            eventLog.ID = eventIndex;
+
+            _LifeEventLog.Add(eventLog);
         }
     }
 
@@ -421,4 +440,9 @@ public class CharacterDetails
     }
 
     public void SetID(string id) => _CharacterID = id;
+
+    public override string ToString()
+    {
+        return FirstName + " " + LastName;
+    }
 }

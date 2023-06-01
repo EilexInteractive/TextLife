@@ -29,6 +29,8 @@ public partial class EventDatabase : Node
     private List<EventAction> _ActionEventsFloat = new List<EventAction>();
     private List<EventAction> _ActionWorldEvent = new List<EventAction>();
 
+    private int[] _WorldEventsIndex = { 3, 4, 5};
+
     public override void _Ready()
     {
         base._Ready();
@@ -213,36 +215,108 @@ public partial class EventDatabase : Node
         return events[rand.RandiRange(0, events.Count - 1)];
     }
 
-    public LifeEventLog GetWorldEvent()
+    public LifeEventLog GetWorldEvent(List<WorldEventData> currentEvents)
     {
+        WorldController world = GetNode<WorldController>("/root/WorldController");
         if(_WorldEventData.Count > 0)
         {
             RandomNumberGenerator rand = new RandomNumberGenerator();
-            rand.Randomize();
-            return _WorldEventData[rand.RandiRange(0, _WorldEventData.Count - 1)];
+            int loopCount = 0;
+            while(true)
+            {
+                int randValue = rand.RandiRange(0, 6);
+                for(int i = 0; i < _WorldEventsIndex.Length; ++i)
+                {
+                    if(_WorldEventsIndex[i] == randValue)
+                    {
+                        switch((ELifeEventType)randValue)
+                        {
+                            case ELifeEventType.WORLD_WAR_START:
+                                return GetRandomEventOfType((ELifeEventType)randValue);
+                            case ELifeEventType.WORLD_WAR_UPDATE:
+                                foreach(var cEvent in currentEvents)
+                                    if(cEvent.GetEventType() == (ELifeEventType)randValue)
+                                        return GetRandomEventOfType(ELifeEventType.WORLD_WAR_UPDATE);
+                                break;
+                            case ELifeEventType.WORLD_WAR_END:
+                                foreach(var cEvent in currentEvents)
+                                    if(cEvent.GetEventType() == (ELifeEventType)randValue)
+                                        return GetRandomEventOfType(ELifeEventType.WORLD_WAR_END);
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                    } else 
+                    {
+                        break;
+                    }
+                }
+            }
         }
 
         return null;
     }
 
+    public LifeEventLog GetRandomEventOfType(ELifeEventType type)
+    {
+        RandomNumberGenerator rand = new RandomNumberGenerator();
+        rand.Randomize();
+
+        int loopCount = 0;
+        while(true)
+        {
+
+            LifeEventLog e =_WorldEventData[rand.RandiRange(0, _WorldEventData.Count - 1)];
+            if(e.Type == type)
+                return e;
+
+            loopCount++;
+            if(loopCount > 1000)
+                break;
+        }
+
+        return null;
+    }
+
+    private bool HasWorldWar()
+    {
+        foreach(var e in _WorldEventData)
+        {
+            if(e.Type == ELifeEventType.WORLD_WAR_START)
+                return true;
+        }
+
+        return false;
+    }
+
     public WorldEventData CreateNewEvent(GameController game)
     {
-        if(game == null)
+        // Get reference to the required controllers & validate them
+        WorldController world = GetNode<WorldController>("/root/WorldController");
+        WorldEventMethods eventMethods = GetNode<WorldEventMethods>("/root/EventMethods");
+        if(game == null || world == null || eventMethods == null)
             return null;
 
+        // Check that we have loaded the world data
         if(_WorldEventData.Count > 0)
         {
-            LifeEventLog log = GetWorldEvent();
+            LifeEventLog log = GetWorldEvent(world.CurrentWorldEvents).Copy();         // Get a random world event
+            
             if(log != null)
             {
-                WorldEventData newWorldEventData = null;
+                log.ID = game.CurrentEventID;               // Set the ID of the current event
+                WorldEventData newWorldEventData = null;            // Predefine the world event
+
+                // Get reference to the country database
                 CountryDatabase countryDb = GetNode<CountryDatabase>("/root/CountryDatabase");
+                // Select the country for the origin of the world event
                 Country origin = countryDb.GetRandomCountry();
 
                 if(log.Type == ELifeEventType.WORLD_WAR_START)
                 {
                     newWorldEventData = new WorldEventData(origin, countryDb.GetRandomCountry());
-                    newWorldEventData.AddEvent(log);
+                    newWorldEventData.AddEvent(log, eventMethods);
                     log.Dispatch();
                     newWorldEventData.SetEventType(log.Type);
                     return newWorldEventData;
@@ -332,7 +406,7 @@ public partial class EventDatabase : Node
         LifeEventLog lifeEvent = _RelationshipEvents[rand.RandiRange(0, _RelationshipEvents.Count - 1)];
         if(lifeEvent != null)
         {
-            return new LifeEventRequest(lifeEvent, to, from);
+            return new LifeEventRequest(lifeEvent, from, to);
         }
 
         return null;

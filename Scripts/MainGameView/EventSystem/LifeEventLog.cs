@@ -111,13 +111,13 @@ public class LifeEventLog
 
 public enum ELifeEventType
 {
-    DATE,
-    EVENT,
-    BIRTH,
-    WORLD_WAR_START,
-    WORLD_WAR_UPDATE,
-    WORLD_WAR_END,
-    RELATIONSHIP_EVENT
+    DATE = 0,
+    EVENT = 1,
+    BIRTH = 2,
+    WORLD_WAR_START = 3,
+    WORLD_WAR_UPDATE = 4,
+    WORLD_WAR_END = 5,
+    RELATIONSHIP_EVENT = 6
 }
 
 public class LifeEventSave

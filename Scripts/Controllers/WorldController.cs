@@ -14,12 +14,13 @@ public partial class WorldController : Node
 
     // === World Events === //
     private List<WorldEventData> _CurrentWorldEvents = new List<WorldEventData>();
+    public List<WorldEventData> CurrentWorldEvents = new List<WorldEventData>();
     private List<WorldEventData> _ClosedWorldEvents = new List<WorldEventData>();
     private const float RANDOM_WORLD_EVENT_CHANCE = 0.9f;                   // Chance that there will be an event update
-    private const float NEW_WORLD_EVENT_CHANCE = 0.1f;                      // Chance that there will be a new world event
+    private const float NEW_WORLD_EVENT_CHANCE = 0.7f;                      // Chance that there will be a new world event
 
     // === Relationship Events === //
-    private const float CHANCE_OF_RELATIONSHIP_EVENT = 0.1f;
+    private const float CHANCE_OF_RELATIONSHIP_EVENT = 0.7f;
 
     public override void _Ready()
     {
@@ -41,8 +42,18 @@ public partial class WorldController : Node
     /// <param name="log">Life event that is being added</param>
     public void AddEventToAllLogs(LifeEventLog log)
     {
+        GameController game = GetNode<GameController>("/root/GameController");
         foreach(var character in _InWorldCharacters)
-            character.AddLifeEvent(log);
+        {
+            if(character == game.CurrentCharacter)
+            {
+                character.AddLifeEvent(log, true);
+            } else 
+            {
+                character.AddLifeEvent(log, false);
+            }
+        }
+            
     }
 
     /// <summary>
@@ -121,7 +132,9 @@ public partial class WorldController : Node
     {
         // Get reference to the event database and validate it
         EventDatabase eventDb = GetNode<EventDatabase>("/root/EventDatabase");
-        if(eventDb == null)
+        WorldEventMethods eventMethods = GetNode<WorldEventMethods>("/root/EventMethods");
+        GameController game = GetNode<GameController>("/root/GameController");
+        if(eventDb == null || eventMethods == null || game == null)
             return;
 
         // Create random number generator
@@ -142,6 +155,7 @@ public partial class WorldController : Node
                 {
                     WorldEventData worldEventData = eventDb.CreateNewEvent(_Game);
                     _CurrentWorldEvents.Add(worldEventData);
+                    AddEventToAllLogs(worldEventData.EventsOcurred[0]);
                 } else 
                 {
                     // Get a reference to a random event that has already taken place and is eligable
@@ -152,11 +166,30 @@ public partial class WorldController : Node
                         while(true)
                         {
                             // Get a random event from the event database
-                            LifeEventLog newEvent = eventDb.GetRandomEvent(existingWorldEventData.GetEventType());
-                            // Make sure this event hasn't already ocurred
-                            if(!existingWorldEventData.hasEventOcurred(newEvent))
+                            LifeEventLog newEvent;
+                            switch(existingWorldEventData.GetEventType())
                             {
-                                existingWorldEventData.AddEvent(newEvent);
+                                case ELifeEventType.WORLD_WAR_START:
+                                    rand.Randomize();
+                                    float chanceOfEndingWar = rand.Randf();
+                                    if(chanceOfEndingWar > 0.7)
+                                    {
+                                        newEvent = eventDb.GetRandomEvent(ELifeEventType.WORLD_WAR_END);
+                                    } else 
+                                    {
+                                        newEvent = eventDb.GetRandomEvent(ELifeEventType.WORLD_WAR_UPDATE);
+                                    }
+                                    
+                                    if(!existingWorldEventData.hasEventOcurred(newEvent))
+                                    {
+                                        newEvent.ID = game.CurrentEventID;
+                                        existingWorldEventData.AddEvent(newEvent, eventMethods);
+                                        AddEventToAllLogs(newEvent);
+                                    }
+                                    return;
+                                default:
+                                    continue;
+                                
                             }
 
                             // Loop count check
@@ -171,6 +204,7 @@ public partial class WorldController : Node
             {
                  WorldEventData worldEventData = eventDb.CreateNewEvent(_Game);
                 _CurrentWorldEvents.Add(worldEventData);
+                AddEventToAllLogs(worldEventData.EventsOcurred[0]);
             }
         }
     }

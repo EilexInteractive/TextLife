@@ -106,7 +106,8 @@ public partial class SaveGameController : Node
 	{
 		GameController game = GetNode<GameController>("/root/GameController");
 		WorldController world = GetNode<WorldController>("/root/WorldController");
-		if(game != null && world != null)
+		WorldEventMethods eventMethods = GetNode<WorldEventMethods>("/root/EventMethods");
+		if(game != null && world != null || eventMethods == null)
 		{
 			if(File.Exists(filePath))
 			{
@@ -157,7 +158,7 @@ public partial class SaveGameController : Node
 						foreach(var lifeEvent in e.Events)
 						{
 							LifeEventLog life = lifeEvent.LoadLifeEvent();
-							data.AddEvent(life, false);
+							data.AddEvent(life, eventMethods, false);
 						}
 						
 					}
