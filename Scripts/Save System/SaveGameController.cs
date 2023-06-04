@@ -66,6 +66,12 @@ public partial class SaveGameController : Node
 						save.RelationshipsInWorld.Add(relationshipSave);
 				}
 
+				foreach(var request in character.PendingRelationshipEvents)
+				{
+					LifeEventRequestSave requestSave = new LifeEventRequestSave(request);
+					save.EventRequestSaves.Add(requestSave);
+				}
+
 				save.CharactersInWorld.Add(character.CreateCharacterSave());
 			}
 
@@ -138,6 +144,21 @@ public partial class SaveGameController : Node
 								
 							if(!loadedRelationship.Character_2.HasRelationship(loadedRelationship.Character_1.CharacterID, loadedRelationship.Character_2.CharacterID))
 								loadedRelationship.Character_2.AddRelationship(loadedRelationship);
+						}
+					}
+
+					foreach(var eventRequest in save.EventRequestSaves)
+					{
+						LifeEventRequest loadedRequest = eventRequest.LoadRequest();
+						if(loadedRequest != null)
+						{
+							foreach(var character in world.InWorldCharacters)
+							{
+								if(character == loadedRequest.ToCharacter)
+								{
+									character.AddEventRequest(loadedRequest);
+								}
+							}
 						}
 					}
 

@@ -21,6 +21,7 @@ public partial class MainSceneController : ColorRect
 	public override void _Ready()
 	{
 		CheckForEvents();
+		
 	}
 
 	public void OnAdvanceGame()
@@ -48,6 +49,10 @@ public partial class MainSceneController : ColorRect
 		SaveGameController saveController = GetNode<SaveGameController>("/root/SaveGameController");
 		if(saveController != null)
 			saveController.SaveGame();
+
+		RelationshipRequestController request = GetNode<RelationshipRequestController>("/root/CanvasGroup/ColorRect/TextureRect/RelationshipEventPanel");
+		if(request != null)
+			request.AdvanceDay();
 
 		CheckForEvents();
 	}

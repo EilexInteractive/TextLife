@@ -47,6 +47,7 @@ public partial class RelationshipRequestController : TextureRect
 					{
 						requestEvent.SetEvent(request, eventText, this);
 						_RelationFromList.AddChild(requestEvent);
+						_SpawnedButtons.Add(requestEvent);
 					}
 				}
 			}
@@ -78,8 +79,31 @@ public partial class RelationshipRequestController : TextureRect
 			{
 				currentCharacter.AcceptLifeEvent(_ViewingRequest, game.CurrentEventID);
 				GetNode<EventContainer>("/root/CanvasGroup/ColorRect/TextureRect/EventLog").UpdateEvents();
+				ClearAllRequest();
+				GetOutstandingRequest();
 			}
 		}
+	}
+
+	public void OnDeclinePressed()
+	{
+		GameController game = GetNode<GameController>("/root/GameController");
+		if(game != null)
+		{
+			CharacterDetails currentCharacter = game.CurrentCharacter;
+			if(currentCharacter != null)
+			{
+				currentCharacter.DeclineLifeEvent(_ViewingRequest);
+				ClearAllRequest();
+				GetOutstandingRequest();
+			}
+		}
+	}
+
+	public void AdvanceDay()
+	{
+		this.Visible = false;
+		_ViewingRequest = null;
 	}
 
 

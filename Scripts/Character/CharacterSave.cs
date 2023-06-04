@@ -17,6 +17,7 @@ public class CharacterSave
 
     public List<LifeEventSave> DateLog = new List<LifeEventSave>();
     public List<LifeEventSave> EventLog = new List<LifeEventSave>();
+    public List<LifeEventRequest> RequestEvents = new List<LifeEventRequest>();
 
     public CharacterSave()
     {}
@@ -51,6 +52,7 @@ public class CharacterSave
 
         foreach(var e in EventLog)
             eventLog.Add(e.LoadLifeEvent());
+
 
         details.SetLifeEvents(dateLog, eventLog);
         details.SetID(CharacterID);

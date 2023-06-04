@@ -281,6 +281,11 @@ public class CharacterDetails
         }
     }
 
+    public void ClearAllRequest()
+    {
+        _PendingRelationshipEvents.Clear();
+    }
+
     public void SetCharacterName(string[] name)
     {
         _FirstName = name[0];
@@ -431,6 +436,7 @@ public class CharacterDetails
         
         foreach(var e in _LifeEventLog)
             eventLog.Add(e.CreateEventSave());
+
 
         return new CharacterSave(_CharacterID, _FirstName, _LastName, gender, _YearsOld, _MonthsOld, _Country.Name, _State, dateSaves, eventLog);
     }

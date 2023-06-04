@@ -30,10 +30,17 @@ public partial class WorldController : Node
 
     public void Advance()
     {
+
+        // Clear any outstanding request
+        foreach(var character in _InWorldCharacters)
+            character.ClearAllRequest();
+
+
         AgeUpAllCharacters();
         GenerateCharacterEvents();
         GenerateRelationshipEvents();
         GenerateWorldEvents();
+        
     }
 
     /// <summary>
@@ -84,7 +91,6 @@ public partial class WorldController : Node
                     // Determine if this is for the current character 
                     // If it is than dispatch the event for the character
                     // otherwise skip the event
-                    // REFACTOR: Change to check if the event is for the player character
                     if(character == _Game.CurrentCharacter)
                     {
                         character.AddLifeEvent(lifeEvent, true);
@@ -179,7 +185,7 @@ public partial class WorldController : Node
                                     {
                                         newEvent = eventDb.GetRandomEvent(ELifeEventType.WORLD_WAR_UPDATE);
                                     }
-                                    
+
                                     if(!existingWorldEventData.hasEventOcurred(newEvent))
                                     {
                                         newEvent.ID = game.CurrentEventID;

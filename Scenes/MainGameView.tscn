@@ -484,3 +484,4 @@ stretch_mode = 0
 [connection signal="pressed" from="ColorRect/TextureRect/RelationshipIcon" to="ColorRect" method="OnRelationshipEventPressed"]
 [connection signal="pressed" from="ColorRect/TextureRect/RelationshipEventPanel/ExitRelationship" to="ColorRect/TextureRect/RelationshipEventPanel" method="OnCloseRelationshipPressed"]
 [connection signal="pressed" from="ColorRect/TextureRect/RelationshipEventPanel/AcceptEvent" to="ColorRect/TextureRect/RelationshipEventPanel" method="OnAcceptRequest"]
+[connection signal="pressed" from="ColorRect/TextureRect/RelationshipEventPanel/DeclineEvent" to="ColorRect/TextureRect/RelationshipEventPanel" method="OnDeclinePressed"]
