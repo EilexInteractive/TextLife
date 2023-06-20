@@ -110,12 +110,9 @@ public partial class RelationshipRequestController : TextureRect
 		GameController game = GetNode<GameController>("/root/GameController");				// Get reference to the game controller
 		if(game != null)
 		{
-			CharacterDetails currentCharacter = game.CurrentCharacter;			// Get reference to the player character
-			if(currentCharacter != null)
+			if(_ViewingRequest != null)
 			{
-				currentCharacter.DeclineLifeEvent(_ViewingRequest);			// Decline the event
-
-
+				_ViewingRequest.DeclineEvent();					// Decline event
 				// Update the pending request view
 				ClearAllRequest();
 				GetOutstandingRequest();

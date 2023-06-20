@@ -41,4 +41,10 @@ public class LifeEventRequest
         _FromCharacter.AcceptLifeEvent(this, eventIndex);
         _EventStatus = EEventRequestStatus.ACCEPTED;
     } 
+
+    public void DeclineEvent()
+    {
+        _ToCharacter.DeclineLifeEvent(this);
+        _FromCharacter.DeclineLifeEvent(this);
+    }
 }
