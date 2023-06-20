@@ -187,17 +187,25 @@ public class CharacterDetails
         return dateLog.Copy(game.CurrentEventID);
     }
 
+    /// <summary>
+    /// Accepts the passed in event and performs any necesarry actions
+    /// </summary>
+    /// <param name="e">Event to accept</param>
+    /// <param name="eventIndex">index id for the event</param>
     public void AcceptLifeEvent(LifeEventRequest e, int eventIndex)
     {
+        // Ensure the event is in the pending relationship events
         if(_PendingRelationshipEvents.Contains(e))
         {
-            _AcceptedRelationshipEvents.Add(e);
-            _PendingRelationshipEvents.Remove(e);
+            _AcceptedRelationshipEvents.Add(e);             // Add the event to the accepted events
+            _PendingRelationshipEvents.Remove(e);           // Remove from the pending events
 
-            LifeEventLog eventLog = e.CorrespondingEvent.Copy();
-            eventLog.ID = eventIndex;
+            LifeEventLog eventLog = e.CorrespondingEvent.Copy();        // Create a copy of the event
+            eventLog.ID = eventIndex;           // Assign the event ID
 
-            _LifeEventLog.Add(eventLog);
+            _Stats.ReduceTiredness(e.CorrespondingEvent.Tiredness);     // Reduce tiredness meter of the character          
+
+            _LifeEventLog.Add(eventLog);                // Add to the event log
         }
     }
 
