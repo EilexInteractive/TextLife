@@ -119,14 +119,41 @@ public partial class WorldController : Node
 
         foreach(var character in _InWorldCharacters)
         {
+            // Ensure we are not creating events for this character
+            GameController game = GetNode<GameController>("/root/GameController");
+            if(game != null)
+                if(game.CurrentCharacter == character)
+                    continue;
+
+            // Age filter
+            EAgeCategory characterAge = character.GetAgeCategory();
+            if(characterAge == EAgeCategory.BIRTH || characterAge == EAgeCategory.TODDLER || characterAge == EAgeCategory.BABY)
+                continue;
+
             foreach(var relationship in character.Relationships)
             {
-                float randomValue = rand.Randf();
-                if(randomValue > CHANCE_OF_RELATIONSHIP_EVENT)
+                
+
+                if(relationship != null)
                 {
-                    CharacterDetails to = GetRandomCharacterFromRelationship(character);
-                    LifeEventRequest request = eventDb.GetRelationshipEvent(to, character);
-                    character.AddEventRequest(request);
+                    // Get the other character in the relationship
+                    CharacterDetails toCharacter = relationship.GetCharacterNot(character);
+
+                    // Filter the relationship age
+                    var toCharAge = toCharacter.GetAgeCategory();
+                    if(toCharAge == EAgeCategory.BIRTH || toCharAge == EAgeCategory.BABY || toCharAge == EAgeCategory.TODDLER)
+                        continue;  
+                        
+                    float value = rand.Randf();             // Get a random value between 
+                    if(value > CHANCE_OF_RELATIONSHIP_EVENT)
+                    {
+                        // Create the event request
+                        LifeEventRequest request = eventDb.GetRelationshipEvent(toCharacter, character);  
+                        
+                        // Add the event to both of the characters         
+                        toCharacter.AddEventRequest(request);
+                        character.AddEventRequest(request);
+                    }
                 }
             }
         }
