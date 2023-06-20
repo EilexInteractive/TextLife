@@ -10,5 +10,4 @@ public class SaveGame
 	public List<CharacterSave> CharactersInWorld = new List<CharacterSave>();
 	public List<RelationshipSave> RelationshipsInWorld = new List<RelationshipSave>();
 	public List<WorldEventSave> WorldEvents = new List<WorldEventSave>();
-	public List<LifeEventRequestSave> EventRequestSaves = new List<LifeEventRequestSave>();
 }

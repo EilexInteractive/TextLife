@@ -63,12 +63,14 @@ public partial class EventDatabase : Node
                 EAgeCategory dataCategory = GetAgecategory(data.AgeCategory);
                 ELifeEventType dataEventType = GetEventType(data.EventType);
                 ESex dataSex = GetSexCategory(data.Sex);
+                int cost = data.Cost;
+                int tiredness = data.Tiredness;
 
                 List<EventAction> parsedEvents = ParseEvents(data.Events);
 
                 
                 // Create the event log
-                LifeEventLog log = new LifeEventLog(dataText, dataEventType, dataCategory, dataSex);
+                LifeEventLog log = new LifeEventLog(dataText, dataEventType, dataCategory, dataSex, null, tiredness, cost);
                 if(log != null)
                 {
                     foreach(var e in parsedEvents)
@@ -563,4 +565,8 @@ public class EventData
     public string Sex;
     [JsonProperty]
     public string Events;
+    [JsonProperty]
+    public int Tiredness;
+    [JsonProperty]
+    public int Cost;
 }

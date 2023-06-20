@@ -12,6 +12,8 @@ public class LifeEventLog
     public ESex SexCategory;
     public int Year;
     public int Month;
+    public int Cost;
+    public int Tiredness;
 
     [JsonIgnore]
     public List<EventAction> Actions = new List<EventAction>();
@@ -21,7 +23,7 @@ public class LifeEventLog
     public LifeEventLog()
     {}
 
-    public LifeEventLog(string text, ELifeEventType type, EAgeCategory category, ESex sex, List<EventAction> actions = null)
+    public LifeEventLog(string text, ELifeEventType type, EAgeCategory category, ESex sex, List<EventAction> actions = null, int tiredness = 0, int cost = 0)
     {
         Text = text;
         Type = type;
@@ -29,6 +31,9 @@ public class LifeEventLog
         SexCategory = sex;
         if(actions != null)
             Actions = actions;
+
+        Cost = cost;
+        Tiredness = tiredness;
     }
 
     public LifeEventLog(int id, string text, ELifeEventType type, EAgeCategory category, ESex sex, int year, int month, List<EventAction> events)
@@ -98,9 +103,17 @@ public class LifeEventLog
         return new LifeEventLog(id, Text, this.Type, this.AgeCategory, this.SexCategory, Year, Month, Actions);
     }
 
+    public virtual void Perform(CharacterDetails character)
+    {
+        if(character != null)
+        {
+            character.Stats?.ReduceTiredness(this.Tiredness);
+        }
+    }
+
     public LifeEventSave CreateEventSave()
     {
-        return new LifeEventSave(ID, Text, (int)Type, (int)SexCategory, (int)AgeCategory, IsBornEvent, Year, Month);
+        return new LifeEventSave(ID, Text, (int)Type, (int)SexCategory, (int)AgeCategory, IsBornEvent, Year, Month,  Tiredness, Cost);
     }
 
     public LifeEventLog Copy()
@@ -138,11 +151,13 @@ public class LifeEventSave
     public int Years;
     [JsonProperty]
     public int Month;
+    public int Cost;
+    public int Tiredness;
 
     public LifeEventSave()
     {}
 
-    public LifeEventSave(int id, string text, int type, int sex, int category, bool bornEvent, int year, int month)
+    public LifeEventSave(int id, string text, int type, int sex, int category, bool bornEvent, int year, int month, int cost, int tired)
     {
         ID = id;
         Text = text;
@@ -152,6 +167,7 @@ public class LifeEventSave
         IsBornEvent = bornEvent;
         Years = year;
         Month = month;
+        Tiredness = tired;
     }
 
     public LifeEventLog LoadLifeEvent()
@@ -163,6 +179,8 @@ public class LifeEventSave
         eventLog.SexCategory = (ESex)Sex;
         eventLog.AgeCategory = (EAgeCategory)this.AgeCategory;
         eventLog.IsBornEvent = this.IsBornEvent;
+        eventLog.Tiredness = this.Tiredness;
+        eventLog.Cost = this.Cost;
         return eventLog;
     }
 }

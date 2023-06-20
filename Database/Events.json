@@ -4,60 +4,78 @@
         "AgeCategory": "Baby",
         "EventType": "Birth",
          "Sex": "All",
-         "Events": "TestFunction"
+         "Events": "TestFunction",
+        "Tiredness": 0,
+         "Cost": 0
     },
     {
         "EventText": "My parents brought you a kitten named elfi!",
         "AgeCategory": "Baby",
         "EventType": "Event",
         "Sex": "All",
-        "Events": ""
+        "Events": "",
+        "Tiredness": 0,
+        "Cost": 0
     },
     {
         "EventText": "My mum brought you a new teddy bear",
         "AgeCategory": "Baby",
         "EventType": "Event",
         "Sex": "All",
-        "Events": ""
+        "Events": "",
+        "Tiredness": 0,
+        "Cost": 0
     },
     {
         "EventText": "My first tooth started growing",
         "AgeCategory": "Baby",
         "EventType": "Event",
         "Sex": "All",
-        "Events": ""
+        "Events": "",
+        "Tiredness": 0,
+        "Cost": 0
     },
     {
         "EventText": "My Parents moved us into a new house at: 23 Shore Rd, New Hampton",
         "AgeCategory": "All",
         "EventType": "Event",
         "Sex": "All",
-        "Events": ""
+        "Events": "",
+        "Tiredness": 3,
+        "Cost": 0
     },
     {
         "EventText": "(origin) has started a war against (involved)",
         "AgeCategory": "All",
         "EventType": "WorldWarStart",
         "Sex": "All",
-        "Events": "CountryWarStart"
+        "Events": "CountryWarStart",
+        "Tiredness": 0,
+        "Cost": 0
     },
     {
         "EventText": "(origin) has taken country of (involved), (city)",
         "AgeCategory": "All",
         "EventType": "WorldWarUpdate",
         "Sex": "All",
-        "Events": "CountryWarUpdate"
+        "Events": "CountryWarUpdate",
+        "Tiredness": 0,
+        "Cost": 0
     },
     {
         "EventText": "(win) has won the war against (loss)",
         "AgeCategory": "All",
         "EventType": "WorldWarEnd",
-        "Events": "CountryWarEnd"
+        "Events": "CountryWarEnd",
+        "Tiredness": 0,
+        "Cost": 0
     }, 
     {
         "EventText": "(character) wants to have lunch with you",
         "AgeCategory": "All",
         "EventType": "RelationshipEvent",
-        "Events": ""
+        "Events": "",
+        "Tiredness": 0,
+        "Cost": 12
     }
 ]

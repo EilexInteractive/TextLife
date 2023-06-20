@@ -94,6 +94,7 @@ public partial class WorldController : Node
                     if(character == _Game.CurrentCharacter)
                     {
                         character.AddLifeEvent(lifeEvent, true);
+                        lifeEvent.Perform(character);
                     } else 
                     {
                          character.AddLifeEvent(lifeEvent, false);

@@ -66,11 +66,7 @@ public partial class SaveGameController : Node
 						save.RelationshipsInWorld.Add(relationshipSave);
 				}
 
-				foreach(var request in character.PendingRelationshipEvents)
-				{
-					LifeEventRequestSave requestSave = new LifeEventRequestSave(request);
-					save.EventRequestSaves.Add(requestSave);
-				}
+				// TODO: Save relationship request
 
 				save.CharactersInWorld.Add(character.CreateCharacterSave());
 			}
@@ -147,20 +143,7 @@ public partial class SaveGameController : Node
 						}
 					}
 
-					foreach(var eventRequest in save.EventRequestSaves)
-					{
-						LifeEventRequest loadedRequest = eventRequest.LoadRequest();
-						if(loadedRequest != null)
-						{
-							foreach(var character in world.InWorldCharacters)
-							{
-								if(character == loadedRequest.ToCharacter)
-								{
-									character.AddEventRequest(loadedRequest);
-								}
-							}
-						}
-					}
+					// TODO: Load character relationship events
 
 					CountryDatabase countryDb = GetNode<CountryDatabase>("/root/CountryDatabase");
 

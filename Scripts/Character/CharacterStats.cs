@@ -15,6 +15,7 @@ public class CharacterStats
     public float Looks { get => _Looks; }
     private float _Tired;
     public float Tired { get => _Tired; }
+    private float _TiredModifier = 1.0f;
 
     public CharacterStats(float smarts, float physical, float mental, float social, float looks, float tired)
     {
@@ -24,5 +25,12 @@ public class CharacterStats
         _Social = social;
         _Looks = looks;
         _Tired = tired;
+    }
+
+    public void ReduceTiredness(int amount)
+    {
+        _Tired -= (amount * _TiredModifier);
+        if(_Tired < 0)
+            _Tired = 0;
     }
 }
