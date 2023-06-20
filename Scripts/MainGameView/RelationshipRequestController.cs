@@ -72,16 +72,12 @@ public partial class RelationshipRequestController : TextureRect
 	public void OnAcceptRequest()
 	{
 		GameController game = GetNode<GameController>("/root/GameController");
-		if(game != null)
+		if(game != null && _ViewingRequest != null)
 		{
-			CharacterDetails currentCharacter = game.CurrentCharacter;
-			if(currentCharacter != null)
-			{
-				currentCharacter.AcceptLifeEvent(_ViewingRequest, game.CurrentEventID);
-				GetNode<EventContainer>("/root/CanvasGroup/ColorRect/TextureRect/EventLog").UpdateEvents();
-				ClearAllRequest();
-				GetOutstandingRequest();
-			}
+			_ViewingRequest.AcceptEvent(game.CurrentEventID);
+			GetNode<EventContainer>("/root/CanvasGroup/ColorRect/TextureRect/EventLog").UpdateEvents();
+			ClearAllRequest();
+			GetOutstandingRequest();
 		}
 	}
 
