@@ -35,5 +35,10 @@ public class LifeEventRequest
         _EventStatus = status;
     }
 
-    public void AcceptEvent() => _EventStatus = EEventRequestStatus.ACCEPTED;
+    public void AcceptEvent(int eventIndex) 
+    {
+        _ToCharacter.AcceptLifeEvent(this, eventIndex);
+        _FromCharacter.AcceptLifeEvent(this, eventIndex);
+        _EventStatus = EEventRequestStatus.ACCEPTED;
+    } 
 }
