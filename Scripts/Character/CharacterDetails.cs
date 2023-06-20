@@ -31,6 +31,10 @@ public class CharacterDetails
     private string _LastName;
     public string LastName { get => _LastName; }
 
+    // If this is player controlled
+    private bool _IsPlayer = false;
+    public bool IsPlayer => _IsPlayer;
+
     private ESex _Sex;
     public ESex Sex { get => _Sex; }
     private int _YearsOld;
@@ -462,6 +466,7 @@ public class CharacterDetails
     }
 
     public void SetID(string id) => _CharacterID = id;
+    public void SetIsPlayer(bool player) => _IsPlayer = player;
 
     public override string ToString()
     {
