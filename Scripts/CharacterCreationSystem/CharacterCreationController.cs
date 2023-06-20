@@ -121,6 +121,7 @@ public partial class CharacterCreationController : TextureRect
 			game.PlayerPrefs.LastSaveName = characterName[1];
 
 			game.CurrentCharacter = _CreatedCharacter;
+			_CreatedCharacter.SetIsPlayer(true);
 			GetNode<SaveGameController>("/root/SaveGameController")?.SaveGame();
 		}
 
