@@ -207,7 +207,7 @@ public class CharacterDetails
             LifeEventLog eventLog = e.CorrespondingEvent.Copy();        // Create a copy of the event
             eventLog.ID = eventIndex;           // Assign the event ID
 
-            _Stats.ReduceTiredness((e.CorrespondingEvent.Tiredness * _Stats.TiredModifier));     // Reduce tiredness meter of the character          
+            _Stats.ReduceTiredness(e.CorrespondingEvent.Tiredness);     // Reduce tiredness meter of the character          
 
             _LifeEventLog.Add(eventLog);                // Add to the event log
         }
