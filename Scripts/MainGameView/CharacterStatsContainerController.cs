@@ -8,6 +8,7 @@ public partial class CharacterStatsContainerController : Node
 	private Label _MentalHealthText;
 	private Label _SocialText;
 	private Label _LooksText;
+	private Label _TiredText;
 
 	private Label _MoneyText;
 
@@ -20,6 +21,7 @@ public partial class CharacterStatsContainerController : Node
 		_SocialText = GetNode<Label>("SocialIndicator");
 		_LooksText = GetNode<Label>("LooksIndicator");
 		_MoneyText = GetNode<Label>("Money");
+		_TiredText = GetNode<Label>("TiredIndicator");
 
 		UpdateStats();
     }
@@ -46,6 +48,9 @@ public partial class CharacterStatsContainerController : Node
 				
 				if(_LooksText != null)
 					_LooksText.Text = $"{Mathf.FloorToInt(stats.Social).ToString()}%";
+
+				if(_TiredText != null)
+					_TiredText.Text = $"{Mathf.FloorToInt(stats.Tired).ToString()}%";
 			}
 
 			string money = game.CurrentCharacter?.GetMoneyAsString();
